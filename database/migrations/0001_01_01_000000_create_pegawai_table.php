@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('nama',50);
             $table->enum('status',['aktif','pensiun','berhenti'])->default('aktif');
             $table->enum('kelompok',['pegawai','kendaraan','admin','supir'])->default('pegawai');
-            $table->string('nama_pengguna',15)->unique();
-            $table->string('sandi');
+            $table->string('username',15)->unique();
+            $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
