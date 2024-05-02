@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RedirectController;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +15,11 @@ Route::middleware(['auth'])->group(function() {
         if (Auth::user()->kelompok == 'admin') {
             return redirect('/dashboard_admin');
         }elseif (Auth::user()->kelompok == 'pegawai') {
-            return redirect('/homepage');
+            return redirect('/homepage_pegawai');
         }elseif (Auth::user()->kelompok == 'kendaraan') {
             return redirect('/dashboard_kendaraan');
         }elseif (Auth::user()->kelompok == 'supir') {
-            return redirect('/homepage');
+            return redirect('/homepage_supir');
         }
     });
 });
@@ -29,9 +30,19 @@ Route::middleware(['preventBackHistory','guest'])->group(function () {
 });
 
 Route::middleware(['preventBackHistory','auth'])->group(function () {
+    //Admin
     Route::get('/dashboard_admin', [RedirectController::class, 'admin'])->name('admin.dashboard')->middleware('userAccess:admin');
-    Route::get('/homepage', [RedirectController::class, 'pegawai'])->name('pegawai.homepage')->middleware('userAccess:pegawai|supir');
+    Route::get('/tambah_pegawai', [AdminController::class, 'tambahpegawai'])->name('admin.tambahpegawai')->middleware('userAccess:admin');
+    Route::post('/tambah_pegawai', [AdminController::class, 'simpanpegawai'])->middleware('userAccess:admin');
+    
+    //Pegawai
+    Route::get('/homepage_pegawai', [RedirectController::class, 'pegawai'])->name('pegawai.homepage')->middleware('userAccess:pegawai');
+
+    //Tim Kendaraan
     Route::get('/dashboard_kendaraan', [RedirectController::class, 'kendaraan'])->name('kendaraan.homepage')->middleware('userAccess:kendaraan');
+
+    //Supir
+    Route::get('/homepage_supir', [RedirectController::class, 'supir'])->name('supir.homepage')->middleware('userAccess:supir');
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
