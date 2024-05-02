@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nip',20)->unique();
             $table->string('nama',50);
+            $table->string('foto_profil')->nullable();
             $table->enum('status',['aktif','pensiun','berhenti'])->default('aktif');
             $table->enum('kelompok',['pegawai','kendaraan','admin','supir'])->default('pegawai');
             $table->string('username',15)->unique();

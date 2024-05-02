@@ -38,11 +38,11 @@ class LoginController extends Controller
             if (Auth::user()->kelompok == 'admin') {
                 return redirect('/dashboard_admin');
             }elseif (Auth::user()->kelompok == 'pegawai') {
-                return redirect('/homepage');
+                return redirect('/homepage_pegawai');
             }elseif (Auth::user()->kelompok == 'kendaraan') {
                 return redirect('/dashboard_kendaraan');
             }elseif (Auth::user()->kelompok == 'supir'){
-                return redirect('/homepage');
+                return redirect('/homepage_supir');
             }
         }else {
             return redirect('/login')->withErrors(['Nama' => 'Nama dan Password Tidak Sesuai'])->withInput();

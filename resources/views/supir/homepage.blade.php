@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard Admin</title>
+    <title>Halaman Supir</title>
 </head>
 <body>
     <h1>{{ Auth::user()->kelompok }}</h1>
-    <a href="/logout">Logout</a><br>
-    <a href="/tambah_pegawai">Tambah Data Pegawai</a>
+    <a href="/logout">Logout</a>
 </body>
 </html>

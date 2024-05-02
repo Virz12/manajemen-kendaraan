@@ -19,6 +19,7 @@ class pegawai extends Authenticatable
         'id',
         'nip',
         'nama',
+        'foto_profil',
         'status',
         'kelompok',
         'username',

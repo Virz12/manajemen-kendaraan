@@ -15,7 +15,7 @@ class UserAccess
      */
     public function handle(Request $request, Closure $next, $kelompok): Response
     {
-        if(auth()->user()?->kelompok !== $kelompok){
+        if(auth()->user()->kelompok == $kelompok){
             return $next($request);
         }
         return redirect('home');

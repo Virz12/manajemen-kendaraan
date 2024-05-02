@@ -23,6 +23,6 @@ class RedirectController extends Controller
 
     function supir()
     {
-        return view('pegawai.homepage');
+        return view('supir.homepage');
     }
 }
