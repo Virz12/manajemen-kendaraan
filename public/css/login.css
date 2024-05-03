@@ -7,8 +7,18 @@
     right: 30px;
 }
 
-    @media (min-width: 1920px) {
+.button {
+    background-color: #FFC55A;
+    
+}
+
+.button:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+@media (min-width: 1920px) {
     .h-custom-2 {
     height: 100%;
     }
-    }
+}

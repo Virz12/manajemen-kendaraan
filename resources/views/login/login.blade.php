@@ -28,7 +28,7 @@
                     <h3 class="fw-semibold fs-1 pb-2 text-black " style="width:150px ">Masuk</h3>
                     <i class="fa-solid fa-arrow-right-long icon pt-xl-2 pt-md-2" style="font-size: 35px"></i>
                 <div class="form-floating mb-4" >
-                    <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border border-black" placeholder="name@example.com" autocomplete="off" required>
+                    <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border border-black" placeholder="name@example.com" autocomplete="off" >
                     <label class="form-label" for="username">Nama Pengguna</label>
                         @error('username')
                             <div style="color: red">{{ $message }}</div>
@@ -36,7 +36,7 @@
                 </div>
     
                 <div class="form-floating mb-4">
-                    <input type="password" name="password" value="{{ @old('password') }}" id="floatingInput" class="form-control form-control-lg border border-black" placeholder="name@example.com" autocomplete="off" required>
+                    <input type="password" name="password" value="{{ @old('password') }}" id="floatingInput" class="form-control form-control-lg border border-black" placeholder="name@example.com" autocomplete="off" >
                     <label class="form-label " for="floatingInput">Sandi</label>
                         @error('password')
                             <div style="color: red">{{ $message }}</div>
@@ -44,7 +44,7 @@
                 </div>
     
                 <div class="pt-1 mb-5">
-                    <button class="shadow-sm btn w-100 fw-semibold" style="background-color: #FFC55A" type="submit">Masuk</button>
+                    <button class="button shadow-sm btn w-100 fw-semibold" style="" type="submit">Masuk</button>
                 </div>
             </form>
             </div>
