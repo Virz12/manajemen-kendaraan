@@ -32,8 +32,11 @@ Route::middleware(['preventBackHistory','guest'])->group(function () {
 Route::middleware(['preventBackHistory','auth'])->group(function () {
     //Admin
     Route::get('/dashboard_admin', [RedirectController::class, 'admin'])->name('admin.dashboard')->middleware('userAccess:admin');
-    Route::get('/tambah_pegawai', [AdminController::class, 'tambahpegawai'])->name('admin.tambahpegawai')->middleware('userAccess:admin');
-    Route::post('/tambah_pegawai', [AdminController::class, 'simpanpegawai'])->middleware('userAccess:admin');
+    Route::get('/tambah_pegawai', [AdminController::class, 'createpegawai'])->name('admin.createpegawai')->middleware('userAccess:admin');
+    Route::post('/tambah_pegawai', [AdminController::class, 'storepegawai'])->middleware('userAccess:admin');
+    Route::get('/ubahpegawai/{pegawai:id}', [AdminController::class, 'editpegawai'])->name('admin.editpegawai')->middleware('userAccess:admin');
+    Route::put('/ubahpegawai/{pegawai:id}', [AdminController::class, 'updatepegawai'])->middleware('userAccess:admin');
+    Route::get('/hapuspegawai/{pegawai:id}',[AdminController::class,'deletepegawai'])->name('admin.deletepegawai')->middleware('userAccess:admin');
     
     //Pegawai
     Route::get('/homepage_pegawai', [RedirectController::class, 'pegawai'])->name('pegawai.homepage')->middleware('userAccess:pegawai');
