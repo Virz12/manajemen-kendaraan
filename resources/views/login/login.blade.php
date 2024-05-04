@@ -17,13 +17,13 @@
                 <img src="{{asset('img/bglog.jpg')}}"
                 alt="Login image" class="w-100  vh-100" style="object-fit: cover; object-position: left;">
             </div>
-            <div class="col-5 bg-log " style="height: 100vh"> 
+            <div class="col-sm-5 bg-log " style="height: 100vh"> 
                 <div class="mx-auto mt-3 pb-xxl-5" style="width: 140px;">
                     <img src="{{asset('img/logo.png')}}" class="logo img-fluid" >
                 </div>
-            <div class="d-flex align-items-center px-2 px-xl-4 mx-auto pb-xl-5 mt-xxl-5" style="width: 28rem;">
+            <div class="d-flex align-items-center px-2 px-xl-4 ms-xl-3 pb-xl-5 mt-xxl-5">
             
-            <form action="" method="POST" style="width: 28rem;" class="shadow-lg mt-4 px-4 pt-4 card bg-white" style="border-radius: 1rem;">
+            <form action="" method="POST" style="width: 460px;" class="shadow-lg  mt-4 px-4 pt-4 card bg-white" style="border-radius: 1rem;">
                 @csrf
                     <h3 class="fw-semibold fs-1 pb-2 text-black " style="width:150px ">Masuk</h3>
                     <i class="fa-solid fa-arrow-right-long icon pt-xl-2 pt-md-2" style="font-size: 35px"></i>
