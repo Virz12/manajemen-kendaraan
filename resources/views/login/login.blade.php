@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{asset('css/login.css')}}" >
-    
-    
     <title>Halaman Login</title>
 </head>
 <body>

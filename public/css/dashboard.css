@@ -1,6 +1,7 @@
 :root {
     --light: #f3f6f9;
-    --yellow: #FFC55A;
+    --primary: #FFC55A;
+    --primary-hover: #fdb838;
     --black: #0f0f0f;
     --white: #fff;
 }
@@ -10,9 +11,17 @@
     background-color: var(--light) !important;
 }
 
+.text-primary {
+    color: var(--primary) !important;
+}
+
 /* Width */
 .w-40px {
     width: 40px;
+}
+
+.w-15 {
+    width: 15%;
 }
 
 /* Margin */
@@ -22,14 +31,54 @@
 
 /* Form */
 .form-control:focus {
-    box-shadow: 0 0 0 .2rem var(--yellow);
+    box-shadow: 0 0 0 .2rem var(--primary);
+}
+
+/* Table */
+.table> :not(caption)>*>* {
+    background-color: var(--light);
+}
+
+/* Button */
+.btn-primary {
+    color: var(--black);
+    background-color: var(--primary);
+    border-color: var(--primary)
+}
+
+.btn-primary:hover {
+    color: var(--black);
+    background-color: var(--primary-hover);
+    border-color: var(--primary);
+}
+
+.btn-primary.focus,
+.btn-primary:focus {
+    color: var(--black);
+    background-color: var(--primary);
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 0 .2rem var(--primary-hover)
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+    color: var(--black);
+    background-color: var(--primary);
+    border-color: var(--primary-hover);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 .2rem var(--primary-hover);
 }
 
 /* Sidebar & Navbar */
 .active {
     background-color: var(--white);
-    border-left: 4px solid var(--yellow) !important;
-    color: var(--yellow) !important;
+    border-left: 4px solid var(--primary) !important;
+    opacity: 100% !important;
     border-radius: 0 10px 10px 0;
 }
 
@@ -40,13 +89,22 @@
 
 .side-item {
     border-left: 4px solid var(--light);
+    opacity: 70%;
 }
 
 .side-item:hover {
     background-color: var(--white);
-    border-left: 4px solid var(--yellow);
-    color: var(--yellow);
+    border-left: 4px solid var(--primary);
     border-radius: 0 10px 10px 0;
+    opacity: 100%;
+}
+
+i {
+    transition: 300ms;
+}
+
+a:hover>i.fa-caret-right {
+    margin-left: 1rem !important;
 }
 
 .sidebar-toggler {

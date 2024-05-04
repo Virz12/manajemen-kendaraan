@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Dashboard | Peminjaman Kendaraan</title>
+    <title>Data Pegawai | Peminjaman Kendaraan</title>
 </head>
 <body>  
     <div class="container-fluid p-0">
@@ -24,12 +24,12 @@
                     <form class="d-flex d-md-none ms-3 mb-3"> {{-- Form Sidebar --}}
                         <input class="form-control border-0" type="search" placeholder="Search">
                     </form>
-                    <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
+                    <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-users fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Pegawai
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -69,63 +69,14 @@
                     </div>
                 </div>
             </nav>
-            {{-- Data --}}
-            <div class="container-fluid text-center p-4">
-                <div class="row g-4">
-                    <div div class="col-sm-6 col-xxl-3">
-                        <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-users fa-3x text-primary w-25"></i>
-                            <div class="">
-                                <b class="text-start d-inline-block w-100">125</b>
-                                <p class="mb-1">Pegawai Aktif</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div div class="col-sm-6 col-xxl-3">
-                        <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
-                            <div class="">
-                                <b class="text-start d-inline-block w-100">11</b>
-                                <p class="mb-1">Kendaraan Dipakai</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div div class="col-sm-6 col-xxl-3">
-                        <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
-                            <div class="">
-                                <b class="text-start d-inline-block w-100">6</b>
-                                <p class="mb-1">Kendaran Tersisa</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div div class="col-sm-6 col-xxl-3">
-                        <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-question fa-3x text-primary w-25"></i>
-                            <div class="">
-                                <b class="text-start d-inline-block w-100">777</b>
-                                <p class="mb-1">Lupa ini aoa</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             {{-- Chart & Table --}}
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="text-start mb-4">
-                                <h6 class="mb-0">Peminjaman Bulanan</h6>
-                            </div>
-                            <canvas id="">{{-- Chart JS --}}</canvas>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-12">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Status Peminjaman</h6>
-                                <a href="" class="text-decoration-none">Show All</a>
+                                <h6 class="mb-0">Data Pegawai</h6>
+                                <a href="" class="text-decoration-none"><button type="submit" class="btn btn-sm btn-primary">Tambah Pegawai</button></a>
                             </div>
                             <div class="table-responsive">
                                 {{-- Table --}}
@@ -133,8 +84,9 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">NIP Peminjam</th>
-                                            <th scope="col">Jumlah Kendaraan</th>
+                                            <th scope="col">NIP</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Kelompok</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
@@ -142,14 +94,16 @@
                                         <tr>
                                             <th scope="row">1</th>
                                             <td>3459867</td>
-                                            <td>2</td>
-                                            <td>Pengajuan</td>
+                                            <td>Dimas Siapa?</td>
+                                            <td>User</td>
+                                            <td>Aktif</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">2</th>
                                             <td>8457963</td>
-                                            <td>1</td>
-                                            <td>Diterima</td>
+                                            <td>Dimasukin Rendang</td>
+                                            <td>Supir</td>
+                                            <td>Berhenti</td>
                                         </tr>
                                     </tbody>
                                 </table>
