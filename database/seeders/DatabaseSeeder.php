@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
             [
                 'jenis_kendaraan' => 'Pickup',
                 'tahun' => '2000',
-                'nopol' => 'DK 1234 RFS',
+                'nopol' => 'DK1234RFS',
                 'warna' => 'Hitam',
                 'kondisi' => 'baik',
                 'status' => 'tersedia'

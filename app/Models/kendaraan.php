@@ -15,7 +15,8 @@ class kendaraan extends Model
         'tahun',
         'nopol',
         'warna',
-        'status'
+        'kondisi',
+        'status',
     ];
     protected $table = 'kendaraan';
 }
