@@ -4,28 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
-    function tambahpegawai()
+    function createpegawai()
     {
         return view('admin.tambah_pegawai');
     }
 
-    function simpanpegawai(Request $request)
+    function storepegawai(Request $request)
     {
         $messages = [
-            'required' => 'Kolom :attribute wajib diisi.',
+            'required' => 'Kolom :attribute belum terisi.',
             'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
-            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf.',
+            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
-            'unique' => ':attribute sudah dipakai',
-            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf.',
+            'unique' => ':attribute sudah digunakan',
+            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'image' => 'File Harus Berupa Gambar.',
-            'max:15' => 'Maksimal 15 Karakter.',
-            'max:2048' => 'Ukuran file Maksimal 2MB.',
-            'digits_between:1,20' => 'Maksimal angka 20 Digit.',
+            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'max:2048' => 'Ukuran file maksimal 2MB.',
+            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
 
         $request->validate([
@@ -34,7 +36,7 @@ class AdminController extends Controller
             'foto_profil' => 'nullable|image|max:2048',
             'kelompok' => 'required|alpha',
             'username' => 'required|max:15|alpha_dash|unique:pegawai,username',
-            'password' => 'required',
+            'password' => 'required|alpha_num',
         ],$messages);
  
         $data = [
@@ -42,7 +44,7 @@ class AdminController extends Controller
             'nama' => $request->nama,
             'kelompok' => $request->kelompok,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
         ];
 
         if($pegawai = pegawai::create($data)) {
@@ -54,6 +56,78 @@ class AdminController extends Controller
 
                 $pegawai->update(['foto_profil' => $imagePath]);
             }
+        }
+
+        return redirect('/dashboard_admin');
+    }
+
+    function editpegawai(string $id)
+    {
+        $datapegawai = pegawai::findorFail($id);
+
+        return view('admin.ubah_pegawai')->with('datapegawai',$datapegawai);
+    }
+
+    function updatepegawai(Request $request, $id)
+    {
+        $messages = [
+            'required' => 'Kolom :attribute belum terisi.',
+            'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
+            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
+            'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
+            'numeric' => 'Kolom :attribute hanya boleh berisi angka',
+            'unique' => ':attribute sudah digunakan',
+            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'image' => 'File Harus Berupa Gambar.',
+            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'max:2048' => 'Ukuran file maksimal 2MB.',
+            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+        ];
+
+        $request->validate([
+            'nip' => 'required|numeric|digits_between:1,20',
+            'nama' => 'required|regex:/^[\pL\s]+$/u',
+            'foto_profil' => 'nullable|image|max:2048',
+            'kelompok' => 'required|alpha',
+            'username' => 'required|max:15|alpha_dash',
+            'password' => 'required|alpha_num',
+        ],$messages);
+
+        $data = [
+            'nip' => $request->nip,
+            'nama' => $request->nama,
+            'kelompok' => $request->kelompok,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+        ];
+
+        $pegawai = pegawai::findOrFail($id);
+
+        if ($request->hasFile('foto_profil')) {
+            if (File::exists(public_path($pegawai->foto_profil))) {
+                File::delete(public_path($pegawai->foto_profil));
+            }
+
+            $newImage = $request->file('foto_profil');
+            $imageName = $request->nama.'.'.$newImage->extension();
+            $newImage->move(public_path('images'), $imageName);
+
+            $pegawai->foto_profil = 'images/' . $imageName;
+        }
+
+        pegawai::where('id', $id)->update($data);
+        $pegawai->save();
+
+        return redirect('/dashboard_admin');
+    }
+
+    function deletepegawai(pegawai $pegawai)
+    {
+        pegawai::destroy($pegawai->id);
+
+        if (File::exists(public_path($pegawai->foto_profil))) {
+            File::delete(public_path($pegawai->foto_profil));
         }
 
         return redirect('/dashboard_admin');

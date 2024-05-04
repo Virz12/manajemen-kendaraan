@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\pegawai;
 use Illuminate\Http\Request;
 
 class RedirectController extends Controller
 {
     function admin()
     {
-        return view('admin.dashboard_admin');
+        $datapegawai = pegawai::all();
+
+        return view('admin.dashboard_admin')->with('datapegawai',$datapegawai);
     }
 
     function pegawai()
