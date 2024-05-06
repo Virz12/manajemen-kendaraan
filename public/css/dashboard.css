@@ -32,6 +32,17 @@
 /* Form */
 .form-control:focus {
     box-shadow: 0 0 0 .2rem var(--primary);
+    border-color: var(--primary);
+}
+
+.form-select:focus {
+    box-shadow: 0 0 0 .2rem var(--primary);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Table */

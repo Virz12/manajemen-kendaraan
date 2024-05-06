@@ -1,11 +1,12 @@
 .bg-log {
-    background-color: #cfcecc;
+    background-color: #ffffff;
 }
 
 .icon {
     position: absolute;
     right: 30px;
 }
+
 
 .button {
     background-color: #FFC55A;
@@ -17,8 +18,15 @@
     color: #ffffff;
 }
 
+
 @media (min-width: 1920px) {
     .h-custom-2 {
     height: 100%;
+    }
+    .bg-log {
+        width: 30%;
+    }
+    .width-xxl {
+        width: 70%;
     }
 }
