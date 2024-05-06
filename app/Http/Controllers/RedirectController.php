@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\kendaraan;
 use App\Models\pegawai;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,9 @@ class RedirectController extends Controller
 
     function kendaraan()
     {
-        return view('kendaraan.dashboard_kendaraan');
+        $datakendaraan = kendaraan::all();
+
+        return view('kendaraan.dashboard_kendaraan')->with('datakendaraan',$datakendaraan);
     }
 
     function supir()
