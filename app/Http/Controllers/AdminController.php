@@ -58,7 +58,7 @@ class AdminController extends Controller
             }
         }
 
-        return redirect('/dashboard_admin');
+        return redirect('/pegawai');
     }
 
     function editpegawai(string $id)
@@ -119,7 +119,7 @@ class AdminController extends Controller
         pegawai::where('id', $id)->update($data);
         $pegawai->save();
 
-        return redirect('/dashboard_admin');
+        return redirect('/pegawai');
     }
 
     function deletepegawai(pegawai $pegawai)
@@ -130,6 +130,6 @@ class AdminController extends Controller
             File::delete(public_path($pegawai->foto_profil));
         }
 
-        return redirect('/dashboard_admin');
+        return redirect('/pegawai');
     }
 }

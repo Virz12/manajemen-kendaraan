@@ -24,12 +24,12 @@
                     <form class="d-flex d-md-none ms-3 mb-3"> {{-- Form Sidebar --}}
                         <input class="form-control border-0" type="search" placeholder="Search">
                     </form>
-                    <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="/pegawai" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-users fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Pegawai
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -37,6 +37,11 @@
                     <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-car fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Kendaraan
+                        <i class="fa-solid fa-caret-right ms-2"></i>
+                    </a>
+                    <a href="/peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                        <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
+                        Peminjaman
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
                 </div>
@@ -64,12 +69,12 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="" class="dropdown-item">My Profile</a>
-                            <a href="" class="dropdown-item">Log Out</a>
+                            <a href="/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
-            {{-- Chart & Table --}}
+            {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-12">

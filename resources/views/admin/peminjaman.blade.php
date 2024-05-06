@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Data Pegawai | Peminjaman Kendaraan</title>
+    <title>Data peminjaman | Peminjaman Kendaraan</title>
 </head>
 <body>  
     <div class="container-fluid p-0">
@@ -29,7 +29,7 @@
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
+                    <a href="/pegawai" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-users fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Pegawai
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -39,7 +39,7 @@
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="/peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Peminjaman
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -77,11 +77,10 @@
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-12">
+                    <div class="col-md-6">
                         <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Data Pegawai</h6>
-                                <a href="{{ route('pegawai.create') }}" class="text-decoration-none"><button type="submit" class="btn btn-sm btn-primary">Tambah Pegawai</button></a>
+                            <div class="text-start mb-4">
+                                <h6 class="mb-0">Data Peminjaman</h6>
                             </div>
                             <div class="table-responsive">
                                 {{-- Table --}}
@@ -89,31 +88,63 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">NIP</th>
-                                            <th scope="col">Nama</th>
-                                            <th scope="col">Kelompok</th>
+                                            <th scope="col">NIP Peminjam</th>
+                                            <th scope="col">Jumlah Kendaraan</th>
+                                            <th scope="col">Tanggal Awal</th>
+                                            <th scope="col">Tanggal Akhir</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col" colspan="2">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="align-middle">
+                                        <tr>
                                             <th scope="row">1</th>
-                                            <td>3459867</td>
-                                            <td>Dimas Siapa?</td>
-                                            <td>User</td>
-                                            <td>Aktif</td>
-                                            <td><a href="" class="btn btn-success">Edit</a></td>
-                                            <td><a href="" class="btn btn-danger">Hapus</a></td>
+                                            <td>132685</td>
+                                            <td>2</td>
+                                            <td>2024-02-13</td>
+                                            <td>2024-02-17</td>
+                                            <td>Pengajuan</td>
                                         </tr>
-                                        <tr class="align-middle">
+                                        <tr>
                                             <th scope="row">2</th>
-                                            <td>8457963</td>
-                                            <td>Dimasukin Rendang</td>
-                                            <td>Supir</td>
-                                            <td>Berhenti</td>
-                                            <td><a href="" class="btn btn-success">Edit</a></td>
-                                            <td><a href="" class="btn btn-danger">Hapus</a></td>
+                                            <td>2437531</td>
+                                            <td>3</td>
+                                            <td>2024-05-06</td>
+                                            <td>2024-05-10</td>
+                                            <td>Diterima</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="bg-light text-center rounded p-4">
+                            <div class="text-start mb-4">
+                                <h6 class="mb-0">Detail Peminjaman</h6>
+                            </div>
+                            <div class="table-responsive">
+                                {{-- Table --}}
+                                <table class="table-hover table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Id Pegawai</th>
+                                            <th scope="col">Id Supir</th>
+                                            <th scope="col">Nomor Polisi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>11</td>
+                                            <td>3</td>
+                                            <td>DK 1234 RFS</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>5</td>
+                                            <td>8</td>
+                                            <td>F 2378 ETS</td>
                                         </tr>
                                     </tbody>
                                 </table>
