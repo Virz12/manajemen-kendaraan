@@ -24,7 +24,7 @@
                     <form class="d-flex d-md-none ms-3 mb-3"> {{-- Form Sidebar --}}
                         <input class="form-control border-0" type="search" placeholder="Search">
                     </form>
-                    <a href="{{ route('admin.dashboard') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="/dashboard_admin" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -68,7 +68,6 @@
                             <span class="d-none d-lg-inline-flex">Hu Tao</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="" class="dropdown-item">My Profile</a>
                             <a href="/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -97,27 +96,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @forelse($datakendaraan as $kendaraan)
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>Pickup</td>
-                                            <td>2000</td>
-                                            <td>DK 1234 RFS</td>
-                                            <td>Hitam</td>
-                                            <td>Baik</td>
-                                            <td>Tersedia</td>
+                                            <th>{{($datakendaraan->currentPage()-1) * $datakendaraan->perPage() + $loop->iteration}}</th>
+                                            <td>{{ $kendaraan->jenis_kendaraan }}</td>
+                                            <td>{{ $kendaraan->tahun }}</td>
+                                            <td>{{ $kendaraan->nopol }}</td>
+                                            <td>{{ $kendaraan->warna }}</td>
+                                            <td>{{ $kendaraan->kondisi }}</td>
+                                            <td>{{ $kendaraan->status }}</td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Pajero</td>
-                                            <td>2005</td>
-                                            <td>F 2378 ETS</td>
-                                            <td>Putih</td>
-                                            <td>Perbaikan</td>
-                                            <td>Digunakan</td>
-                                        </tr>
+                                        @empty
+                                            <h2>Data Kosong</h2>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
+                            {!! $datakendaraan->links() !!}
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
 <body>
     <h1>{{ Auth::user()->kelompok }}</h1>
     <a href="/logout">Logout</a><br>
-    <a href="/tambah_kendaraan">Tambah Kendaraan</a>
+    <a href="/tambah_kendaraan">Tambah Kendaraan</a><br>
 
     <table>
         <tr>
@@ -44,6 +44,48 @@
         @empty
             <h2>Data Kosong</h2>
         @endforelse
-    </table>
+    </table><br><br>
+    <h2>Data Peminjaman</h2><br>
+    <table>
+        <tr>
+            <th>NIP Peminjam</th>
+            <th>Jumlah Kendaraan</th>
+            <th>Tanggal Awal</th>
+            <th>Tanggal Akhir</th>
+            <th>Supir</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+        @forelse($datapeminjaman as $datapeminjaman)
+            <tr>
+                <td>{{ $datapeminjaman->nip_peminjam }}</td>
+                <td>{{ $datapeminjaman->jumlah }}</td>
+                <td>{{ $datapeminjaman->tanggal_awal }}</td>
+                <td>{{ $datapeminjaman->tanggal_akhir }}</td>
+                <td>{{ $datapeminjaman->supir }}</td>
+                <td>{{ $datapeminjaman->status }}</td>
+                <td><a href="/verifikasi_peminjaman/{{ $datapeminjaman->id }}">Verifikasi</a><td>
+            </tr>
+        @empty
+            <h2>Data Kosong</h2>
+        @endforelse
+    </table><br><br>
+    <h2>Detail Peminjaman</h2><br>
+    <table>
+        <tr>
+            <th>Mobil</th>
+            <th>Tim Kendaraan</th>
+            <th>Supir</th>
+        </tr>
+        @forelse ($datadetail_peminjaman as $datadetail_peminjaman)
+            <tr>
+                <td>{{ $datadetail_peminjaman->nopol }}</td>
+                <td>{{ $datadetail_peminjaman->id_pegawai }}</td>
+                <td>{{ $datadetail_peminjaman->id_supir }}</td>
+            </tr>
+        @empty
+            <h2>Data Kosong</h2>
+        @endforelse
+    </table><br><br>
 </body>
 </html>

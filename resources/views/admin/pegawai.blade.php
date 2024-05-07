@@ -24,7 +24,7 @@
                     <form class="d-flex d-md-none ms-3 mb-3"> {{-- Form Sidebar --}}
                         <input class="form-control border-0" type="search" placeholder="Search">
                     </form>
-                    <a href="{{ route('admin.dashboard') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="/dashboard_admin" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -68,7 +68,6 @@
                             <span class="d-none d-lg-inline-flex">Hu Tao</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="" class="dropdown-item">My Profile</a>
                             <a href="/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -81,7 +80,7 @@
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Data Pegawai</h6>
-                                <a href="{{ route('pegawai.create') }}" class="text-decoration-none"><button type="submit" class="btn btn-sm btn-primary">Tambah Pegawai</button></a>
+                                <a href="/tambah_pegawai" class="text-decoration-none"><button type="submit" class="btn btn-sm btn-primary">Tambah Pegawai</button></a>
                             </div>
                             <div class="table-responsive">
                                 {{-- Table --}}
@@ -97,33 +96,46 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="align-middle">
-                                            <th scope="row">1</th>
-                                            <td>3459867</td>
-                                            <td>Dimas Siapa?</td>
-                                            <td>User</td>
-                                            <td>Aktif</td>
-                                            <td><a href="" class="btn btn-success">Edit</a></td>
-                                            <td><a href="" class="btn btn-danger">Hapus</a></td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th scope="row">2</th>
-                                            <td>8457963</td>
-                                            <td>Dimasukin Rendang</td>
-                                            <td>Supir</td>
-                                            <td>Berhenti</td>
-                                            <td><a href="" class="btn btn-success">Edit</a></td>
-                                            <td><a href="" class="btn btn-danger">Hapus</a></td>
-                                        </tr>
+                                        @forelse($datapegawai as $pegawai)
+                                            <tr class="align-middle">
+                                                <th>{{($datapegawai->currentPage()-1) * $datapegawai->perPage() + $loop->iteration}}</th>
+                                                <td>{{ $pegawai->nip }}</td>
+                                                <td>{{ $pegawai->nama }}</td>
+                                                <td>{{ $pegawai->kelompok }}</td>
+                                                <td>{{ $pegawai->status }}</td>
+                                                <td><a href="/ubahpegawai/{{ $pegawai->id }}" class="btn btn-success">Edit</a></td>
+                                                <td>
+                                                    <form onsubmit="return confirm('Anda yakin ingin menghapus data ini ?')" action="/hapuspegawai/{{ $pegawai->id }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <h2>Data Kosong</h2>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
+                            {!! $datapegawai->links() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
+
+    {{-- Toast --}}
+    @if (session()->has('notification'))
+        <div class="position-fixed bottom-0 end-0 p-3">
+            <div class="alert alert-success" role="alert">
+                <i class="fa-solid fa-check me-2"></i>
+                {{ session('notification') }}
+                <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
 
     {{-- Javascript --}}
     <script src="{{ asset('js/dashboard.js') }}"></script>
