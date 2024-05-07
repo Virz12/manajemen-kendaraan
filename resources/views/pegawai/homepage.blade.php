@@ -28,7 +28,6 @@
                             <span class="d-none d-lg-inline-flex">Pegawai</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            {{--  --}}
                             <a href="{{route('logout')}}" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -52,17 +51,25 @@
                                         <th scope="col">Tanggal Awal</th>
                                         <th scope="col">Tanggal Akhir</th>
                                         <th scope="col">Jumlah Kendaraan</th>
+                                        <th scope="col">Supir</th>
                                         <th scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($datapeminjaman as $datapeminjam)
                                     <tr>
-                                        <td>{{$datapeminjam->id}}</td>
+                                        <td>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</td>
                                         <td>{{$datapeminjam->nip_peminjam}}</td>
                                         <td>{{$datapeminjam->tanggal_awal}}</td>
                                         <td>{{$datapeminjam->tanggal_akhir}}</td>
                                         <td>{{$datapeminjam->jumlah}}</td>
+                                        <td>
+                                        @if ($datapeminjam->supir == true)
+                                            V
+                                        @else
+                                            -
+                                        @endif
+                                        </td>
                                         <td>{{$datapeminjam->status}}</td>
                                     </tr> 
                                     @empty
@@ -88,7 +95,7 @@
                         <div class="row justify-content-between text-left mb-2">
                             <div class="col-sm-6 flex-column d-flex">
                                 <label for="tanggal_awal" class="form-label">Tanggal Awal </label>
-                                <input type="date" id="tanggal-awal" name="tanggal_awal" min="2000-01-01" class="form-control ">
+                                <input type="date" id="tanggal_awal" name="tanggal_awal" min="2000-01-01" class="form-control ">
                             </div>
                             <div class="col-sm-6 flex-column d-flex">
                                 <label for="tanggal_akhir" class="form-label">Tanggal Akhir </label>
