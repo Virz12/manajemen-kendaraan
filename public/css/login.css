@@ -1,5 +1,13 @@
+:root {
+    --light: #f3f6f9;
+    --primary: #FFC55A;
+    --primary-hover: #fdb838;
+    --black: #0f0f0f;
+    --white: #fff;
+}
+
 .bg-log {
-    background-color: #ffffff;
+    background-color: var(--white);
 }
 
 .icon {
@@ -9,13 +17,17 @@
 
 
 .button {
-    background-color: #FFC55A;
+    background-color: var(--primary);
     
 }
 
 .button:hover {
     background-color: #000000;
-    color: #ffffff;
+    color: var(--white);
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 .2rem var(--primary);
 }
 
 
