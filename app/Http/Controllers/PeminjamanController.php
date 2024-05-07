@@ -38,7 +38,7 @@ class PeminjamanController extends Controller
             'jumlah' => 'required|numeric',
             'tanggal_awal' => 'required|date',
             'tanggal_akhir' => 'required|date',
-            'supir' => 'required',
+            'supir' => 'nullable',
         ],$messages);
 
         $data = [

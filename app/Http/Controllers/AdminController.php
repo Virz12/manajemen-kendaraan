@@ -143,6 +143,7 @@ class AdminController extends Controller
 
         pegawai::where('id', $id)->update($data);
         $pegawai->save();
+        
         return redirect('/pegawai')->with('notification', 'Data Berhasil Diubah.');
     }
 
