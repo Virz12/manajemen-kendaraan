@@ -45,6 +45,11 @@
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
+                    <a href="/peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                        <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
+                        Peminjaman
+                        <i class="fa-solid fa-caret-right ms-2"></i>
+                    </a>
                 </div>
             </nav>
         </div>
@@ -65,8 +70,7 @@
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">Hu Tao</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="" class="dropdown-item">My Profile</a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0"> 
                             <a href="" class="dropdown-item">Log Out</a>
                         </div>
                     </div>

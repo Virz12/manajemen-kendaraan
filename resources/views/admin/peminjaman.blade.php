@@ -68,7 +68,6 @@
                             <span class="d-none d-lg-inline-flex">Hu Tao</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="" class="dropdown-item">My Profile</a>
                             <a href="/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -77,14 +76,14 @@
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div class="bg-light text-center rounded p-4">
                             <div class="text-start mb-4">
                                 <h6 class="mb-0">Data Peminjaman</h6>
                             </div>
                             <div class="table-responsive">
                                 {{-- Table --}}
-                                <table class="table-hover table">
+                                <table class="table-hover align-middle table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -98,7 +97,7 @@
                                     <tbody>
                                         @forelse($datapeminjaman as $peminjaman)
                                             <tr>
-                                                <th scope="row">1</th>
+                                                <th>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</th>
                                                 <td>{{ $peminjaman->nip_peminjam }}</td>
                                                 <td>{{ $peminjaman->jumlah }}</td>
                                                 <td>{{ $peminjaman->tanggal_awal }}</td>
@@ -111,16 +110,17 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {!! $datapeminjaman->links() !!}
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5 bg-md-light rounded p-md-0">
                         <div class="bg-light text-center rounded p-4">
                             <div class="text-start mb-4">
                                 <h6 class="mb-0">Detail Peminjaman</h6>
                             </div>
                             <div class="table-responsive">
                                 {{-- Table --}}
-                                <table class="table-hover table">
+                                <table class="table-hover align-middle table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -132,7 +132,7 @@
                                     <tbody>
                                         @forelse($datadetail_peminjaman as $detail_peminjaman)
                                             <tr>
-                                                <th scope="row">1</th>
+                                                <th>{{($datadetail_peminjaman->currentPage()-1) * $datadetail_peminjaman->perPage() + $loop->iteration}}</th>
                                                 <td>{{ $detail_peminjaman->id_pegawai }}</td>
                                                 <td>{{ $detail_peminjaman->id_supir }}</td>
                                                 <td>{{ $detail_peminjaman->nopol }}</td>
@@ -143,6 +143,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {!! $datadetail_peminjaman->links() !!}
                         </div>
                     </div>
                 </div>

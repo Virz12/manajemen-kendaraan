@@ -12,7 +12,7 @@ class RedirectController extends Controller
 {
     function admin()
     {
-        $datapeminjaman = peminjaman::all();
+        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(5);
         $pegawai_aktif = pegawai::where('status','aktif')->get();
         $jumlahpegawai_aktif = $pegawai_aktif->count();
         $kendaraan_digunakan = kendaraan::where('status','digunakan');
@@ -26,7 +26,7 @@ class RedirectController extends Controller
     function pegawai()
     {
         $datapeminjaman = peminjaman::orderBy('updated_at','DESC')->paginate(6);
-
+        
         return view('pegawai.homepage')->with('datapeminjaman',$datapeminjaman);
     }
 

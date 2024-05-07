@@ -68,7 +68,6 @@
                             <span class="d-none d-lg-inline-flex">Hu Tao</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="" class="dropdown-item">My Profile</a>
                             <a href="/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -99,7 +98,7 @@
                                     <tbody>
                                         @forelse($datapegawai as $pegawai)
                                             <tr class="align-middle">
-                                                <th scope="row">1</th>
+                                                <th>{{($datapegawai->currentPage()-1) * $datapegawai->perPage() + $loop->iteration}}</th>
                                                 <td>{{ $pegawai->nip }}</td>
                                                 <td>{{ $pegawai->nama }}</td>
                                                 <td>{{ $pegawai->kelompok }}</td>
@@ -119,12 +118,24 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {!! $datapegawai->links() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
+
+    {{-- Toast --}}
+    @if (session()->has('notification'))
+        <div class="position-fixed bottom-0 end-0 p-3">
+            <div class="alert alert-success" role="alert">
+                <i class="fa-solid fa-check me-2"></i>
+                {{ session('notification') }}
+                <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
 
     {{-- Javascript --}}
     <script src="{{ asset('js/dashboard.js') }}"></script>

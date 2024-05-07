@@ -68,7 +68,6 @@
                             <span class="d-none d-lg-inline-flex">Hu Tao</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="" class="dropdown-item">My Profile</a>
                             <a href="/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -99,7 +98,7 @@
                                     <tbody>
                                         @forelse($datakendaraan as $kendaraan)
                                         <tr>
-                                            <th scope="row">1</th>
+                                            <th>{{($datakendaraan->currentPage()-1) * $datakendaraan->perPage() + $loop->iteration}}</th>
                                             <td>{{ $kendaraan->jenis_kendaraan }}</td>
                                             <td>{{ $kendaraan->tahun }}</td>
                                             <td>{{ $kendaraan->nopol }}</td>
@@ -113,6 +112,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {!! $datakendaraan->links() !!}
                         </div>
                     </div>
                 </div>
