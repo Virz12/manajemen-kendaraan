@@ -95,7 +95,7 @@
                         <div class="row justify-content-between text-left mb-2">
                             <div class="col-sm-6 flex-column d-flex">
                                 <label for="tanggal_awal" class="form-label">Tanggal Awal </label>
-                                <input type="date" id="tanggal-awal" name="tanggal_awal" min="2000-01-01" class="form-control ">
+                                <input type="date" id="tanggal_awal" name="tanggal_awal" min="2000-01-01" class="form-control ">
                             </div>
                             <div class="col-sm-6 flex-column d-flex">
                                 <label for="tanggal_akhir" class="form-label">Tanggal Akhir </label>
