@@ -52,17 +52,25 @@
                                         <th scope="col">Tanggal Awal</th>
                                         <th scope="col">Tanggal Akhir</th>
                                         <th scope="col">Jumlah Kendaraan</th>
+                                        <th scope="col">Supir</th>
                                         <th scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($datapeminjaman as $datapeminjam)
                                     <tr>
-                                        <td>{{$datapeminjam->id}}</td>
+                                        <td>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</td>
                                         <td>{{$datapeminjam->nip_peminjam}}</td>
                                         <td>{{$datapeminjam->tanggal_awal}}</td>
                                         <td>{{$datapeminjam->tanggal_akhir}}</td>
                                         <td>{{$datapeminjam->jumlah}}</td>
+                                        <td>
+                                        @if ($datapeminjam->supir == true)
+                                            V
+                                        @else
+                                            -
+                                        @endif
+                                        </td>
                                         <td>{{$datapeminjam->status}}</td>
                                     </tr> 
                                     @empty

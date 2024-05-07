@@ -50,8 +50,7 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
 Route::middleware(['preventBackHistory','auth','userAccess:pegawai'])->group(function () {
     //Pegawai
     Route::get('/homepage_pegawai', [RedirectController::class, 'pegawai'])->name('pegawai.homepage');
-    Route::get('/tambah_peminjaman', [PeminjamanController::class, 'peminjaman'])->name('peminjaman.add');
-    Route::post('/tambah_peminjaman', [PeminjamanController::class, 'storepeminjaman']);
+    Route::post('/homepage_pegawai', [PeminjamanController::class, 'storepeminjaman']);
 });
 
 Route::middleware(['preventBackHistory','auth','userAccess:kendaraan'])->group(function () {

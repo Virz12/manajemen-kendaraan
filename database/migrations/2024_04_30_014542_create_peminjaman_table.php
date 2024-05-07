@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->date('tanggal_awal');
             $table->date('tanggal_akhir');
-            $table->boolean('supir')->default(false);
+            $table->boolean('supir')->default(false)->nullable();
             $table->enum('status',['pengajuan','diterima'])->default('pengajuan');
             $table->timestamps();
         });
