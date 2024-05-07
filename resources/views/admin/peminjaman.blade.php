@@ -24,7 +24,7 @@
                     <form class="d-flex d-md-none ms-3 mb-3"> {{-- Form Sidebar --}}
                         <input class="form-control border-0" type="search" placeholder="Search">
                     </form>
-                    <a href="{{ route('admin.dashboard') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="/dashboard_admin" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -96,22 +96,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>132685</td>
-                                            <td>2</td>
-                                            <td>2024-02-13</td>
-                                            <td>2024-02-17</td>
-                                            <td>Pengajuan</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>2437531</td>
-                                            <td>3</td>
-                                            <td>2024-05-06</td>
-                                            <td>2024-05-10</td>
-                                            <td>Diterima</td>
-                                        </tr>
+                                        @forelse($datapeminjaman as $peminjaman)
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>{{ $peminjaman->nip_peminjam }}</td>
+                                                <td>{{ $peminjaman->jumlah }}</td>
+                                                <td>{{ $peminjaman->tanggal_awal }}</td>
+                                                <td>{{ $peminjaman->tanggal_akhir }}</td>
+                                                <td>{{ $peminjaman->status }}</td>
+                                            </tr>
+                                        @empty
+                                            <h2>Data Kosong</h2>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -134,18 +130,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>11</td>
-                                            <td>3</td>
-                                            <td>DK 1234 RFS</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>5</td>
-                                            <td>8</td>
-                                            <td>F 2378 ETS</td>
-                                        </tr>
+                                        @forelse($datadetail_peminjaman as $detail_peminjaman)
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>{{ $detail_peminjaman->id_pegawai }}</td>
+                                                <td>{{ $detail_peminjaman->id_supir }}</td>
+                                                <td>{{ $detail_peminjaman->nopol }}</td>
+                                            </tr>
+                                        @empty
+                                            <h2>Data Kosong</h2>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

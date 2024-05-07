@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->date('tanggal_awal');
             $table->date('tanggal_akhir');
+            $table->boolean('supir')->default(false);
             $table->enum('status',['pengajuan','diterima'])->default('pengajuan');
             $table->timestamps();
         });
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->id();
             $table->string('nopol')->references('nopol')->on('kendaraan');
             $table->integer('id_pegawai')->references('id')->on('pegawai');
-            $table->integer('id_supir')->references('id')->on('pegawai');
+            $table->integer('id_supir')->references('id')->on('pegawai')->nullable();
             $table->timestamps();
         });
     }

@@ -16,6 +16,7 @@ class peminjaman extends Model
         'jumlah',
         'tanggal_awal',
         'tanggal_akhir',
+        'supir',
         'status'
     ];
     protected $table = 'peminjaman';

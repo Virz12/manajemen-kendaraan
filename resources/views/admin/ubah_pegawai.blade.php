@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="Profile" class="form-label w-100 text-start">Foto Pegawai<i class="opacity-75"> - Optional</i></label>
-                                    <input class="form-control" type="file" id="Profile">
+                                    <input class="form-control" type="file" name="foto_profil" id="Profile">
                                   </div>
                                 <div class="col-md-12 w-100 text-start">
                                     <button type="submit" class="btn btn-primary">Submit</button>

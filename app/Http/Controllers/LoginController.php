@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,10 +23,10 @@ class LoginController extends Controller
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf.'
         ];
 
-        $request->validate([
+        $request->validateWithBag('errors',[
             'username' => 'required|regex:/^[\pL\s]+$/u',
             'password' => 'required' 
-        ], $messages);
+        ],$messages);
 
         $inputeddata = [
             'username' => $request->username,
@@ -41,11 +40,9 @@ class LoginController extends Controller
                 return redirect('/homepage_pegawai');
             }elseif (Auth::user()->kelompok == 'kendaraan') {
                 return redirect('/dashboard_kendaraan');
-            }elseif (Auth::user()->kelompok == 'supir'){
-                return redirect('/homepage_supir');
             }
         }else {
-            return redirect('/login')->withErrors(['Nama' => 'Nama dan Password Tidak Sesuai'])->withInput();
+            return redirect('/login')->withErrors(['username' => 'Nama Pengguna dan Sandi Tidak Sesuai'])->withInput();
         }
     }
 

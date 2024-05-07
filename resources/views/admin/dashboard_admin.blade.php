@@ -81,7 +81,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-users fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">125</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlahpegawai_aktif }}</b>
                                 <p class="mb-1">Pegawai Aktif</p>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">11</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_digunakan }}</b>
                                 <p class="mb-1">Kendaraan Dipakai</p>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">6</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_tersedia }}</b>
                                 <p class="mb-1">Kendaran Tersisa</p>
                             </div>
                         </div>
@@ -144,18 +144,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @forelse($datapeminjaman as $peminjaman)
                                         <tr>
                                             <th scope="row">1</th>
-                                            <td>3459867</td>
-                                            <td>2</td>
-                                            <td>Pengajuan</td>
+                                            <td>{{ $peminjaman->nip_peminjam }}</td>
+                                            <td>{{ $peminjaman->jumlah }}</td>
+                                            <td>{{ $peminjaman->status }}</td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>8457963</td>
-                                            <td>1</td>
-                                            <td>Diterima</td>
-                                        </tr>
+                                        @empty
+                                            <h2>Data Kosong</h2>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
