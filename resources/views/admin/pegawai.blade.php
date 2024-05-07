@@ -104,14 +104,31 @@
                                                 <td>{{ $pegawai->kelompok }}</td>
                                                 <td>{{ $pegawai->status }}</td>
                                                 <td><a href="/ubahpegawai/{{ $pegawai->id }}" class="btn btn-success">Edit</a></td>
-                                                <td>
-                                                    <form onsubmit="return confirm('Anda yakin ingin menghapus data ini ?')" action="/hapuspegawai/{{ $pegawai->id }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                                    </form>
-                                                </td>
+                                                <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Hapus{{ $pegawai->id }}">Hapus</button></td>
                                             </tr>
+                                            {{-- Confirmation Modal --}}
+                                            <div class="modal fade" id="Hapus{{ $pegawai->id }}" tabindex="-1" aria-labelledby="HapusLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="HapusLabel">Hapus Data</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Apakah anda yakin ingin menghapus data ini?<br>
+                                                            <b>{{ $pegawai->nip }} - {{ $pegawai->nama }}</b>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="/hapuspegawai/{{ $pegawai->id }}">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                            </form>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @empty
                                             <h2>Data Kosong</h2>
                                         @endforelse
@@ -136,7 +153,7 @@
             </div>
         </div>
     @endif
-
+    
     {{-- Javascript --}}
     <script src="{{ asset('js/dashboard.js') }}"></script>
 
