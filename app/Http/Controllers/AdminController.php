@@ -2,12 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\detail_peminjaman;
+use App\Models\kendaraan;
 use App\Models\pegawai;
+use App\Models\peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
+    function pegawai()
+    {
+        $datapegawai = pegawai::orderBy('nip','DESC')->paginate(6);
+
+        return view('admin.pegawai')->with('datapegawai',$datapegawai);
+    }
+
+    function kendaraan()
+    {
+        $datakendaraan = kendaraan::orderBy('status','DESC')->paginate(6);
+
+        return view('admin.kendaraan')->with('datakendaraan',$datakendaraan);
+    }
+
+    function peminjaman()
+    {
+        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(6);
+        $datadetail_peminjaman = detail_peminjaman::orderBy('id_pegawai','DESC')->paginate(6);
+
+        return view('admin.peminjaman')->with('datapeminjaman',$datapeminjaman)->with('datadetail_peminjaman',$datadetail_peminjaman);
+    }
+    
     function createpegawai()
     {
         return view('admin.tambah_pegawai');
@@ -58,7 +83,7 @@ class AdminController extends Controller
             }
         }
 
-        return redirect('/pegawai');
+        return redirect('/pegawai')->with('notification', 'Data Berhasil Ditambah.');
     }
 
     function editpegawai(string $id)
@@ -105,8 +130,8 @@ class AdminController extends Controller
         $pegawai = pegawai::findOrFail($id);
 
         if ($request->hasFile('foto_profil')) {
-            if (File::exists(public_path($pegawai->foto_profil))) {
-                File::delete(public_path($pegawai->foto_profil));
+            if (File::exists($pegawai->foto_profil)) {
+                File::delete($pegawai->foto_profil);
             }
 
             $newImage = $request->file('foto_profil');
@@ -118,8 +143,7 @@ class AdminController extends Controller
 
         pegawai::where('id', $id)->update($data);
         $pegawai->save();
-
-        return redirect('/pegawai');
+        return redirect('/pegawai')->with('notification', 'Data Berhasil Diubah.');
     }
 
     function deletepegawai(pegawai $pegawai)
@@ -130,6 +154,6 @@ class AdminController extends Controller
             File::delete(public_path($pegawai->foto_profil));
         }
 
-        return redirect('/pegawai');
+        return redirect('/pegawai')->with('notification', 'Data Berhasil Dihapus.');
     }
 }
