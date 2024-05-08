@@ -30,7 +30,7 @@ class AdminController extends Controller
         $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::orderBy('id_pegawai','DESC')->paginate(6);
 
-        return view('admin.peminjaman')->with('datapeminjaman',$datapeminjaman)->with('datadetail_peminjaman',$datadetail_peminjaman);
+        return view('admin.peminjaman')->with('datapeminjaman',$datapeminjaman)->with('datadetail_peminjaman',$datadetail_peminjaman) ;
     }
     
     function createpegawai()

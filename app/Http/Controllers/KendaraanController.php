@@ -2,11 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\detail_peminjaman;
 use App\Models\kendaraan;
+use App\Models\peminjaman;
 use Illuminate\Http\Request;
 
 class KendaraanController extends Controller
 {
+    function kendaraan()
+    {
+        $datakendaraan = kendaraan::orderBy('status','DESC')->paginate(6);
+
+        return view('kendaraan.kendaraan')->with('datakendaraan',$datakendaraan);
+    }
+
+    function peminjaman()
+    {
+        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(6);
+        $datadetail_peminjaman = detail_peminjaman::orderBy('id_pegawai','DESC')->paginate(6);
+
+        return view('kendaraan.peminjaman')->with('datapeminjaman',$datapeminjaman)->with('datadetail_peminjaman',$datadetail_peminjaman);
+    }
     function createkendaraan()
     {
         return view('kendaraan.tambah_kendaraan');

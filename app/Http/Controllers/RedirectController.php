@@ -33,7 +33,7 @@ class RedirectController extends Controller
     function kendaraan()
     {
         $datakendaraan = kendaraan::all();
-        $datapeminjaman = peminjaman::all();
+        $datapeminjaman = peminjaman::orderBy('updated_at','DESC')->paginate(5);
         $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.dashboard_kendaraan')->with('datakendaraan',$datakendaraan)->with('datapeminjaman',$datapeminjaman)->with('datadetail_peminjaman',$datadetail_peminjaman);
