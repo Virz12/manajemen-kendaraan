@@ -26,8 +26,9 @@ class RedirectController extends Controller
     function pegawai()
     {
         $datapeminjaman = peminjaman::orderBy('updated_at','DESC')->paginate(6);
+        $dataterbaru = peminjaman::orderBy('updated_at','DESC')->paginate(1);
         
-        return view('pegawai.homepage')->with('datapeminjaman',$datapeminjaman);
+        return view('pegawai.homepage')->with('datapeminjaman',$datapeminjaman)->with('dataterbaru',$dataterbaru);
     }
 
     function kendaraan()

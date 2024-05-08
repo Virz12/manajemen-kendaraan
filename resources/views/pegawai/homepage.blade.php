@@ -25,7 +25,7 @@
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="{{ asset('img/hu.png') }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Pegawai</span>
+                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->nama }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="{{route('logout')}}" class="dropdown-item">Log Out</a>
@@ -35,11 +35,54 @@
             </nav>
         </div>
         <main class="content">
+        <div class="container-fluid pt-4 px-4 pb-4">
+            <div class="bg-light text-center rounded p-2">
+                <div class="d-flex align-items-center mb-4">
+                    <h6 class="mb-0">Peminjaman Terbaru</h6>
+                </div>
+                <div class="shadow table-responsive ">
+                    <table class="table-hover table">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">NIP Peminjam</th>
+                                <th scope="col">Tanggal Awal</th>
+                                <th scope="col">Tanggal Akhir</th>
+                                <th scope="col">Jumlah Kendaraan</th>
+                                <th scope="col">Supir</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($dataterbaru as $datapbaru)
+                                <tr>
+                                    <td>{{($dataterbaru->currentPage()-1) * $dataterbaru->perPage() + $loop->iteration}}</td>
+                                    <td>{{$datapbaru->nip_peminjam}}</td>
+                                    <td>{{$datapbaru->tanggal_awal}}</td>
+                                    <td>{{$datapbaru->tanggal_akhir}}</td>
+                                    <td>{{$datapbaru->jumlah}}</td>
+                                    <td>
+                                        @if ($datapbaru->supir == true)
+                                            <i class="fa-regular fa-square-check text-success" ></i>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>{{$datapbaru->status}}</td>
+                                </tr> 
+                                @empty
+                                <h2>Data Kosong</h2>
+                                @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         {{-- Table --}}
         <div class="container-fluid pt-4 px-4">
                     <div class="bg-light text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h6 class="mb-0">Status Peminjaman</h6>
+                            <h6 class="mb-0">Peminjaman</h6>
                             <button class="btn btn-primary ms-4" data-bs-toggle="modal" data-bs-target="#formPengajuan"><i class="fa-solid fa-car me-1 car-icon" style="color: #000000;"></i>Ajukan Peminjaman</button>
                         </div>
                         <div class="table-responsive">
@@ -65,7 +108,7 @@
                                         <td>{{$datapeminjam->jumlah}}</td>
                                         <td>
                                         @if ($datapeminjam->supir == true)
-                                            V
+                                            <i class="fa-regular fa-square-check text-success" ></i>
                                         @else
                                             -
                                         @endif
@@ -73,7 +116,7 @@
                                         <td>{{$datapeminjam->status}}</td>
                                     </tr> 
                                     @empty
-                                    <h2>Empty data</h2>
+                                    <h2>Data Kosong</h2>
                                     @endforelse
                                 </tbody>
                             </table>
