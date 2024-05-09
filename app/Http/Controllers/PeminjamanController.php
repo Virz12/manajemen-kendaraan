@@ -54,16 +54,30 @@ class PeminjamanController extends Controller
         return redirect('/homepage_pegawai');
     }
 
-    function editpeminjaman()
-    {
+    function editpeminjaman(string $id)
+    {   
+        $datapeminjam = peminjaman::findOrFail($id);
         $datakendaraan = kendaraan::where('status','tersedia')->get();
         $datasupir = pegawai::where('kelompok','supir')->get();
 
-        return view('kendaraan.verifikasi_peminjaman')->with('datakendaraan',$datakendaraan)->with('datasupir',$datasupir);
+        return view('kendaraan.verifikasi_peminjaman')
+        ->with('datakendaraan',$datakendaraan)
+        ->with('datasupir',$datasupir)
+        ->with('datapeminjam',$datapeminjam);
     }
 
     function updatepeminjaman(Request $request, string $id)
     {
+        $messages = [
+            'nopol.required' => 'Data Kendaraan belum terisi.',
+            'id_supir.required' => 'Data Supir belum terisi.'
+        ];
+
+        $request->validate([
+            'nopol' => 'required',
+            'id_supir' => 'required',
+        ], $messages);
+
         $data = [
             'nopol' => $request->nopol,
             'id_pegawai' => Auth::user()->id,
@@ -75,6 +89,6 @@ class PeminjamanController extends Controller
             'status' => 'diterima',
         ]);
 
-        return redirect('/dashboard_kendaraan');
+        return redirect('/data_peminjaman')->with('notification', 'Berhasil Diverifikasi.');
     }
 }

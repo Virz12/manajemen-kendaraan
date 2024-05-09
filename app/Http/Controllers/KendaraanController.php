@@ -65,7 +65,7 @@ class KendaraanController extends Controller
 
         kendaraan::create($data);
 
-        return redirect('/dashboard_kendaraan');
+        return redirect('/data_kendaraan')->with('notification', 'Data Berhasil Ditambah.');
     }
 
     function editkendaraan(string $id)
@@ -112,13 +112,13 @@ class KendaraanController extends Controller
 
         kendaraan::where('id', $id)->update($data);
 
-        return redirect('/dashboard_kendaraan');
+        return redirect('/data_kendaraan')->with('notification', 'Data Berhasil Diubah.');
     }
 
     function deletekendaraan(kendaraan $kendaraan)
     {
         kendaraan::destroy($kendaraan->id);
 
-        return redirect('/dashboard_kendaraan');
+        return redirect('/data_kendaraan')->with('notification', 'Data Berhasil Dihapus.');
     }
 }
