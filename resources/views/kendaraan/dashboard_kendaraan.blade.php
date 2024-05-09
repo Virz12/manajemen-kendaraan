@@ -124,7 +124,7 @@
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Status Peminjaman Terbaru</h6>
-                                <a href="/peminjaman" class="text-decoration-none">Show All</a>
+                                <a href="/data_peminjaman" class="text-decoration-none">Show All</a>
                             </div>
                             <div class="table-responsive">
                                 {{-- Table --}}

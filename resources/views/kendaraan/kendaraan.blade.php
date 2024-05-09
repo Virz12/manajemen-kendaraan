@@ -29,12 +29,12 @@
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
+                    <a href="/data_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-car fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="/data_peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Peminjaman
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -106,13 +106,30 @@
                                                     <button class="btn btn-success" type="submit">Ubah</button>
                                                 </form>
                                             </td>
-                                            <td>
-                                                <form onsubmit="return confirm('Anda yakin ingin menghapus data ini ?')" action="/hapuskendaraan/{{ $kendaraan->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger" type="submit">Hapus</button>
-                                                </form>
-                                            </td>
+                                            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Hapus{{ $kendaraan->id }}">Hapus</button></td>
+                                            </tr>
+                                            {{-- Confirmation Modal --}}
+                                            <div class="modal fade" id="Hapus{{ $kendaraan->id }}" tabindex="-1" aria-labelledby="HapusLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="HapusLabel">Hapus Data</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Apakah anda yakin ingin menghapus data ini?<br>
+                                                            <b>{{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}</b>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="/hapuskendaraan/{{ $kendaraan->id }}">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                            </form>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         </tr>
                                     @empty
                                         <h2>Data Kosong</h2>
@@ -126,6 +143,16 @@
             </div>
         </main>
     </div>
+    {{-- Toast --}}
+    @if (session()->has('notification'))
+        <div class="position-fixed bottom-0 end-0 p-3">
+            <div class="alert alert-success" role="alert">
+                <i class="fa-solid fa-check me-2"></i>
+                {{ session('notification') }}
+                <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
 
     {{-- Javascript --}}
     <script src="{{ asset('js/dashboard.js') }}"></script>

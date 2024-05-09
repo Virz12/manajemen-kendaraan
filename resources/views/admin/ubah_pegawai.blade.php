@@ -4,15 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tambah Data Pegawai</title>
-</head>
-<body>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     {{-- Bootstrap --}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -126,17 +117,17 @@
                 </div>
             </div>
             {{-- Alert --}}
-                @if($errors->any())
-                    <div class="position-fixed bottom-0 end-0 p-3">
-                        @foreach ($errors->all() as $item)
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                                {{ $item }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
+            @if($errors->any())
+                <div class="position-fixed bottom-0 end-0 p-3">
+                    @foreach ($errors->all() as $item)
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                            {{ $item }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </main>
     </div>
 

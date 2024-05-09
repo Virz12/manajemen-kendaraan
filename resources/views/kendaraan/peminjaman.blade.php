@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Data peminjaman | Peminjaman Kendaraan</title>
+    <title>Data Peminjaman | Peminjaman Kendaraan</title>
 </head>
 <body>  
     <div class="container-fluid p-0">
@@ -29,7 +29,7 @@
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="/data_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-car fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -153,6 +153,16 @@
                     </div>
                 </div>
             </div>
+            {{-- Toast --}}
+            @if (session()->has('notification'))
+            <div class="position-fixed bottom-0 end-0 p-3">
+                <div class="alert alert-success" role="alert">
+                    <i class="fa-solid fa-check me-2"></i>
+                    {{ session('notification') }}
+                    <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
         </main>
     </div>
 
