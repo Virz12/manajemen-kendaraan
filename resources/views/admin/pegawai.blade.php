@@ -65,7 +65,7 @@
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="{{ asset('img/hu.png') }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Hu Tao</span>
+                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="/logout" class="dropdown-item">Log Out</a>

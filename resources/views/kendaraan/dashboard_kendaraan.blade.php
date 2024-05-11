@@ -60,7 +60,7 @@
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="{{ asset('img/hu.png') }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Hu Tao</span>
+                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="/logout" class="dropdown-item">Log Out</a>
@@ -75,7 +75,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">0</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_digunakan }}</b>
                                 <p class="mb-1">Kendaraan Dipakai</p>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-car-burst fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">0</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_rusak }}</b>
                                 <p class="mb-1">Rusak</p>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">0</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_tersedia }}</b>
                                 <p class="mb-1">Kendaraan Tersisa</p>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-wrench fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">0</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_diperbaiki }}</b>
                                 <p class="mb-1">Servis</p>
                             </div>
                         </div>
