@@ -25,6 +25,7 @@ return new class extends Migration
         Schema::create('detail_peminjaman', function (Blueprint $table) {
             $table->id();
             $table->string('nopol')->references('nopol')->on('kendaraan');
+            $table->integer('id_peminjaman')->references('id')->on('peminjaman');
             $table->integer('id_pegawai')->references('id')->on('pegawai');
             $table->integer('id_supir')->references('id')->on('pegawai')->nullable();
             $table->timestamps();
