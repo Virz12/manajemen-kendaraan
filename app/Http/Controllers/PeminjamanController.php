@@ -61,16 +61,16 @@ class PeminjamanController extends Controller
         $datasupir = pegawai::where('kelompok','supir')->get();
 
         return view('kendaraan.verifikasi_peminjaman')
-        ->with('datakendaraan',$datakendaraan)
-        ->with('datasupir',$datasupir)
-        ->with('datapeminjam',$datapeminjam);
+                ->with('datakendaraan',$datakendaraan)
+                ->with('datasupir',$datasupir)
+                ->with('datapeminjam',$datapeminjam);
     }
 
     function updatepeminjaman(Request $request, string $id)
     {
         $messages = [
             'nopol.required' => 'Data Kendaraan belum terisi.',
-            'id_supir.required' => 'Data Supir belum terisi.'
+            'id_supir.required' => 'Data Supir belum terisi.',
         ];
 
         $request->validate([
@@ -80,6 +80,7 @@ class PeminjamanController extends Controller
 
         $data = [
             'nopol' => $request->nopol,
+            'id_peminjaman' => $id,
             'id_pegawai' => Auth::user()->id,
             'id_supir' => $request->id_supir,
         ];
@@ -88,7 +89,8 @@ class PeminjamanController extends Controller
         peminjaman::where('id',$id)->update([
             'status' => 'diterima',
         ]);
-
-        return redirect('/data_peminjaman')->with('notification', 'Berhasil Diverifikasi.');
+        
+        return redirect('/data_peminjaman')
+                ->with('notification', 'Berhasil Diverifikasi.');
     }
 }

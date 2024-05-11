@@ -76,7 +76,8 @@ class DatabaseSeeder extends Seeder
 
         $data_detail_peminjaman = [
             [
-                'nopol' => 'DK 1234 RFS',
+                'nopol' => 'DK1234RFS',
+                'id_peminjaman' => '1',
                 'id_pegawai' => '3',
                 'id_supir' => '4'
             ]
