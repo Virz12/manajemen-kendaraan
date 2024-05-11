@@ -51,7 +51,7 @@ class PeminjamanController extends Controller
 
         peminjaman::create($data);
 
-        return redirect('/homepage_pegawai');
+        return redirect('/homepage_pegawai')->with('notification', 'Pengajuan Berhasil');
     }
 
     function editpeminjaman(string $id)
