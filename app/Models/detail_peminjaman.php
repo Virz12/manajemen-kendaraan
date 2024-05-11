@@ -12,6 +12,7 @@ class detail_peminjaman extends Model
     protected $fillable = [
         'id',
         'nopol',
+        'id_peminjaman',
         'id_pegawai',
         'id_supir'
     ];
