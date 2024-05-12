@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PeminjamanController extends Controller
 {
-    function peminjaman()
-    {
-        return view('pegawai.tambah_peminjaman');
-    }
-
     function storepeminjaman(Request $request)
     {
         $messages = [
@@ -51,16 +46,19 @@ class PeminjamanController extends Controller
 
         peminjaman::create($data);
 
-        return redirect('/homepage_pegawai')->with('notification', 'Pengajuan Berhasil');
+        return redirect('/homepage_pegawai')
+                ->with('notification', 'Pengajuan Berhasil');
     }
 
     function editpeminjaman(string $id)
     {   
+        $pegawai = pegawai::where('id',Auth::id())->first();
         $datapeminjam = peminjaman::findOrFail($id);
         $datakendaraan = kendaraan::where('status','tersedia')->get();
         $datasupir = pegawai::where('kelompok','supir')->get();
 
         return view('kendaraan.verifikasi_peminjaman')
+                ->with('pegawai',$pegawai)
                 ->with('datakendaraan',$datakendaraan)
                 ->with('datasupir',$datasupir)
                 ->with('datapeminjam',$datapeminjam);

@@ -9,11 +9,13 @@ use App\Models\peminjaman;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use DateTime;
+use Illuminate\Support\Facades\Auth;
 
 class RedirectController extends Controller
 {
     function admin(Request $request)
     {
+        $pegawai = pegawai::where('id',Auth::id())->first();
         $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(5);
         $pegawai_aktif = pegawai::where('status','aktif')->get();
         $jumlahpegawai_aktif = $pegawai_aktif->count();
@@ -71,6 +73,7 @@ class RedirectController extends Controller
         ->options([]);
 
         return view('admin.dashboard_admin')
+                ->with('pegawai',$pegawai)
                 ->with('jumlahpegawai_aktif',$jumlahpegawai_aktif)
                 ->with('jumlahkendaraan_digunakan',$jumlahkendaraan_digunakan)
                 ->with('jumlahkendaraan_tersedia',$jumlahkendaraan_tersedia)
@@ -80,16 +83,19 @@ class RedirectController extends Controller
 
     function pegawai()
     {
+        $pegawai = pegawai::where('id',Auth::id())->first();
         $datapeminjaman = peminjaman::orderBy('updated_at','DESC')->paginate(6);
         $dataterbaru = peminjaman::orderBy('updated_at','DESC')->paginate(1);
         
         return view('pegawai.homepage')
+                ->with('pegawai',$pegawai)
                 ->with('datapeminjaman',$datapeminjaman)
                 ->with('dataterbaru',$dataterbaru);
     }
 
     function kendaraan()
     {
+        $pegawai = pegawai::where('id',Auth::id())->first();
         $datakendaraan = kendaraan::all();
         $kendaraan_digunakan = kendaraan::where('status','digunakan');
         $jumlahkendaraan_digunakan = $kendaraan_digunakan->count();
@@ -103,6 +109,7 @@ class RedirectController extends Controller
         $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.dashboard_kendaraan')
+                ->with('pegawai',$pegawai)
                 ->with('datakendaraan',$datakendaraan)
                 ->with('jumlahkendaraan_digunakan',$jumlahkendaraan_digunakan)
                 ->with('jumlahkendaraan_tersedia',$jumlahkendaraan_tersedia)

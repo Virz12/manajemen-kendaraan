@@ -23,7 +23,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset('img/hu.png') }}" alt="Profile picture"
+                            <img class="rounded-circle me-lg-2" src="{{ asset( $pegawai->foto_profil ) }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
@@ -107,11 +107,11 @@
                                         <td>{{$datapeminjam->tanggal_akhir}}</td>
                                         <td>{{$datapeminjam->jumlah}}</td>
                                         <td>
-                                        @if ($datapeminjam->supir == true)
-                                            <i class="fa-regular fa-square-check text-success" ></i>
-                                        @else
-                                            -
-                                        @endif
+                                            @if ($datapeminjam->supir == true)
+                                                <i class="fa-regular fa-square-check text-success" ></i>
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                         <td>{{$datapeminjam->status}}</td>
                                     </tr> 
