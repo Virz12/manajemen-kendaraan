@@ -12,7 +12,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['preventBackHistory','guest'])->group(function () {
+    Route::get('/login', [LoginController::class, 'login'])->name('login');
+    Route::post('/login', [LoginController::class, 'storelogin']);
+});
+
+Route::middleware(['preventBackHistory','auth'])->group(function () {
     Route::get('/home', function() {
         if (Auth::user()->kelompok == 'admin') {
             return redirect('/dashboard_admin');
@@ -22,14 +27,7 @@ Route::middleware(['auth'])->group(function() {
             return redirect('/dashboard_kendaraan');
         }
     });
-});
 
-Route::middleware(['preventBackHistory','guest'])->group(function () {
-    Route::get('/login', [LoginController::class, 'login'])->name('login');
-    Route::post('/login', [LoginController::class, 'storelogin']);
-});
-
-Route::middleware(['preventBackHistory','auth'])->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
@@ -63,6 +61,7 @@ Route::middleware(['preventBackHistory','auth','userAccess:kendaraan'])->group(f
     Route::get('/hapuskendaraan/{kendaraan:id}', [KendaraanController::class, 'deletekendaraan'])->name('kendaraan.delete');
     Route::get('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'editpeminjaman'])->name('peminjaman.edit');
     Route::post('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'updatepeminjaman']);
+    Route::get('/selesai_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'selesaipeminjaman']);
 
     Route::get('/data_kendaraan', [KendaraanController::class, 'kendaraan']);
     Route::get('/data_peminjaman', [KendaraanController::class, 'peminjaman']);

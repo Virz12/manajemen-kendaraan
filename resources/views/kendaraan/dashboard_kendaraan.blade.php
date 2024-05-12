@@ -146,8 +146,10 @@
                                             <td>
                                                 @if ($peminjaman->status == 'pengajuan')
                                                     <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}"  class="text-decoration-none"><button class="btn btn-secondary ms-4">Verifikasi</button></a>
+                                                @elseif ($peminjaman->status == 'diterima')
+                                                    <a href="/selesai_peminjaman/{{ $peminjaman->id }}"  class="text-decoration-none"><button class="btn btn-success ms-4">Selesai</button></a>
                                                 @else
-                                                    <a href=""  class="text-decoration-none"><button class="btn btn-success ms-4">Selesai</button></a>
+                                                    <button class="btn btn-success ms-4" disabled>Selesai</button>
                                                 @endif
                                             </td>
                                         </tr>
