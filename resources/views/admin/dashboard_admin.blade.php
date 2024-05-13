@@ -105,10 +105,10 @@
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-question fa-3x text-primary w-25"></i>
+                            <i class="fa-solid fa-user fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">777</b>
-                                <p class="mb-1">Lupa ini aoa</p>
+                                <b class="text-start d-inline-block w-100"></b>
+                                <p class="mb-1">Supir Aktif</p>
                             </div>
                         </div>
                     </div>
