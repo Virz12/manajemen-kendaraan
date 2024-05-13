@@ -110,11 +110,11 @@
                 </div>
             </div>
             {{-- Chart & Table --}}
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-4 px-4 mb-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">
-                            <div class="text-start mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Peminjaman Bulanan</h6>
                                 <form action="" method="GET ">
                                     @csrf
@@ -153,7 +153,7 @@
                                                 @elseif ($peminjaman->status == 'diterima')
                                                     <a href="/selesai_peminjaman/{{ $peminjaman->id }}"  class="text-decoration-none"><button class="btn btn-success ms-4">Selesai</button></a>
                                                 @else
-                                                    <button class="btn btn-success ms-4" disabled>Selesai</button>
+                                                    -
                                                 @endif
                                             </td>
                                         </tr>

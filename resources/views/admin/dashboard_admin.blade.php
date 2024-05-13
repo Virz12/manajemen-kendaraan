@@ -107,7 +107,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-user fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100"></b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlahsupir_aktif }}</b>
                                 <p class="mb-1">Supir Aktif</p>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                 </div>
             </div>
             {{-- Chart & Table --}}
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-4 px-4 mb-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">

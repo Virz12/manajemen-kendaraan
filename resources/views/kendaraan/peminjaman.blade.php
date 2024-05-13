@@ -113,7 +113,7 @@
                                                     @elseif ($peminjaman->status == 'diterima')
                                                         <a href="/selesai_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none"><button class="btn btn-success ms-4">Selesai</button></a>
                                                     @else
-                                                        <button class="btn btn-success ms-4" disabled>Selesai</button>
+                                                        -
                                                     @endif
                                                 </td>
                                             </tr>

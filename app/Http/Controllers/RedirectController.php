@@ -23,6 +23,8 @@ class RedirectController extends Controller
         $jumlahkendaraan_digunakan = $kendaraan_digunakan->count();
         $kendaraan_tersedia = kendaraan::where('status','tersedia');
         $jumlahkendaraan_tersedia = $kendaraan_tersedia->count();
+        $supir_aktif = pegawai::where('kelompok','supir')->where('status','aktif');
+        $jumlahsupir_aktif = $supir_aktif->count();
 
         if ($request->tahun) {
             $tahun = $request->tahun;
@@ -78,6 +80,7 @@ class RedirectController extends Controller
                 ->with('jumlahkendaraan_digunakan',$jumlahkendaraan_digunakan)
                 ->with('jumlahkendaraan_tersedia',$jumlahkendaraan_tersedia)
                 ->with('datapeminjaman',$datapeminjaman)
+                ->with('jumlahsupir_aktif',$jumlahsupir_aktif)
                 ->with('chart', $chart);
     }
 
