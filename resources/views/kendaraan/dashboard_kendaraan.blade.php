@@ -138,7 +138,7 @@
                                             <th scope="col">#</th>
                                             <th scope="col">NIP Peminjam</th>
                                             <th scope="col">Jumlah Kendaraan</th>
-                                            <th scope="col">Aksi</th>
+                                            <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -147,15 +147,7 @@
                                             <th>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</th>
                                             <td>{{ $peminjaman->nip_peminjam }}</td>
                                             <td>{{ $peminjaman->jumlah }}</td>
-                                            <td>
-                                                @if ($peminjaman->status == 'pengajuan')
-                                                    <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}"  class="text-decoration-none"><button class="btn btn-secondary ms-4">Verifikasi</button></a>
-                                                @elseif ($peminjaman->status == 'diterima')
-                                                    <a href="/selesai_peminjaman/{{ $peminjaman->id }}"  class="text-decoration-none"><button class="btn btn-success ms-4">Selesai</button></a>
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
+                                            <td>{{ $peminjaman->status}}</td>
                                         </tr>
                                         @empty
                                             <h2>Data Kosong</h2>

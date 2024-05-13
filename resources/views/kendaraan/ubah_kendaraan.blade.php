@@ -94,6 +94,7 @@
                                     <label for="kondisi" class="form-label w-100 text-start">Kondisi Kendaraan</label>
                                     <select id="kondisi" name="kondisi" class="form-select">
                                         <option value="{{ $datakendaraan->kondisi }}" selected hidden>{{ $datakendaraan->kondisi }}</option>
+                                        <option value="baik">Baik</option>
                                         <option value="rusak">Rusak</option>
                                         <option value="perbaikan">Perbaikan</option>
                                     </select>
@@ -102,6 +103,7 @@
                                     <label for="status" class="form-label w-100 text-start">Status Kendaraan</label>
                                     <select id="status" name="status" class="form-select">
                                         <option value="{{ $datakendaraan->status }}" selected hidden>{{ $datakendaraan->status }}</option>
+                                        <option value="tersedia">Tersedia</option>
                                         <option value="digunakan">Digunakan</option>
                                     </select>
                                 </div>

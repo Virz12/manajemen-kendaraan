@@ -124,7 +124,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Id Pegawai</th>
+                                            <th scope="col">Id Tim kendaraan</th>
                                             <th scope="col">Id Supir</th>
                                             <th scope="col">Nomor Polisi</th>
                                         </tr>

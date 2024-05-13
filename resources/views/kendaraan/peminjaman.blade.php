@@ -138,8 +138,8 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Mobil</th>
-                                            <th scope="col">Tim Kendaraan</th>
-                                            <th scope="col">Supir</th>
+                                            <th scope="col">Id Tim Kendaraan</th>
+                                            <th scope="col">Id Supir</th>
                                         </tr>
                                     </thead>
                                     <tbody>

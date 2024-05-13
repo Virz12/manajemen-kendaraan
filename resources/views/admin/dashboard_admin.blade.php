@@ -149,7 +149,7 @@
                                     <tbody>
                                         @forelse($datapeminjaman as $peminjaman)
                                         <tr>
-                                            <th scope="row">1</th>
+                                            <th>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</th>
                                             <td>{{ $peminjaman->nip_peminjam }}</td>
                                             <td>{{ $peminjaman->jumlah }}</td>
                                             <td>{{ $peminjaman->status }}</td>
