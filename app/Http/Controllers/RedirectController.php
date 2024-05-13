@@ -93,7 +93,7 @@ class RedirectController extends Controller
                 ->with('dataterbaru',$dataterbaru);
     }
 
-    function kendaraan()
+    function kendaraan(Request $request)
     {
         $pegawai = pegawai::where('id',Auth::id())->first();
         $datakendaraan = kendaraan::all();
@@ -108,6 +108,55 @@ class RedirectController extends Controller
         $datapeminjaman = peminjaman::orderBy('updated_at','DESC')->paginate(5);
         $datadetail_peminjaman = detail_peminjaman::all();
 
+        if ($request->tahun) {
+            $tahun = $request->tahun;
+        } else {
+            $tahun = 2024;
+        }
+
+        $peminjaman = DB::table('peminjaman')
+        ->selectRaw('YEAR(tanggal_awal) as year, MONTH(tanggal_awal) as month, COUNT(*) as count')
+        ->whereYear('tanggal_awal', $tahun)
+        ->groupBy('year', 'month')
+        ->get()
+        ->pluck('count', 'month')
+        ->toArray();
+
+        $bulan = [];
+        $data = [];
+
+        foreach ($peminjaman as $month => $count) {
+            $date = DateTime::createFromFormat('!m', $month);
+            $bulan[] = $date->format('F');
+            $data[] = $count;
+        }
+
+        if (empty($bulan)) {
+            $bulan = ['DATA KOSONG'];
+            $data = [];
+        }
+
+        // Chart
+        $chart = app()->chartjs
+        ->name('lineChart')
+        ->type('line')
+        ->labels($bulan)
+        ->datasets([
+            [
+                "label" => "Data Peminjaman",
+                'backgroundColor' => "rgba(38, 185, 154, 0.31)",
+                'borderColor' => "rgba(38, 185, 154, 0.7)",
+                "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
+                "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
+                "pointHoverBackgroundColor" => "#fff",
+                "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                "data" => $data,
+                "fill" => false,
+            ]
+        ])
+        ->options([]);
+
+
         return view('kendaraan.dashboard_kendaraan')
                 ->with('pegawai',$pegawai)
                 ->with('datakendaraan',$datakendaraan)
@@ -116,6 +165,7 @@ class RedirectController extends Controller
                 ->with('jumlahkendaraan_rusak',$jumlahkendaraan_rusak)
                 ->with('jumlahkendaraan_diperbaiki',$jumlahkendaraan_diperbaiki)
                 ->with('datapeminjaman',$datapeminjaman)
-                ->with('datadetail_peminjaman',$datadetail_peminjaman);
+                ->with('datadetail_peminjaman',$datadetail_peminjaman)
+                ->with('chart', $chart);
     }
 }

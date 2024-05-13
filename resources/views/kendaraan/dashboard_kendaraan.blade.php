@@ -116,8 +116,12 @@
                         <div class="bg-light text-center rounded p-4">
                             <div class="text-start mb-4">
                                 <h6 class="mb-0">Peminjaman Bulanan</h6>
+                                <form action="" method="GET ">
+                                    @csrf
+                                    <input type="text" name="tahun" class="form-control border-0" placeholder="Masukan Tahun" autocomplete="off">
+                                </form>
                             </div>
-                            <canvas id="">{{-- Chart JS --}}</canvas>
+                            <div class="w-100">{!! $chart->render() !!}</div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">
