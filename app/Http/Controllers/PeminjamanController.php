@@ -77,14 +77,24 @@ class PeminjamanController extends Controller
 
         foreach($request->nopol as $nopol)
         {
-            foreach($request->id_supir as $supir)
+            if($request->id_supir == null)
             {
                 $data[] = [
                     'id_peminjaman' => $id,
                     'id_pegawai' => Auth::id(),
-                    'id_supir' => $supir,
+                    'id_supir' => $request->id_supir,
                     'nopol' => $nopol,
                 ];
+            }else {
+                foreach($request->id_supir as $supir)
+                {
+                    $data[] = [
+                        'id_peminjaman' => $id,
+                        'id_pegawai' => Auth::id(),
+                        'id_supir' => $supir,
+                        'nopol' => $nopol,
+                    ];
+                }
             }
             kendaraan::where('nopol',$nopol)->update([
                 'status' => 'digunakan',
