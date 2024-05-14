@@ -31,6 +31,7 @@
     width: 15%;
 }
 
+
 /* Margin */
 .mt-7 {
     margin-top: 4rem;
@@ -55,6 +56,11 @@ input::-webkit-inner-spin-button {
 /* Table */
 .table> :not(caption)>*>* {
     background-color: var(--light);
+}
+
+/* Chart */
+#lineChart {
+    width: 100%;
 }
 
 /* Button */
@@ -192,6 +198,11 @@ a.page-link {
     min-height: 100vh;
     background: var(--white);
     transition: 0.5s;
+}
+
+/* card peminjaman */
+.list-group-item {
+    background-color: var(--light);
 }
 
 @media (min-width: 992px) {
