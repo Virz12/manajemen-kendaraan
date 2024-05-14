@@ -23,7 +23,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset( $pegawai->foto_profil ) }}" alt="Profile picture"
+                            <img class="rounded-circle me-lg-2" src="{{ Auth::user()->foto_profil }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
@@ -54,9 +54,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($dataterbaru as $datapbaru)
+                            @forelse ($data_terbaru as $datapbaru)
                                 <tr>
-                                    <td>{{($dataterbaru->currentPage()-1) * $dataterbaru->perPage() + $loop->iteration}}</td>
+                                    <td>{{($data_terbaru->currentPage()-1) * $data_terbaru->perPage() + $loop->iteration}}</td>
                                     <td>{{$datapbaru->nip_peminjam}}</td>
                                     <td>{{$datapbaru->tanggal_awal}}</td>
                                     <td>{{$datapbaru->tanggal_akhir}}</td>
@@ -99,9 +99,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($datapeminjaman as $datapeminjam)
+                                    @forelse ($data_peminjaman as $datapeminjam)
                                     <tr>
-                                        <td>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</td>
+                                        <td>{{($data_peminjaman->currentPage()-1) * $data_peminjaman->perPage() + $loop->iteration}}</td>
                                         <td>{{$datapeminjam->nip_peminjam}}</td>
                                         <td>{{$datapeminjam->tanggal_awal}}</td>
                                         <td>{{$datapeminjam->tanggal_akhir}}</td>
@@ -121,7 +121,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {!! $datapeminjaman->links() !!}
+                        {!! $data_peminjaman->links() !!}
                     </div>
         </div>
         {{-- Modal- popup form --}}

@@ -14,17 +14,19 @@ use Illuminate\Support\Facades\Auth;
 class RedirectController extends Controller
 {
     function admin(Request $request)
-    {
-        $pegawai = pegawai::where('id',Auth::id())->first();
-        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(5);
-        $pegawai_aktif = pegawai::where('status','aktif')->get();
-        $jumlahpegawai_aktif = $pegawai_aktif->count();
-        $kendaraan_digunakan = kendaraan::where('status','digunakan');
-        $jumlahkendaraan_digunakan = $kendaraan_digunakan->count();
-        $kendaraan_tersedia = kendaraan::where('status','tersedia');
-        $jumlahkendaraan_tersedia = $kendaraan_tersedia->count();
-        $supir_aktif = pegawai::where('kelompok','supir')->where('status','aktif');
-        $jumlahsupir_aktif = $supir_aktif->count();
+    {        
+        //Data - Pegawai
+            $jumlah_pegawai = pegawai::all()->count();
+            $jumlah_pegawai_aktif = pegawai::where('status','aktif')->count();
+        //Data - Supir
+            $jumlah_supir = pegawai::where('kelompok','supir')->count();
+            $jumlah_supir_aktif = pegawai::where('kelompok','supir')->where('status','aktif')->count();
+        //Data - Kendaraan
+            $jumlah_kendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->count();
+            $jumlah_kendaraan_digunakan = kendaraan::where('status','digunakan')->count();
+            $jumlah_kendaraan_tersedia = kendaraan::where('status','tersedia')->count();
+        //Data - Peminjaman
+            $data_peminjaman = peminjaman::where('status','pengajuan')->orderBy('created_at','DESC')->paginate(5);
 
         if ($request->tahun) {
             $tahun = $request->tahun;
@@ -33,13 +35,12 @@ class RedirectController extends Controller
         }
 
         $peminjaman = DB::table('peminjaman')
-        ->selectRaw('YEAR(tanggal_awal) as year, MONTH(tanggal_awal) as month, COUNT(*) as count')
-        ->whereYear('tanggal_awal', $tahun)
-        ->groupBy('year', 'month')
-        ->get()
-        ->pluck('count', 'month')
-        ->toArray();
-
+                            ->selectRaw('YEAR(tanggal_awal) as year, MONTH(tanggal_awal) as month, COUNT(*) as count')
+                            ->whereYear('tanggal_awal', $tahun)
+                            ->groupBy('year', 'month')
+                            ->get()
+                            ->pluck('count', 'month')
+                            ->toArray();
         $bulan = [];
         $data = [];
 
@@ -56,60 +57,58 @@ class RedirectController extends Controller
 
         // Chart
         $chart = app()->chartjs
-        ->name('lineChart')
-        ->type('line')
-        ->labels($bulan)
-        ->datasets([
-            [
-                "label" => "Data Peminjaman",
-                'backgroundColor' => "rgba(38, 185, 154, 0.31)",
-                'borderColor' => "rgb(255, 197, 90)",
-                "pointBorderColor" => "rgb(255, 197, 90)",
-                "pointBackgroundColor" => "rgb(255, 197, 90)",
-                "pointHoverBackgroundColor" => "#fff",
-                "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                "data" => $data,
-                "fill" => false,
-            ]
-        ])
-        ->options([]);
+                    ->name('lineChart')
+                    ->type('line')
+                    ->labels($bulan)
+                    ->datasets([
+                        [
+                            "label" => "Data Peminjaman",
+                            'backgroundColor' => "rgba(38, 185, 154, 0.31)",
+                            'borderColor' => "rgb(255, 197, 90)",
+                            "pointBorderColor" => "rgb(255, 197, 90)",
+                            "pointBackgroundColor" => "rgb(255, 197, 90)",
+                            "pointHoverBackgroundColor" => "#fff",
+                            "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                            "data" => $data,
+                            "fill" => false,
+                        ]
+                    ])
+                    ->options([]);
 
         return view('admin.dashboard_admin')
-                ->with('pegawai',$pegawai)
-                ->with('jumlahpegawai_aktif',$jumlahpegawai_aktif)
-                ->with('jumlahkendaraan_digunakan',$jumlahkendaraan_digunakan)
-                ->with('jumlahkendaraan_tersedia',$jumlahkendaraan_tersedia)
-                ->with('datapeminjaman',$datapeminjaman)
-                ->with('jumlahsupir_aktif',$jumlahsupir_aktif)
+                ->with('jumlah_pegawai',$jumlah_pegawai)
+                ->with('jumlah_pegawai_aktif',$jumlah_pegawai_aktif)
+                ->with('jumlah_supir',$jumlah_supir)
+                ->with('jumlah_supir_aktif',$jumlah_supir_aktif)
+                ->with('jumlah_kendaraan',$jumlah_kendaraan)
+                ->with('jumlah_kendaraan_digunakan',$jumlah_kendaraan_digunakan)
+                ->with('jumlah_kendaraan_tersedia',$jumlah_kendaraan_tersedia)
+                ->with('data_peminjaman',$data_peminjaman)
                 ->with('chart', $chart);
     }
 
     function pegawai()
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
-        $datapeminjaman = peminjaman::orderBy('updated_at','DESC')->paginate(6);
-        $dataterbaru = peminjaman::orderBy('updated_at','DESC')->paginate(1);
+        $data_peminjaman = peminjaman::where('nip_peminjam',Auth::user()->nip)->orderBy('created_at','DESC')->paginate(6);
+        $data_terbaru = peminjaman::orderBy('created_at','DESC')->paginate(1);
         
         return view('pegawai.homepage')
-                ->with('pegawai',$pegawai)
-                ->with('datapeminjaman',$datapeminjaman)
-                ->with('dataterbaru',$dataterbaru);
+                ->with('data_peminjaman',$data_peminjaman)
+                ->with('data_terbaru',$data_terbaru);
     }
 
     function kendaraan(Request $request)
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
-        $datakendaraan = kendaraan::all();
-        $kendaraan_digunakan = kendaraan::where('status','digunakan');
-        $jumlahkendaraan_digunakan = $kendaraan_digunakan->count();
-        $kendaraan_tersedia = kendaraan::where('status','tersedia');
-        $jumlahkendaraan_tersedia = $kendaraan_tersedia->count();
-        $kendaraan_rusak = kendaraan::where('kondisi','rusak');
-        $jumlahkendaraan_rusak = $kendaraan_rusak->count();
-        $kendaraan_diperbaiki = kendaraan::where('kondisi','perbaikan');
-        $jumlahkendaraan_diperbaiki = $kendaraan_diperbaiki->count();
-        $datapeminjaman = peminjaman::orderBy('updated_at','DESC')->paginate(5);
-        $datadetail_peminjaman = detail_peminjaman::all();
+        //Data - Kendaraan
+            $data_kendaraan = kendaraan::all();
+            $jumlah_kendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->count();
+            $jumlah_kendaraan_digunakan = kendaraan::where('status','digunakan')->count();
+            $jumlah_kendaraan_tersedia = kendaraan::where('status','tersedia')->count();
+            $jumlah_kendaraan_rusak = kendaraan::where('kondisi','rusak')->count();
+            $jumlah_kendaraan_perbaikan = kendaraan::where('kondisi','perbaikan')->count();
+        //Data - Peminjaman
+            $data_peminjaman = peminjaman::orderBy('updated_at','DESC')->paginate(5);
+            $data_detail_peminjaman = detail_peminjaman::all();
 
         if ($request->tahun) {
             $tahun = $request->tahun;
@@ -118,13 +117,12 @@ class RedirectController extends Controller
         }
 
         $peminjaman = DB::table('peminjaman')
-        ->selectRaw('YEAR(tanggal_awal) as year, MONTH(tanggal_awal) as month, COUNT(*) as count')
-        ->whereYear('tanggal_awal', $tahun)
-        ->groupBy('year', 'month')
-        ->get()
-        ->pluck('count', 'month')
-        ->toArray();
-
+                            ->selectRaw('YEAR(tanggal_awal) as year, MONTH(tanggal_awal) as month, COUNT(*) as count')
+                            ->whereYear('tanggal_awal', $tahun)
+                            ->groupBy('year', 'month')
+                            ->get()
+                            ->pluck('count', 'month')
+                            ->toArray();
         $bulan = [];
         $data = [];
 
@@ -141,34 +139,34 @@ class RedirectController extends Controller
 
         // Chart
         $chart = app()->chartjs
-        ->name('lineChart')
-        ->type('line')
-        ->labels($bulan)
-        ->datasets([
-            [
-                "label" => "Data Peminjaman",
-                'backgroundColor' => "rgba(38, 185, 154, 0.31)",
-                'borderColor' => "rgb(255, 197, 90)",
-                "pointBorderColor" => "rgb(255, 197, 90)",
-                "pointBackgroundColor" => "rgb(255, 197, 90)",
-                "pointHoverBackgroundColor" => "#fff",
-                "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                "data" => $data,
-                "fill" => false,
-            ]
-        ])
-        ->options([]);
+                    ->name('lineChart')
+                    ->type('line')
+                    ->labels($bulan)
+                    ->datasets([
+                        [
+                            "label" => "Data Peminjaman",
+                            'backgroundColor' => "rgba(38, 185, 154, 0.31)",
+                            'borderColor' => "rgb(255, 197, 90)",
+                            "pointBorderColor" => "rgb(255, 197, 90)",
+                            "pointBackgroundColor" => "rgb(255, 197, 90)",
+                            "pointHoverBackgroundColor" => "#fff",
+                            "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                            "data" => $data,
+                            "fill" => false,
+                        ]
+                    ])
+                    ->options([]);
 
 
         return view('kendaraan.dashboard_kendaraan')
-                ->with('pegawai',$pegawai)
-                ->with('datakendaraan',$datakendaraan)
-                ->with('jumlahkendaraan_digunakan',$jumlahkendaraan_digunakan)
-                ->with('jumlahkendaraan_tersedia',$jumlahkendaraan_tersedia)
-                ->with('jumlahkendaraan_rusak',$jumlahkendaraan_rusak)
-                ->with('jumlahkendaraan_diperbaiki',$jumlahkendaraan_diperbaiki)
-                ->with('datapeminjaman',$datapeminjaman)
-                ->with('datadetail_peminjaman',$datadetail_peminjaman)
+                ->with('data_kendaraan',$data_kendaraan)
+                ->with('jumlah_kendaraan',$jumlah_kendaraan)
+                ->with('jumlah_kendaraan_digunakan',$jumlah_kendaraan_digunakan)
+                ->with('jumlah_kendaraan_tersedia',$jumlah_kendaraan_tersedia)
+                ->with('jumlah_kendaraan_rusak',$jumlah_kendaraan_rusak)
+                ->with('jumlah_kendaraan_diperbaiki',$jumlah_kendaraan_perbaikan)
+                ->with('data_peminjaman',$data_peminjaman)
+                ->with('data_detail_peminjaman',$data_detail_peminjaman)
                 ->with('chart', $chart);
     }
 }

@@ -14,42 +14,33 @@ class AdminController extends Controller
 {
     function pegawai()
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
         $datapegawai = pegawai::orderBy('nip','DESC')->paginate(6);
 
         return view('admin.pegawai')
-                ->with('pegawai',$pegawai)
                 ->with('datapegawai',$datapegawai);
     }
 
     function kendaraan()
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
         $datakendaraan = kendaraan::orderBy('status','DESC')->paginate(6);
 
         return view('admin.kendaraan')
-                ->with('pegawai',$pegawai)
                 ->with('datakendaraan',$datakendaraan);
     }
 
     function peminjaman()
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
         $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::orderBy('id_pegawai','DESC')->paginate(6);
 
         return view('admin.peminjaman')
-                ->with('pegawai',$pegawai)
                 ->with('datapeminjaman',$datapeminjaman)
                 ->with('datadetail_peminjaman',$datadetail_peminjaman) ;
     }
     
     function createpegawai()
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
-
-        return view('admin.tambah_pegawai')
-                ->with('pegawai',$pegawai);
+        return view('admin.tambah_pegawai');
     }
 
     function storepegawai(Request $request)
@@ -103,11 +94,9 @@ class AdminController extends Controller
 
     function editpegawai(string $id)
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
         $datapegawai = pegawai::findorFail($id);
 
         return view('admin.ubah_pegawai')
-            ->with('pegawai',$pegawai)
             ->with('datapegawai',$datapegawai);
     }
 

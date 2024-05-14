@@ -57,7 +57,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset( $pegawai->foto_profil ) }}" alt="Profile picture"
+                            <img class="rounded-circle me-lg-2" src="{{ Auth::user()->foto_profil }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
@@ -74,7 +74,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-users fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahpegawai_aktif }}</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlah_pegawai_aktif }}/{{ $jumlah_pegawai }}</b>
                                 <p class="mb-1">Pegawai Aktif</p>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_digunakan }}</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlah_kendaraan_digunakan }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Kendaraan Dipakai</p>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_tersedia }}</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlah_kendaraan_tersedia }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Kendaran Tersisa</p>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <i class="fa-solid fa-user fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahsupir_aktif }}</b>
+                                <b class="text-start d-inline-block w-100">{{ $jumlah_supir_aktif }}/{{ $jumlah_supir }}</b>
                                 <p class="mb-1">Supir Aktif</p>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Status Peminjaman</h6>
+                                <h6 class="mb-0">Pengajuan Peminjaman</h6>
                                 <a href="/peminjaman" class="text-decoration-none">Show All</a>
                             </div>
                             <div class="table-responsive">
@@ -141,9 +141,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($datapeminjaman as $peminjaman)
+                                        @forelse($data_peminjaman as $peminjaman)
                                         <tr>
-                                            <th>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</th>
+                                            <th>{{($data_peminjaman->currentPage()-1) * $data_peminjaman->perPage() + $loop->iteration}}</th>
                                             <td>{{ $peminjaman->nip_peminjam }}</td>
                                             <td>{{ $peminjaman->jumlah }}</td>
                                             <td>{{ $peminjaman->status }}</td>
