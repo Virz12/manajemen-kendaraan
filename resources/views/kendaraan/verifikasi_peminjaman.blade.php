@@ -52,7 +52,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset('img/hu.png') }}" alt="Profile picture"
+                            <img class="rounded-circle me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
@@ -94,7 +94,13 @@
                                             <td>{{ $datapeminjam->jumlah }}</td>
                                             <td>{{ $datapeminjam->tanggal_awal }}</td>
                                             <td>{{ $datapeminjam->tanggal_akhir }}</td>
-                                            <td>{{ $datapeminjam->supir }}</td>
+                                            <td>
+                                                @if ($datapeminjam->supir == true)
+                                                    <i class="fa-regular fa-square-check text-success" ></i>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

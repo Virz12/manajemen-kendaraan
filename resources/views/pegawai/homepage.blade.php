@@ -23,7 +23,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset('img/hu.png') }}" alt="Profile picture"
+                            <img class="rounded-circle me-lg-2" src="{{ Auth::user()->foto_profil }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
@@ -36,7 +36,7 @@
         </div>
         <main class="content">
         <div class="container-fluid pt-4 px-4 pb-4">
-            <div class="bg-light text-center rounded p-2">
+            <div class="bg-light text-center rounded p-4 ">
                 <div class="d-flex align-items-center mb-4">
                     <h6 class="mb-0">Peminjaman Terbaru</h6>
                 </div>
@@ -54,9 +54,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($dataterbaru as $datapbaru)
+                            @forelse ($data_terbaru as $datapbaru)
                                 <tr>
-                                    <td>{{($dataterbaru->currentPage()-1) * $dataterbaru->perPage() + $loop->iteration}}</td>
+                                    <td>{{($data_terbaru->currentPage()-1) * $data_terbaru->perPage() + $loop->iteration}}</td>
                                     <td>{{$datapbaru->nip_peminjam}}</td>
                                     <td>{{$datapbaru->tanggal_awal}}</td>
                                     <td>{{$datapbaru->tanggal_akhir}}</td>
@@ -99,19 +99,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($datapeminjaman as $datapeminjam)
+                                    @forelse ($data_peminjaman as $datapeminjam)
                                     <tr>
-                                        <td>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</td>
+                                        <td>{{($data_peminjaman->currentPage()-1) * $data_peminjaman->perPage() + $loop->iteration}}</td>
                                         <td>{{$datapeminjam->nip_peminjam}}</td>
                                         <td>{{$datapeminjam->tanggal_awal}}</td>
                                         <td>{{$datapeminjam->tanggal_akhir}}</td>
                                         <td>{{$datapeminjam->jumlah}}</td>
                                         <td>
-                                        @if ($datapeminjam->supir == true)
-                                            <i class="fa-regular fa-square-check text-success" ></i>
-                                        @else
-                                            -
-                                        @endif
+                                            @if ($datapeminjam->supir == true)
+                                                <i class="fa-regular fa-square-check text-success" ></i>
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                         <td>{{$datapeminjam->status}}</td>
                                     </tr> 
@@ -121,7 +121,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {!! $datapeminjaman->links() !!}
+                        {!! $data_peminjaman->links() !!}
                     </div>
         </div>
         {{-- Modal- popup form --}}
@@ -163,6 +163,16 @@
             </div>
             </div>
         </div>
+        {{-- Toast --}}
+        @if (session()->has('notification'))
+            <div class="position-fixed bottom-0 end-0 p-3">
+                <div class="alert alert-success" role="alert">
+                    <i class="fa-solid fa-check me-2"></i>
+                    {{ session('notification') }}
+                    <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif
         {{-- Alert --}}
         @if($errors->any())
             <div class="position-fixed bottom-0 end-0 p-3">

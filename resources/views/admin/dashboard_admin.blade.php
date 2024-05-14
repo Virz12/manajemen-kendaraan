@@ -21,9 +21,6 @@
                     <img src="{{ asset('img/logo.png') }}" class="img-fluid px-3 mb-4 rounded-circle" alt="Logo">
                 </div>
                 <div class="navbar-nav w-100 gap-2 fw-medium mt-7 mt-lg-0">
-                    <form class="d-flex d-md-none ms-3 mb-3"> {{-- Form Sidebar --}}
-                        <input class="form-control border-0" type="search" placeholder="Search">
-                    </form>
                     <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
@@ -57,13 +54,10 @@
                 <a href="" class="sidebar-toggler flex-shrink-0 text-decoration-none text-black">
                     <i class="fa-solid fa-bars-staggered"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4"> {{-- Form Navbar --}}
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset('img/hu.png') }}" alt="Profile picture"
+                            <img class="rounded-circle me-lg-2" src="{{ Auth::user()->foto_profil }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
@@ -78,44 +72,44 @@
                 <div class="row g-4">
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-users fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahpegawai_aktif }}</b>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_pegawai_aktif }}/{{ $jumlah_pegawai }}</b>
                                 <p class="mb-1">Pegawai Aktif</p>
                             </div>
+                            <i class="fa-solid fa-users fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_digunakan }}</b>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_digunakan }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Kendaraan Dipakai</p>
                             </div>
+                            <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_tersedia }}</b>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_tersedia }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Kendaran Tersisa</p>
                             </div>
+                            <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-question fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">777</b>
-                                <p class="mb-1">Lupa ini aoa</p>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_supir_aktif }}/{{ $jumlah_supir }}</b>
+                                <p class="mb-1">Supir Aktif</p>
                             </div>
+                            <i class="fa-solid fa-user fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                 </div>
             </div>
             {{-- Chart & Table --}}
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-4 px-4 mb-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">
@@ -123,16 +117,20 @@
                                 <h6 class="mb-0">Peminjaman Bulanan</h6>
                                 <form action="" method="GET ">
                                     @csrf
-                                    <input type="text" name="tahun" class="form-control border-0" placeholder="Masukan Tahun" autocomplete="off">
+                                    <select name="tahun" class="form-select" onchange="form.submit()">
+                                        <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                    </select>
                                 </form>
                             </div>
-                            <div class="w-100">{!! $chart->render() !!}</div>
+                            <div>{!! $chart->render() !!}</div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Status Peminjaman</h6>
+                                <h6 class="mb-0">Pengajuan Peminjaman</h6>
                                 <a href="/peminjaman" class="text-decoration-none">Show All</a>
                             </div>
                             <div class="table-responsive">
@@ -147,9 +145,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($datapeminjaman as $peminjaman)
+                                        @forelse($data_peminjaman as $peminjaman)
                                         <tr>
-                                            <th scope="row">1</th>
+                                            <th>{{($data_peminjaman->currentPage()-1) * $data_peminjaman->perPage() + $loop->iteration}}</th>
                                             <td>{{ $peminjaman->nip_peminjam }}</td>
                                             <td>{{ $peminjaman->jumlah }}</td>
                                             <td>{{ $peminjaman->status }}</td>

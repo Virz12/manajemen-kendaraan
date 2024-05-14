@@ -21,9 +21,6 @@
                     <img src="{{ asset('img/logo.png') }}" class="img-fluid px-3 mb-4 rounded-circle" alt="Logo">
                 </div>
                 <div class="navbar-nav w-100 gap-2 fw-medium mt-7 mt-lg-0">
-                    <form class="d-flex d-md-none ms-3 mb-3"> {{-- Form Sidebar --}}
-                        <input class="form-control border-0" type="search" placeholder="Search">
-                    </form>
                     <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
@@ -52,13 +49,10 @@
                 <a href="" class="sidebar-toggler flex-shrink-0 text-decoration-none text-black">
                     <i class="fa-solid fa-bars-staggered"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4"> {{-- Form Navbar --}}
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset('img/hu.png') }}" alt="Profile picture"
+                            <img class="rounded-circle me-lg-2" src="{{ Auth::user()->foto_profil }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
@@ -73,51 +67,59 @@
                 <div class="row g-4">
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_digunakan }}</b>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_digunakan }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Kendaraan Dipakai</p>
                             </div>
+                            <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-car-burst fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_rusak }}</b>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_rusak }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Rusak</p>
                             </div>
+                            <i class="fa-solid fa-car-burst fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_tersedia }}</b>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_tersedia }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Kendaraan Tersisa</p>
                             </div>
+                            <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-wrench fa-3x text-primary w-25"></i>
                             <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlahkendaraan_diperbaiki }}</b>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_diperbaiki }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Servis</p>
                             </div>
+                            <i class="fa-solid fa-wrench fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                 </div>
             </div>
             {{-- Chart & Table --}}
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-4 px-4 mb-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">
-                            <div class="text-start mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Peminjaman Bulanan</h6>
+                                <form action="" method="GET ">
+                                    @csrf
+                                    <select name="tahun" class="form-select" onchange="form.submit()">
+                                        <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                    </select>
+                                </form>
                             </div>
-                            <canvas id="">{{-- Chart JS --}}</canvas>
+                            <div>{!! $chart->render() !!}</div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">
@@ -134,22 +136,16 @@
                                             <th scope="col">#</th>
                                             <th scope="col">NIP Peminjam</th>
                                             <th scope="col">Jumlah Kendaraan</th>
-                                            <th scope="col">Aksi</th>
+                                            <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($datapeminjaman as $peminjaman)
+                                        @forelse($data_peminjaman as $peminjaman)
                                         <tr>
-                                            <th>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</th>
+                                            <th>{{($data_peminjaman->currentPage()-1) * $data_peminjaman->perPage() + $loop->iteration}}</th>
                                             <td>{{ $peminjaman->nip_peminjam }}</td>
                                             <td>{{ $peminjaman->jumlah }}</td>
-                                            <td>
-                                                @if ($peminjaman->status == 'pengajuan')
-                                                    <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}"  class="text-decoration-none"><button class="btn btn-secondary ms-4">Verifikasi</button></a>
-                                                @else
-                                                    <a href=""  class="text-decoration-none"><button class="btn btn-success ms-4">Selesai</button></a>
-                                                @endif
-                                            </td>
+                                            <td>{{ $peminjaman->status}}</td>
                                         </tr>
                                         @empty
                                             <h2>Data Kosong</h2>
