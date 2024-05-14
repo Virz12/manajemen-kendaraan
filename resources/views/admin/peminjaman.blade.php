@@ -63,8 +63,8 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset( $pegawai->foto_profil ) }}" alt="Profile picture"
-                                style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="{{ Auth::user()->foto_profil }}" alt="Profile picture"
+                            style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -76,77 +76,24 @@
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-md-7">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="text-start mb-4">
-                                <h6 class="mb-0">Data Peminjaman</h6>
-                            </div>
-                            <div class="table-responsive">
-                                {{-- Table --}}
-                                <table class="table-hover align-middle table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">NIP Peminjam</th>
-                                            <th scope="col">Jumlah Kendaraan</th>
-                                            <th scope="col">Tanggal Awal</th>
-                                            <th scope="col">Tanggal Akhir</th>
-                                            <th scope="col">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($datapeminjaman as $peminjaman)
-                                            <tr>
-                                                <th>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</th>
-                                                <td>{{ $peminjaman->nip_peminjam }}</td>
-                                                <td>{{ $peminjaman->jumlah }}</td>
-                                                <td>{{ $peminjaman->tanggal_awal }}</td>
-                                                <td>{{ $peminjaman->tanggal_akhir }}</td>
-                                                <td>{{ $peminjaman->status }}</td>
-                                            </tr>
-                                        @empty
-                                            <h2>Data Kosong</h2>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                            {!! $datapeminjaman->links() !!}
+                    @forelse($datapeminjaman as $peminjaman)
+                    <div class="col-md-3">
+                        <div class="card ">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">NIP : {{ $peminjaman->nip_peminjam }}</li>
+                                <li class="list-group-item">jenis kendaraan <br> plat</li>
+                                <li class="list-group-item">{{ $peminjaman->tanggal_awal }} <i class="fa-solid fa-arrow-right"></i> {{ $peminjaman->tanggal_akhir }}</li>
+                                <li class="list-group-item">Supir : </li>
+                                <li class="list-group-item">Memverifikasi : </li>
+                                <li class="list-group-item">{{ $peminjaman->status }}</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-md-5 bg-md-light rounded p-md-0">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="text-start mb-4">
-                                <h6 class="mb-0">Detail Peminjaman</h6>
-                            </div>
-                            <div class="table-responsive">
-                                {{-- Table --}}
-                                <table class="table-hover align-middle table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Id Tim kendaraan</th>
-                                            <th scope="col">Id Supir</th>
-                                            <th scope="col">Nomor Polisi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($datadetail_peminjaman as $detail_peminjaman)
-                                            <tr>
-                                                <th>{{($datadetail_peminjaman->currentPage()-1) * $datadetail_peminjaman->perPage() + $loop->iteration}}</th>
-                                                <td>{{ $detail_peminjaman->id_pegawai }}</td>
-                                                <td>{{ $detail_peminjaman->id_supir }}</td>
-                                                <td>{{ $detail_peminjaman->nopol }}</td>
-                                            </tr>
-                                        @empty
-                                            <h2>Data Kosong</h2>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                            {!! $datadetail_peminjaman->links() !!}
-                        </div>
-                    </div>
+                    @empty
+                        <h2>Data Kosong</h2>
+                    @endforelse
                 </div>
+                {!! $datapeminjaman->links() !!}
             </div>
         </main>
     </div>
