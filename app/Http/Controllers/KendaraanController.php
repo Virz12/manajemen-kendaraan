@@ -24,8 +24,8 @@ class KendaraanController extends Controller
     function peminjaman()
     {
         $pegawai = pegawai::where('id',Auth::id())->first();
-        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(6);
-        $datadetail_peminjaman = detail_peminjaman::orderBy('id_pegawai','DESC')->paginate(6);
+        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(8);
+        $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.peminjaman')
                 ->with('pegawai',$pegawai)

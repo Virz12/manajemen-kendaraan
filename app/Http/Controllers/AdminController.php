@@ -30,8 +30,8 @@ class AdminController extends Controller
 
     function peminjaman()
     {
-        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(6);
-        $datadetail_peminjaman = detail_peminjaman::orderBy('id_pegawai','DESC')->paginate(6);
+        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(8);
+        $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('admin.peminjaman')
                 ->with('datapeminjaman',$datapeminjaman)

@@ -80,7 +80,7 @@
                                 <li class="list-group-item">{{ $peminjaman->tanggal_awal }} <i class="fa-solid fa-arrow-right"></i> {{ $peminjaman->tanggal_akhir }}</li>
                                 <li class="list-group-item">Supir : </li>
                                 <li class="list-group-item">Memverifikasi : </li>
-                                <li class="list-group-item">{{ $peminjaman->status }}</li>
+                                <li class="list-group-item">Status : {{ $peminjaman->status }}</li>
                                 <li class="list-group-item">@if ($peminjaman->status == 'pengajuan')
                                         <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-secondary m-auto w-100">Verifikasi</button></a>
                                     @elseif ($peminjaman->status == 'diterima')
@@ -95,34 +95,8 @@
                     @empty
                         <h2>Data Kosong</h2>
                     @endforelse
-                                        {{-- @forelse($datapeminjaman as $peminjaman)
-                                            <tr class="align-middle">
-                                                <th>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</th>
-                                                <td>{{ $peminjaman->nip_peminjam }}</td>
-                                                <td>{{ $peminjaman->jumlah }}</td>
-                                                <td>{{ $peminjaman->tanggal_awal }}</td>
-                                                <td>{{ $peminjaman->tanggal_akhir }}</td>
-                                                <td>
-                                                    @if ($peminjaman->supir == true)
-                                                        <i class="fa-regular fa-square-check text-success" ></i>
-                                                    @else
-                                                        -
-                                                    @endif
-                                                </td>
-                                                <td>{{ $peminjaman->status }}</td>
-                                                <td>
-                                                    @if ($peminjaman->status == 'pengajuan')
-                                                        <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none"><button class="btn btn-secondary ms-4">Verifikasi</button></a>
-                                                    @elseif ($peminjaman->status == 'diterima')
-                                                        <a href="/selesai_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none"><button class="btn btn-success ms-4">Selesai</button></a>
-                                                    @else
-                                                        -
-                                                    @endif
-                                        @empty
-                                            <h2>Data Kosong</h2>
-                                        @endforelse
-                            {!! $datapeminjaman->links() !!} --}}
                 </div>
+                {!! $datapeminjaman->links() !!}
             </div>
             {{-- Toast --}}
             @if (session()->has('notification'))
