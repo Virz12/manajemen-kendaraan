@@ -36,7 +36,7 @@
         </div>
         <main class="content">
         <div class="container-fluid pt-4 px-4 pb-4">
-            <div class="bg-light text-center rounded p-2">
+            <div class="bg-light text-center rounded p-4 ">
                 <div class="d-flex align-items-center mb-4">
                     <h6 class="mb-0">Peminjaman Terbaru</h6>
                 </div>
