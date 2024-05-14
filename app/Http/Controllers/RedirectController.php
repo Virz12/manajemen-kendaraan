@@ -84,7 +84,8 @@ class RedirectController extends Controller
                 ->with('jumlah_kendaraan_digunakan',$jumlah_kendaraan_digunakan)
                 ->with('jumlah_kendaraan_tersedia',$jumlah_kendaraan_tersedia)
                 ->with('data_peminjaman',$data_peminjaman)
-                ->with('chart', $chart);
+                ->with('chart', $chart)
+                ->with('tahun', $tahun);
     }
 
     function pegawai()
@@ -167,6 +168,7 @@ class RedirectController extends Controller
                 ->with('jumlah_kendaraan_diperbaiki',$jumlah_kendaraan_perbaikan)
                 ->with('data_peminjaman',$data_peminjaman)
                 ->with('data_detail_peminjaman',$data_detail_peminjaman)
-                ->with('chart', $chart);
+                ->with('chart', $chart)
+                ->with('tahun', $tahun);
     }
 }

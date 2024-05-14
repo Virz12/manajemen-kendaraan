@@ -72,38 +72,38 @@
                 <div class="row g-4">
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-users fa-3x text-primary w-25"></i>
-                            <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlah_pegawai_aktif }}/{{ $jumlah_pegawai }}</b>
+                            <div>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_pegawai_aktif }}/{{ $jumlah_pegawai }}</b>
                                 <p class="mb-1">Pegawai Aktif</p>
                             </div>
+                            <i class="fa-solid fa-users fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
-                            <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlah_kendaraan_digunakan }}/{{ $jumlah_kendaraan }}</b>
+                            <div>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_digunakan }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Kendaraan Dipakai</p>
                             </div>
+                            <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
-                            <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlah_kendaraan_tersedia }}/{{ $jumlah_kendaraan }}</b>
+                            <div>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_tersedia }}/{{ $jumlah_kendaraan }}</b>
                                 <p class="mb-1">Kendaran Tersisa</p>
                             </div>
+                            <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <i class="fa-solid fa-user fa-3x text-primary w-25"></i>
-                            <div class="">
-                                <b class="text-start d-inline-block w-100">{{ $jumlah_supir_aktif }}/{{ $jumlah_supir }}</b>
+                            <div>
+                                <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_supir_aktif }}/{{ $jumlah_supir }}</b>
                                 <p class="mb-1">Supir Aktif</p>
                             </div>
+                            <i class="fa-solid fa-user fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                 </div>
@@ -117,10 +117,14 @@
                                 <h6 class="mb-0">Peminjaman Bulanan</h6>
                                 <form action="" method="GET ">
                                     @csrf
-                                    <input type="text" name="tahun" class="form-control border-0" placeholder="Masukan Tahun" autocomplete="off">
+                                    <select name="tahun" class="form-select" onchange="form.submit()">
+                                        <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                    </select>
                                 </form>
                             </div>
-                            <div class="w-100">{!! $chart->render() !!}</div>
+                            <div>{!! $chart->render() !!}</div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">

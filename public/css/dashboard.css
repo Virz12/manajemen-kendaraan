@@ -58,6 +58,11 @@ input::-webkit-inner-spin-button {
     background-color: var(--light);
 }
 
+/* Chart */
+#lineChart {
+    width: 100%;
+}
+
 /* Button */
 .btn-close:focus.success {
     box-shadow: 0 0 0 .2rem var(--success);
