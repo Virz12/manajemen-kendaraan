@@ -7,6 +7,7 @@ use App\Models\kendaraan;
 use App\Models\pegawai;
 use App\Models\peminjaman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
@@ -15,22 +16,26 @@ class AdminController extends Controller
     {
         $datapegawai = pegawai::orderBy('nip','DESC')->paginate(6);
 
-        return view('admin.pegawai')->with('datapegawai',$datapegawai);
+        return view('admin.pegawai')
+                ->with('datapegawai',$datapegawai);
     }
 
     function kendaraan()
     {
         $datakendaraan = kendaraan::orderBy('status','DESC')->paginate(6);
 
-        return view('admin.kendaraan')->with('datakendaraan',$datakendaraan);
+        return view('admin.kendaraan')
+                ->with('datakendaraan',$datakendaraan);
     }
 
     function peminjaman()
     {
-        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(6);
-        $datadetail_peminjaman = detail_peminjaman::orderBy('id_pegawai','DESC')->paginate(6);
+        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(8);
+        $datadetail_peminjaman = detail_peminjaman::all();
 
-        return view('admin.peminjaman')->with('datapeminjaman',$datapeminjaman)->with('datadetail_peminjaman',$datadetail_peminjaman) ;
+        return view('admin.peminjaman')
+                ->with('datapeminjaman',$datapeminjaman)
+                ->with('datadetail_peminjaman',$datadetail_peminjaman) ;
     }
     
     function createpegawai()
@@ -83,14 +88,16 @@ class AdminController extends Controller
             }
         }
 
-        return redirect('/pegawai')->with('notification', 'Data Berhasil Ditambah.');
+        return redirect('/pegawai')
+                ->with('notification', 'Data Berhasil Ditambah.');
     }
 
     function editpegawai(string $id)
     {
         $datapegawai = pegawai::findorFail($id);
 
-        return view('admin.ubah_pegawai')->with('datapegawai',$datapegawai);
+        return view('admin.ubah_pegawai')
+            ->with('datapegawai',$datapegawai);
     }
 
     function updatepegawai(Request $request, $id)
@@ -144,7 +151,8 @@ class AdminController extends Controller
         pegawai::where('id', $id)->update($data);
         $pegawai->save();
         
-        return redirect('/pegawai')->with('notification', 'Data Berhasil Diubah.');
+        return redirect('/pegawai')
+                ->with('notification', 'Data Berhasil Diubah.');
     }
 
     function deletepegawai(pegawai $pegawai)
@@ -155,6 +163,7 @@ class AdminController extends Controller
             File::delete(public_path($pegawai->foto_profil));
         }
 
-        return redirect('/pegawai')->with('notification', 'Data Berhasil Dihapus.');
+        return redirect('/pegawai')
+                ->with('notification', 'Data Berhasil Dihapus.');
     }
 }

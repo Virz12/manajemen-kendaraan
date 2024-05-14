@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PeminjamanController extends Controller
 {
-    function peminjaman()
-    {
-        return view('pegawai.tambah_peminjaman');
-    }
-
     function storepeminjaman(Request $request)
     {
         $messages = [
@@ -51,13 +46,14 @@ class PeminjamanController extends Controller
 
         peminjaman::create($data);
 
-        return redirect('/homepage_pegawai');
+        return redirect('/homepage_pegawai')
+                ->with('notification', 'Pengajuan Berhasil');
     }
 
     function editpeminjaman(string $id)
     {   
         $datapeminjam = peminjaman::findOrFail($id);
-        $datakendaraan = kendaraan::where('status','tersedia')->get();
+        $datakendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->get();
         $datasupir = pegawai::where('kelompok','supir')->get();
 
         return view('kendaraan.verifikasi_peminjaman')
@@ -70,27 +66,68 @@ class PeminjamanController extends Controller
     {
         $messages = [
             'nopol.required' => 'Data Kendaraan belum terisi.',
-            'id_supir.required' => 'Data Supir belum terisi.',
         ];
 
         $request->validate([
             'nopol' => 'required',
-            'id_supir' => 'required',
+            'id_supir' => 'nullable',
         ], $messages);
 
-        $data = [
-            'nopol' => $request->nopol,
-            'id_peminjaman' => $id,
-            'id_pegawai' => Auth::user()->id,
-            'id_supir' => $request->id_supir,
-        ];
+        foreach($request->nopol as $nopol)
+        {
+            if($request->id_supir == null)
+            {
+                $data[] = [
+                    'id_peminjaman' => $id,
+                    'id_pegawai' => Auth::id(),
+                    'id_supir' => $request->id_supir,
+                    'nopol' => $nopol,
+                ];
+            }else {
+                foreach($request->id_supir as $supir)
+                {
+                    $data[] = [
+                        'id_peminjaman' => $id,
+                        'id_pegawai' => Auth::id(),
+                        'id_supir' => $supir,
+                        'nopol' => $nopol,
+                    ];
+                }
+            }
+            kendaraan::where('nopol',$nopol)->update([
+                'status' => 'digunakan',
+            ]);
+        }
 
-        detail_peminjaman::create($data);
+        detail_peminjaman::insert($data);
         peminjaman::where('id',$id)->update([
             'status' => 'diterima',
         ]);
         
         return redirect('/data_peminjaman')
                 ->with('notification', 'Berhasil Diverifikasi.');
+    }
+
+    function selesaipeminjaman(string $id)
+    {
+        $detail_peminjaman = detail_peminjaman::where('id_peminjaman',$id)->get();
+
+        foreach($detail_peminjaman as $detailpeminjaman)
+        {
+            $kendaraan[] = $detailpeminjaman->nopol;
+        }
+
+        foreach($kendaraan as $nopol)
+        {
+            kendaraan::where('nopol',$nopol)->update([
+                'status' => 'tersedia',
+            ]);
+        }
+
+        peminjaman::where('id',$id)->update([
+            'status' => 'selesai',
+        ]);
+
+        return redirect('/data_peminjaman');
     }
 }

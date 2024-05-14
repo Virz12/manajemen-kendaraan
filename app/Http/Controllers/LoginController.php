@@ -20,10 +20,10 @@ class LoginController extends Controller
             'size' => 'Kolom :attribute tidak boleh lebih dari 10 karakter',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah dipakai',
-            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf.'
+            'regex' => 'Kolom :attribute hanya boleh berisi huruf.'
         ];
 
-        $request->validateWithBag('errors',[
+        $request->validate([
             'username' => 'required|regex:/^[\pL\s]+$/u',
             'password' => 'required' 
         ],$messages);
