@@ -24,7 +24,7 @@ class KendaraanController extends Controller
     function peminjaman()
     {
         $pegawai = pegawai::where('id',Auth::id())->first();
-        $datapeminjaman = peminjaman::orderBy('status','DESC')->paginate(8);
+        $datapeminjaman = peminjaman::orderBy('created_at','DESC')->whereNot('status', '=', 'selesai')->paginate(8);
         $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.peminjaman')
@@ -32,6 +32,19 @@ class KendaraanController extends Controller
                 ->with('datapeminjaman',$datapeminjaman)
                 ->with('datadetail_peminjaman',$datadetail_peminjaman);
     }
+
+    function arsip()
+    {   
+        $pegawai = pegawai::where('id',Auth::id())->first();
+        $datapeminjaman = peminjaman::orderBy('created_at','DESC')->paginate(8);
+        $datadetail_peminjaman = detail_peminjaman::all();
+
+        return view('kendaraan.arsip')
+                ->with('pegawai',$pegawai)
+                ->with('datapeminjaman',$datapeminjaman)
+                ->with('datadetail_peminjaman',$datadetail_peminjaman) ;
+    }
+
     function createkendaraan()
     {
         $pegawai = pegawai::where('id',Auth::id())->first();
