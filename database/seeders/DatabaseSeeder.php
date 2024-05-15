@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $data_pegawai = [
             [
                 'id' => '1',
-                'nip' => '123456789',
+                'nip' => '1122334455',
                 'nama' => 'Admin',
                 'status' => 'aktif',
                 'kelompok' => 'admin',
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('MasAdmin')
             ],[
                 'id' => '2',
-                'nip' => '987654321',
+                'nip' => '2233445566',
                 'nama' => 'Pegawai',
                 'status' => 'aktif',
                 'kelompok' => 'pegawai',
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('MasPegawai')
             ],[
                 'id' => '3',
-                'nip' => '1234567890',
+                'nip' => '3344556677',
                 'nama' => 'Kendaraan',
                 'status' => 'aktif',
                 'kelompok' => 'kendaraan',
@@ -44,42 +44,153 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('MasKendaraan')
             ],[
                 'id' => '4',
-                'nip' => '0987654321',
+                'nip' => '4455667788',
                 'nama' => 'Supir',
                 'status' => 'aktif',
                 'kelompok' => 'supir',
                 'username' => 'MasSupir',
                 'password' => bcrypt('MasSupir')
+            ],[
+                'id' => '5',
+                'nip' => '5566778899',
+                'nama' => 'Arie',
+                'status' => 'aktif',
+                'kelompok' => 'supir',
+                'username' => 'MasArie',
+                'password' => bcrypt('MasArie')
+            ],[
+                'id' => '6',
+                'nip' => '6677889900',
+                'nama' => 'Arif',
+                'status' => 'aktif',
+                'kelompok' => 'supir',
+                'username' => 'MasArif',
+                'password' => bcrypt('MasArif')
+            ],[
+                'id' => '7',
+                'nip' => '7788990011',
+                'nama' => 'Andi',
+                'status' => 'aktif',
+                'kelompok' => 'supir',
+                'username' => 'MasAndi',
+                'password' => bcrypt('MasAndi')
+            ],[
+                'id' => '8',
+                'nip' => '8899001122',
+                'nama' => 'Budi',
+                'status' => 'aktif',
+                'kelompok' => 'supir',
+                'username' => 'MasBudi',
+                'password' => bcrypt('MasBudi')
             ]
         ];
 
         $data_kendaraan = [
             [
-                'jenis_kendaraan' => 'Pickup',
-                'tahun' => '2000',
+                'jenis_kendaraan' => 'Toyota Avanza',
+                'tahun' => '2014',
                 'nopol' => 'DK1234RFS',
                 'warna' => 'Hitam',
                 'kondisi' => 'baik',
                 'status' => 'tersedia'
-            ]
-        ];
-
-        $data_peminjaman = [
-            [
-                'nip_peminjam' => '123456789',
-                'jumlah' => '1',
-                'tanggal_awal' => '2001-01-01',
-                'tanggal_akhir' => '2002-01-01',
-                'status' => 'pengajuan'
-            ]
-        ];
-
-        $data_detail_peminjaman = [
-            [
-                'nopol' => 'DK1234RFS',
-                'id_peminjaman' => '1',
-                'id_pegawai' => '3',
-                'id_supir' => '4'
+            ],[
+                'jenis_kendaraan' => 'Toyota Ventuner',
+                'tahun' => '2020',
+                'nopol' => 'KT1234RFS',
+                'warna' => 'Putih',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Toyota Rush',
+                'tahun' => '2018',
+                'nopol' => 'F1234RFS',
+                'warna' => 'SIlver',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Toyota Veloz',
+                'tahun' => '2000',
+                'nopol' => 'Z1234RFS',
+                'warna' => 'Biru',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Toyota Kijang',
+                'tahun' => '2000',
+                'nopol' => 'F1234RFS',
+                'warna' => 'Hitam',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Ford Ranger',
+                'tahun' => '2010',
+                'nopol' => 'A1234RFS',
+                'warna' => 'Abu',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Nissan GT-R',
+                'tahun' => '2017',
+                'nopol' => 'AB1234RFS',
+                'warna' => 'Kuning',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Suzuki Carry Futura',
+                'tahun' => '2019',
+                'nopol' => 'DK1234ACR',
+                'warna' => 'Putih',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Mercedez-Benz Arocs 2842',
+                'tahun' => '2018',
+                'nopol' => 'KT1234AFR',
+                'warna' => 'Putih',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Volvo FH16 750',
+                'tahun' => '2022',
+                'nopol' => 'A2542SXE',
+                'warna' => 'Biru',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Mitshubishi Canter',
+                'tahun' => '2017',
+                'nopol' => 'B2542SXE',
+                'warna' => 'Kuning',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Hino Dutro',
+                'tahun' => '2016',
+                'nopol' => 'E2542BGZ',
+                'warna' => 'Hijau',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Isuzu ELF NMR-81',
+                'tahun' => '2019',
+                'nopol' => 'A2542SXE',
+                'warna' => 'Putih',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Toyota Dyna',
+                'tahun' => '1997',
+                'nopol' => 'A2725SL',
+                'warna' => 'Hijau',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
+            ],[
+                'jenis_kendaraan' => 'Mitshubishi Xpander',
+                'tahun' => '2022',
+                'nopol' => 'B1234ZXE',
+                'warna' => 'Hitam',
+                'kondisi' => 'baik',
+                'status' => 'tersedia'
             ]
         ];
 
@@ -89,14 +200,6 @@ class DatabaseSeeder extends Seeder
 
         foreach($data_kendaraan as $data) {
             kendaraan::create($data);
-        }
-
-        foreach($data_peminjaman as $data) {
-            peminjaman::create($data);
-        }
-
-        foreach($data_detail_peminjaman as $data) {
-            detail_peminjaman::create($data);
         }
     }
 }

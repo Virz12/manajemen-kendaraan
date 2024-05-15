@@ -104,11 +104,11 @@ class RedirectController extends Controller
             $data_kendaraan = kendaraan::all();
             $jumlah_kendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->count();
             $jumlah_kendaraan_digunakan = kendaraan::where('status','digunakan')->count();
-            $jumlah_kendaraan_tersedia = kendaraan::where('status','tersedia')->count();
+            $jumlah_kendaraan_tersedia = kendaraan::where('status','tersedia')->where('kondisi','baik')->count();
             $jumlah_kendaraan_rusak = kendaraan::where('kondisi','rusak')->count();
             $jumlah_kendaraan_perbaikan = kendaraan::where('kondisi','perbaikan')->count();
         //Data - Peminjaman
-            $data_peminjaman = peminjaman::orderBy('updated_at','DESC')->paginate(5);
+            $data_peminjaman = peminjaman::where('status','pengajuan')->orderBy('created_at','DESC')->paginate(5);
             $data_detail_peminjaman = detail_peminjaman::all();
 
         if ($request->tahun) {
