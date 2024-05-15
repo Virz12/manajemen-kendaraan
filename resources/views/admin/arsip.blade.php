@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Data Peminjaman | Peminjaman Kendaraan</title>
+    <title>Arsip Data peminjaman | Peminjaman Kendaraan</title>
 </head>
 <body>  
     <div class="container-fluid p-0">
@@ -24,17 +24,22 @@
                     <form class="d-flex d-md-none ms-3 mb-3"> {{-- Form Sidebar --}}
                         <input class="form-control border-0" type="search" placeholder="Search">
                     </form>
-                    <a href="/dashboard_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="/dashboard_admin" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/data_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="/pegawai" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                        <i class="fa-solid fa-users fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
+                        Pegawai
+                        <i class="fa-solid fa-caret-right ms-2"></i>
+                    </a>
+                    <a href="/kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-car fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/data_peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
+                    <a href="/peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Peminjaman
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -74,28 +79,20 @@
             </nav>
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4 pb-4">
-                <div class="row g-2 pb-2">
-                    <div class="col-md-3">
-                        <a href="/data_arsip" class="btn btn-primary rounded">Arsip <i class="fa-solid fa-box-archive"></i></a>
-                    </div>
+                <div class="text-start mb-4">
+                    <a href="/peminjaman" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                 </div>
                 <div class="row g-4">
                     @forelse($datapeminjaman as $peminjaman)
-                    <div class="col-md-3">
+                    <div class="col-md-3 ">
                         <div class="card ">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">NIP : {{ $peminjaman->nip_peminjam }}</li>
-                                <li class="list-group-item">jenis kendaraan <br> plat</li>
-                                <li class="list-group-item">{{ $peminjaman->tanggal_awal }} <i class="fa-solid fa-arrow-right"></i> {{ $peminjaman->tanggal_akhir }}</li>
-                                <li class="list-group-item">Supir : </li>
+                                <li class="list-group-item ">NIP : {{ $peminjaman->nip_peminjam }}</li>
+                                <li class="list-group-item ">jenis kendaraan <br> plat</li>
+                                <li class="list-group-item ">{{ $peminjaman->tanggal_awal }} <i class="fa-solid fa-arrow-right"></i> {{ $peminjaman->tanggal_akhir }}</li>
+                                <li class="list-group-item ">Supir : </li>
                                 <li class="list-group-item ">Memverifikasi : </li>
-                                <li class="list-group-item">Status : {{ $peminjaman->status }}</li>
-                                <li class="list-group-item">@if ($peminjaman->status == 'pengajuan')
-                                        <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-secondary m-auto w-100">Verifikasi</button></a>
-                                    @elseif ($peminjaman->status == 'diterima')
-                                        <a href="/selesai_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-success m-auto w-100">Selesai</button></a>
-                                    @endif
-                                </li>
+                                <li class="list-group-item ">Status : {{ $peminjaman->status }}</li>
                             </ul>
                         </div>
                     </div>
@@ -105,16 +102,6 @@
                 </div>
                 {!! $datapeminjaman->links() !!}
             </div>
-            {{-- Toast --}}
-            @if (session()->has('notification'))
-            <div class="position-fixed bottom-0 end-0 p-3">
-                <div class="alert alert-success" role="alert">
-                    <i class="fa-solid fa-check me-2"></i>
-                    {{ session('notification') }}
-                    <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-            @endif
         </main>
     </div>
 

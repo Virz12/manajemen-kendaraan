@@ -57,9 +57,13 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ Auth::user()->foto_profil }}" alt="Profile picture"
-                                style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                            @if(Auth::user()->foto_profil == null)
+                                <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                            @else
+                                <img class="rounded-circle me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture"
+                                    style="width: 40px; height: 40px;">
+                                <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                            @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="/logout" class="dropdown-item">Log Out</a>
@@ -72,7 +76,7 @@
                 <div class="row g-4">
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <div class="">
+                            <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_pegawai_aktif }}/{{ $jumlah_pegawai }}</b>
                                 <p class="mb-1">Pegawai Aktif</p>
                             </div>
@@ -81,25 +85,25 @@
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <div class="">
+                            <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_digunakan }}/{{ $jumlah_kendaraan }}</b>
-                                <p class="mb-1">Kendaraan Dipakai</p>
+                                <p class="mb-1">Kendaraan Digunakan</p>
                             </div>
                             <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <div class="">
+                            <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_tersedia }}/{{ $jumlah_kendaraan }}</b>
-                                <p class="mb-1">Kendaran Tersisa</p>
+                                <p class="mb-1">Kendaraan Tersedia</p>
                             </div>
                             <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                         </div>
                     </div>
                     <div div class="col-sm-6 col-xxl-3">
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
-                            <div class="">
+                            <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_supir_aktif }}/{{ $jumlah_supir }}</b>
                                 <p class="mb-1">Supir Aktif</p>
                             </div>
@@ -119,8 +123,11 @@
                                     @csrf
                                     <select name="tahun" class="form-select" onchange="form.submit()">
                                         <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
+                                        @forelse($data_tahun_peminjaman as $tahun_peminjaman)
+                                            <option value="{{ $tahun_peminjaman }}">{{ $tahun_peminjaman }}</option>
+                                        @empty
+                                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                        @endforelse
                                     </select>
                                 </form>
                             </div>

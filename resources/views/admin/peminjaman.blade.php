@@ -63,9 +63,13 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ Auth::user()->foto_profil }}" alt="Profile picture"
-                                style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                            @if(Auth::user()->foto_profil == null)
+                                <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                            @else
+                                <img class="rounded-circle me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture"
+                                    style="width: 40px; height: 40px;">
+                                <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                            @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="/logout" class="dropdown-item">Log Out</a>
@@ -75,6 +79,11 @@
             </nav>
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4 pb-4">
+                <div class="row g-2 pb-2">
+                    <div class="col-md-3">
+                        <a href="/arsip" class="btn btn-primary rounded">Arsip <i class="fa-solid fa-box-archive"></i></a>
+                    </div>
+                </div>
                 <div class="row g-4">
                     @forelse($datapeminjaman as $peminjaman)
                     <div class="col-md-3 ">
@@ -90,7 +99,7 @@
                         </div>
                     </div>
                     @empty
-                        <h2>Data Kosong</h2>
+                        <h2 class="text-center py-5">Data Kosong</h2>
                     @endforelse
                 </div>
                 {!! $datapeminjaman->links() !!}
