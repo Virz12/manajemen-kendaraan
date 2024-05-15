@@ -87,7 +87,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_digunakan }}/{{ $jumlah_kendaraan }}</b>
-                                <p class="mb-1">Kendaraan Dipakai</p>
+                                <p class="mb-1">Kendaraan Digunakan</p>
                             </div>
                             <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                         </div>
@@ -96,7 +96,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_tersedia }}/{{ $jumlah_kendaraan }}</b>
-                                <p class="mb-1">Kendaran Tersisa</p>
+                                <p class="mb-1">Kendaraan Tersedia</p>
                             </div>
                             <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                         </div>
@@ -123,8 +123,11 @@
                                     @csrf
                                     <select name="tahun" class="form-select" onchange="form.submit()">
                                         <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
+                                        @forelse($data_tahun_peminjaman as $tahun_peminjaman)
+                                            <option value="{{ $tahun_peminjaman }}">{{ $tahun_peminjaman }}</option>
+                                        @empty
+                                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                        @endforelse
                                     </select>
                                 </form>
                             </div>
