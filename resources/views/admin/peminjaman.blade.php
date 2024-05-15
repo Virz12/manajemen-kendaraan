@@ -79,6 +79,11 @@
             </nav>
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4 pb-4">
+                <div class="row g-2 pb-2">
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-primary rounded">Arsip <i class="fa-solid fa-caret-right"></i></a>
+                    </div>
+                </div>
                 <div class="row g-4">
                     @forelse($datapeminjaman as $peminjaman)
                     <div class="col-md-3 ">
@@ -94,7 +99,7 @@
                         </div>
                     </div>
                     @empty
-                        <h2>Data Kosong</h2>
+                        <h2 class="text-center py-5">Data Kosong</h2>
                     @endforelse
                 </div>
                 {!! $datapeminjaman->links() !!}

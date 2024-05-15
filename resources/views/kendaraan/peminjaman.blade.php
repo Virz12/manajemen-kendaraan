@@ -72,8 +72,16 @@
                     </div>
                 </div>
             </nav>
+            
+                
+            
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4 pb-4">
+                <div class="row g-2 pb-2">
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-primary rounded">Arsip <i class="fa-solid fa-caret-right"></i></a>
+                    </div>
+                </div>
                 <div class="row g-4">
                     @forelse($datapeminjaman as $peminjaman)
                     <div class="col-md-3">
@@ -83,21 +91,19 @@
                                 <li class="list-group-item">jenis kendaraan <br> plat</li>
                                 <li class="list-group-item">{{ $peminjaman->tanggal_awal }} <i class="fa-solid fa-arrow-right"></i> {{ $peminjaman->tanggal_akhir }}</li>
                                 <li class="list-group-item">Supir : </li>
-                                <li class="list-group-item">Memverifikasi : </li>
+                                <li class="list-group-item ">Memverifikasi : </li>
                                 <li class="list-group-item">Status : {{ $peminjaman->status }}</li>
                                 <li class="list-group-item">@if ($peminjaman->status == 'pengajuan')
                                         <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-secondary m-auto w-100">Verifikasi</button></a>
                                     @elseif ($peminjaman->status == 'diterima')
                                         <a href="/selesai_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-success m-auto w-100">Selesai</button></a>
-                                    @else
-                                        -
                                     @endif
                                 </li>
                             </ul>
                         </div>
                     </div>
                     @empty
-                        <h2>Data Kosong</h2>
+                        <h2 class="text-center py-5">Data Kosong</h2>
                     @endforelse
                 </div>
                 {!! $datapeminjaman->links() !!}

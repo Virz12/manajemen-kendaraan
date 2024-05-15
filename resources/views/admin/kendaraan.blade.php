@@ -111,7 +111,7 @@
                                             <td>{{ $kendaraan->status }}</td>
                                         </tr>
                                         @empty
-                                            <h2>Data Kosong</h2>
+                                            <h2 class="text-center py-5">Data Kosong</h2>
                                         @endforelse
                                     </tbody>
                                 </table>
