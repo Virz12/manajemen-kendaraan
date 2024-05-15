@@ -14,8 +14,13 @@
     width: 90px;
 }
 
+.w-80 {
+    width: 80%;
+}
+
 .bg-light {
     background-color: var(--light);
+
 }
 
 .text-primary {

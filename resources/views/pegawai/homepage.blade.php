@@ -23,7 +23,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset( $pegawai->foto_profil ) }}" alt="Profile picture"
+                            <img class="rounded-circle me-lg-2" src="{{ Auth::user()->foto_profil }}" alt="Profile picture"
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                         </a>
@@ -35,47 +35,32 @@
             </nav>
         </div>
         <main class="content">
-        <div class="container-fluid pt-4 px-4 pb-4">
-            <div class="bg-light text-center rounded p-4 ">
+        {{-- card peminjaman terbaru --}}
+        <div class="container-fluid pt-4 px-4 pb-4 ">
+            <div class="bg-light text-center rounded p-4 w-80 m-auto">
                 <div class="d-flex align-items-center mb-4">
-                    <h6 class="mb-0">Peminjaman Terbaru</h6>
+                    <h6 class="fs-4 mb-0 ">Peminjaman Terbaru</h6>
                 </div>
-                <div class="shadow table-responsive ">
-                    <table class="table-hover table">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">NIP Peminjam</th>
-                                <th scope="col">Tanggal Awal</th>
-                                <th scope="col">Tanggal Akhir</th>
-                                <th scope="col">Jumlah Kendaraan</th>
-                                <th scope="col">Supir</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($dataterbaru as $datapbaru)
-                                <tr>
-                                    <td>{{($dataterbaru->currentPage()-1) * $dataterbaru->perPage() + $loop->iteration}}</td>
-                                    <td>{{$datapbaru->nip_peminjam}}</td>
-                                    <td>{{$datapbaru->tanggal_awal}}</td>
-                                    <td>{{$datapbaru->tanggal_akhir}}</td>
-                                    <td>{{$datapbaru->jumlah}}</td>
-                                    <td>
-                                        @if ($datapbaru->supir == true)
-                                            <i class="fa-regular fa-square-check text-success" ></i>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>{{$datapbaru->status}}</td>
-                                </tr> 
-                                @empty
-                                <h2>Data Kosong</h2>
-                                @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                
+                    @forelse ($data_terbaru as $datapbaru)
+                    <div class="col-sm-3 m-auto">
+                        <div class="shadow-lg card">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item ">NIP : {{$datapbaru->nip_peminjam}}</li>
+                                <li class="list-group-item "> {{$datapbaru->tanggal_awal}} <br>  {{$datapbaru->tanggal_akhir}}</li>
+                                <li class="list-group-item ">Supir : @if ($datapbaru->supir == true)
+                                    <i class="fa-regular fa-square-check text-success" ></i>
+                                @else
+                                    -
+                                @endif</li>
+                                <li class="list-group-item ">Jumlah Kendaraan : {{$datapbaru->jumlah}}</li>
+                                <li class="list-group-item ">Status : {{$datapbaru->status}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    @empty
+                        <h2>Data Kosong</h2>
+                    @endforelse
             </div>
         </div>
         {{-- Table --}}
@@ -99,9 +84,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($datapeminjaman as $datapeminjam)
+                                    @forelse ($data_peminjaman as $datapeminjam)
                                     <tr>
-                                        <td>{{($datapeminjaman->currentPage()-1) * $datapeminjaman->perPage() + $loop->iteration}}</td>
+                                        <td>{{($data_peminjaman->currentPage()-1) * $data_peminjaman->perPage() + $loop->iteration}}</td>
                                         <td>{{$datapeminjam->nip_peminjam}}</td>
                                         <td>{{$datapeminjam->tanggal_awal}}</td>
                                         <td>{{$datapeminjam->tanggal_akhir}}</td>
@@ -121,7 +106,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {!! $datapeminjaman->links() !!}
+                        {!! $data_peminjaman->links() !!}
                     </div>
         </div>
         {{-- Modal- popup form --}}
