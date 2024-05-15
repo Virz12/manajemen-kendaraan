@@ -43,6 +43,7 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
     Route::get('/pegawai', [AdminController::class, 'pegawai']);
     Route::get('/kendaraan', [AdminController::class, 'kendaraan']);
     Route::get('/peminjaman', [AdminController::class, 'peminjaman']);
+    Route::get('/arsip', [AdminController::class, 'arsip']);
 });
 
 Route::middleware(['preventBackHistory','auth','userAccess:pegawai'])->group(function () {
@@ -65,4 +66,5 @@ Route::middleware(['preventBackHistory','auth','userAccess:kendaraan'])->group(f
 
     Route::get('/data_kendaraan', [KendaraanController::class, 'kendaraan']);
     Route::get('/data_peminjaman', [KendaraanController::class, 'peminjaman']);
+    Route::get('/data_arsip', [KendaraanController::class, 'arsip']);
 });

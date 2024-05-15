@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Data Peminjaman | Peminjaman Kendaraan</title>
+    <title>Arsip Data Peminjaman | Peminjaman Kendaraan</title>
 </head>
 <body>  
     <div class="container-fluid p-0">
@@ -74,10 +74,8 @@
             </nav>
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4 pb-4">
-                <div class="row g-2 pb-2">
-                    <div class="col-md-3">
-                        <a href="/data_arsip" class="btn btn-primary rounded">Arsip <i class="fa-solid fa-box-archive"></i></a>
-                    </div>
+                <div class="text-start mb-4">
+                    <a href="/data_peminjaman" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                 </div>
                 <div class="row g-4">
                     @forelse($datapeminjaman as $peminjaman)

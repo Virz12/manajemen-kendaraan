@@ -30,10 +30,20 @@ class AdminController extends Controller
 
     function peminjaman()
     {
-        $datapeminjaman = peminjaman::orderBy('created_at','DESC')->paginate(8);
+        $datapeminjaman = peminjaman::orderBy('created_at','DESC')->whereNot('status', '=', 'selesai')->paginate(8);
         $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('admin.peminjaman')
+                ->with('datapeminjaman',$datapeminjaman)
+                ->with('datadetail_peminjaman',$datadetail_peminjaman) ;
+    }
+
+    function arsip()
+    {
+        $datapeminjaman = peminjaman::orderBy('created_at','DESC')->paginate(8);
+        $datadetail_peminjaman = detail_peminjaman::all();
+
+        return view('admin.arsip')
                 ->with('datapeminjaman',$datapeminjaman)
                 ->with('datadetail_peminjaman',$datadetail_peminjaman) ;
     }
