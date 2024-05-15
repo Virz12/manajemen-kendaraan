@@ -118,8 +118,11 @@
                                     @csrf
                                     <select name="tahun" class="form-select" onchange="form.submit()">
                                         <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
+                                        @forelse($data_tahun_peminjaman as $tahun_peminjaman)
+                                            <option value="{{ $tahun_peminjaman }}">{{ $tahun_peminjaman }}</option>
+                                        @empty
+                                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                        @endforelse
                                     </select>
                                 </form>
                             </div>
