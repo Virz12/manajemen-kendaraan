@@ -95,7 +95,7 @@ class RedirectController extends Controller
     function pegawai()
     {
         $data_peminjaman = peminjaman::where('nip_peminjam',Auth::user()->nip)->orderBy('created_at','DESC')->paginate(6);
-        $data_terbaru = peminjaman::orderBy('created_at','DESC')->paginate(1);
+        $data_terbaru = peminjaman::where('nip_peminjam',Auth::user()->nip)->orderBy('created_at','DESC')->paginate(1);
         
         return view('pegawai.homepage')
                 ->with('data_peminjaman',$data_peminjaman)

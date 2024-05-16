@@ -101,16 +101,16 @@
                                 <div class="col-md-6">
                                     <label for="Role" class="form-label w-100 text-start">Kelompok</label>
                                     <select id="Role" name="kelompok" class="form-select">
-                                      <option selected>Pegawai</option>
-                                      <option>Admin</option>
-                                      <option>Supir</option>
-                                      <option>Kendaraan</option>
+                                        <option selected>Pegawai</option>
+                                        <option>Admin</option>
+                                        <option>Supir</option>
+                                        <option>Kendaraan</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="Profile" class="form-label w-100 text-start">Foto Profil<i class="opacity-75"> - Optional</i></label>
                                     <input class="form-control" type="file" name="foto_profil" id="Profile">
-                                  </div>
+                                </div>
                                 <div class="col-md-12 w-100 text-start">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>

@@ -149,7 +149,7 @@
     </div>
     {{-- Toast --}}
     @if (session()->has('notification'))
-        <div class="position-fixed bottom-0 end-0 p-3">
+        <div class="position-fixed bottom-0 end-0 p-3 z-3">
             <div class="alert alert-success" role="alert">
                 <i class="fa-solid fa-check me-2"></i>
                 {{ session('notification') }}
