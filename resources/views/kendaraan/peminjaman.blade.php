@@ -79,17 +79,17 @@
                         <a href="/data_arsip" class="btn btn-primary rounded">Arsip <i class="fa-solid fa-box-archive"></i></a>
                     </div>
                 </div>
-                <div class="row g-4">
+                <div class="row g-4 text-center">
                     @forelse($datapeminjaman as $peminjaman)
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="card ">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">NIP : {{ $peminjaman->nip_peminjam }}</li>
-                                <li class="list-group-item">jenis kendaraan <br> plat</li>
-                                <li class="list-group-item">{{ $peminjaman->tanggal_awal }} <i class="fa-solid fa-arrow-right"></i> {{ $peminjaman->tanggal_akhir }}</li>
-                                <li class="list-group-item">Supir : </li>
-                                <li class="list-group-item ">Memverifikasi : </li>
-                                <li class="list-group-item">Status : {{ $peminjaman->status }}</li>
+                                <li class="list-group-item">jenis kendaraan - [ nopol ] <br></li>
+                                <li class="list-group-item">{{ $peminjaman->tanggal_awal }} <br> {{ $peminjaman->tanggal_akhir }}</li>
+                                <li class="list-group-item">Nama Supir : <br> nama_supir <br></li>
+                                <li class="list-group-item ">Memverifikasi : <br> nama_memverifikasi <br></li>
+                                <li class="list-group-item fw-bold">Status : {{ $peminjaman->status }}</li>
                                 <li class="list-group-item">@if ($peminjaman->status == 'pengajuan')
                                         <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-secondary m-auto w-100">Verifikasi</button></a>
                                     @elseif ($peminjaman->status == 'diterima')

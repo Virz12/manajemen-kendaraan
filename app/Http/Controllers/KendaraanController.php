@@ -24,7 +24,9 @@ class KendaraanController extends Controller
     function peminjaman()
     {
         $pegawai = pegawai::where('id',Auth::id())->first();
-        $datapeminjaman = peminjaman::orderBy('created_at','DESC')->whereNot('status', '=', 'selesai')->paginate(8);
+        $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
+                                        ->orderBy('created_at','DESC')
+                                        ->whereNot('status', '=', 'selesai')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.peminjaman')
@@ -36,7 +38,8 @@ class KendaraanController extends Controller
     function arsip()
     {   
         $pegawai = pegawai::where('id',Auth::id())->first();
-        $datapeminjaman = peminjaman::orderBy('created_at','DESC')->paginate(8);
+        $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'selesai', 'pengajuan', 'diterima')")
+                                        ->orderBy('created_at','DESC')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.arsip')
@@ -78,7 +81,7 @@ class KendaraanController extends Controller
             'kondisi' => 'required|alpha',
             'status' => 'required|alpha',
         ],$messages);
- 
+
         $data = [
             'jenis_kendaraan' => $request->jenis_kendaraan,
             'tahun' => $request->tahun,

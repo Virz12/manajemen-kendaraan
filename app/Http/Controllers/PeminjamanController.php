@@ -27,12 +27,13 @@ class PeminjamanController extends Controller
             'max:2048' => 'Ukuran file maksimal 2MB.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
             'date' => 'Kolom :attribute harus berupa tanggal',
+            'after_or_equal' => 'Kolom :attribute harus berupa tanggal setelah atau sama dengan hari ini',
         ];
 
         $request->validate([
             'jumlah' => 'required|numeric',
-            'tanggal_awal' => 'required|date',
-            'tanggal_akhir' => 'required|date',
+            'tanggal_awal' => 'required|date|after_or_equal:today',
+            'tanggal_akhir' => 'required|date|after_or_equal:today',
             'supir' => 'nullable',
         ],$messages);
 

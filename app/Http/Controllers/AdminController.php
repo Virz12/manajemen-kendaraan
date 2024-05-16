@@ -30,7 +30,9 @@ class AdminController extends Controller
 
     function peminjaman()
     {
-        $datapeminjaman = peminjaman::orderBy('created_at','DESC')->whereNot('status', '=', 'selesai')->paginate(8);
+        $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
+                                        ->orderBy('created_at','DESC')
+                                        ->whereNot('status', '=', 'selesai')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('admin.peminjaman')
@@ -40,7 +42,8 @@ class AdminController extends Controller
 
     function arsip()
     {
-        $datapeminjaman = peminjaman::orderBy('created_at','DESC')->paginate(8);
+        $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
+                                        ->orderBy('created_at','DESC')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('admin.arsip')

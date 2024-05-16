@@ -82,17 +82,17 @@
                 <div class="text-start mb-4">
                     <a href="/peminjaman" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                 </div>
-                <div class="row g-4">
+                <div class="row g-4 text-center">
                     @forelse($datapeminjaman as $peminjaman)
-                    <div class="col-md-3 ">
+                    <div class="col-md-4 ">
                         <div class="card ">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item ">NIP : {{ $peminjaman->nip_peminjam }}</li>
-                                <li class="list-group-item ">jenis kendaraan <br> plat</li>
-                                <li class="list-group-item ">{{ $peminjaman->tanggal_awal }} <i class="fa-solid fa-arrow-right"></i> {{ $peminjaman->tanggal_akhir }}</li>
-                                <li class="list-group-item ">Supir : </li>
-                                <li class="list-group-item ">Memverifikasi : </li>
-                                <li class="list-group-item ">Status : {{ $peminjaman->status }}</li>
+                                <li class="list-group-item ">jenis_kendaraan - [ nopol ] <br> </li>
+                                <li class="list-group-item ">{{ $peminjaman->tanggal_awal }} <br> {{ $peminjaman->tanggal_akhir }}</li>
+                                <li class="list-group-item ">Nama Supir : <br> nama_supir <br></li>
+                                <li class="list-group-item ">Memverifikasi : <br> nama_memverifikasi <br></li>
+                                <li class="list-group-item fw-bold">Status : {{ $peminjaman->status }}</li>
                             </ul>
                         </div>
                     </div>

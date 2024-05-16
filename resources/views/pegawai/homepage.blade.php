@@ -57,8 +57,9 @@
                                 @else
                                     -
                                 @endif</li>
+                                <li class="list-group-item ">Kendaraan :  </li>
                                 <li class="list-group-item ">Jumlah Kendaraan : {{$datapbaru->jumlah}}</li>
-                                <li class="list-group-item ">Status : {{$datapbaru->status}}</li>
+                                <li class="list-group-item fw-bold">Status : {{$datapbaru->status}}</li>
                             </ul>
                         </div>
                     </div>
