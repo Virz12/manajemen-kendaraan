@@ -54,7 +54,7 @@ class PeminjamanController extends Controller
     {   
         $datapeminjam = peminjaman::findOrFail($id);
         $datakendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->get();
-        $datasupir = pegawai::where('kelompok','supir')->get();
+        $datasupir = pegawai::where('kelompok','supir')->where('status','aktif')->get();
 
         return view('kendaraan.verifikasi_peminjaman')
                 ->with('datakendaraan',$datakendaraan)

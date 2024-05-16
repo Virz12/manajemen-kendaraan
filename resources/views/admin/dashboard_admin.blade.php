@@ -60,9 +60,13 @@
                             @if(Auth::user()->foto_profil == null)
                                 <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
                             @else
-                                <img class="rounded-circle me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture"
+                                @if(File::exists(Auth::user()->foto_profil))
+                                    <img class="rounded-circle me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture"
                                     style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                                    <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                                @else
+                                    <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                                @endif
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
