@@ -85,24 +85,25 @@
                 </div>
                 <div class="row g-4 text-center">
                     @forelse($datapeminjaman as $peminjaman)
-                    <div class="col-md-4">
-                        <div class="card ">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">NIP : {{ $peminjaman->nip_peminjam }}</li>
-                                <li class="list-group-item">jenis kendaraan - [ nopol ] <br></li>
-                                <li class="list-group-item">{{ $peminjaman->tanggal_awal }} <br> {{ $peminjaman->tanggal_akhir }}</li>
-                                <li class="list-group-item">Nama Supir : <br> nama_supir <br></li>
-                                <li class="list-group-item ">Memverifikasi : <br> nama_memverifikasi <br></li>
-                                <li class="list-group-item fw-bold">Status : {{ $peminjaman->status }}</li>
-                                <li class="list-group-item">@if ($peminjaman->status == 'pengajuan')
-                                        <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-secondary m-auto w-100">Verifikasi</button></a>
-                                    @elseif ($peminjaman->status == 'diterima')
-                                        <a href="/selesai_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-success m-auto w-100">Selesai</button></a>
-                                    @endif
-                                </li>
-                            </ul>
+                        <div class="col-md-4">
+                            <div class="card ">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">NIP : {{ $peminjaman->nip_peminjam }}</li>
+                                    <li class="list-group-item">jenis kendaraan - <br></li>
+                                    <li class="list-group-item">{{ $peminjaman->tanggal_awal }} <br> {{ $peminjaman->tanggal_akhir }}</li>
+                                    <li class="list-group-item">Nama Supir : <br> nama_supir <br></li>
+                                    <li class="list-group-item ">Memverifikasi : <br> nama_memverifikasi <br></li>
+                                    <li class="list-group-item fw-bold">Status : {{ $peminjaman->status }}</li>
+                                    <li class="list-group-item">
+                                        @if ($peminjaman->status == 'pengajuan')
+                                            <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-secondary m-auto w-100">Verifikasi</button></a>
+                                        @elseif ($peminjaman->status == 'diterima')
+                                            <a href="/selesai_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-success m-auto w-100">Selesai</button></a>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     @empty
                         <h2 class="text-center py-5">Data Kosong</h2>
                     @endforelse

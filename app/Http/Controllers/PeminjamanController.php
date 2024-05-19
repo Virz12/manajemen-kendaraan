@@ -74,33 +74,27 @@ class PeminjamanController extends Controller
             'id_supir' => 'nullable',
         ], $messages);
 
-        foreach($request->nopol as $nopol)
+        foreach($request->input('nopol') as $nopol)
         {
-            if($request->id_supir == null)
-            {
-                $data[] = [
-                    'id_peminjaman' => $id,
-                    'id_pegawai' => Auth::id(),
-                    'id_supir' => $request->id_supir,
-                    'nopol' => $nopol,
-                ];
-            }else {
-                foreach($request->id_supir as $supir)
-                {
-                    $data[] = [
-                        'id_peminjaman' => $id,
-                        'id_pegawai' => Auth::id(),
-                        'id_supir' => $supir,
-                        'nopol' => $nopol,
-                    ];
-                }
-            }
+            $data = [
+                'nopol' => $nopol,
+                'id_peminjaman' => $id,
+                'id_pegawai' => Auth::id()
+            ];
+
+            detail_peminjaman::create($data);
             kendaraan::where('nopol',$nopol)->update([
-                'status' => 'digunakan',
+                'status' => 'digunakan'
             ]);
         }
 
-        detail_peminjaman::insert($data);
+        foreach($request->input('id_supir') as $supir)
+        {
+            detail_peminjaman::where('id_peminjaman',$id)->update([
+                'id_supir' => $supir
+            ]);
+        }
+
         peminjaman::where('id',$id)->update([
             'status' => 'diterima',
         ]);

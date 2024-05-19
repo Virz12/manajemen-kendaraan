@@ -13,47 +13,38 @@ class KendaraanController extends Controller
 {
     function kendaraan()
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
-        $datakendaraan = kendaraan::orderBy('status','DESC')->paginate(6);
+        $datakendaraan = kendaraan::orderBy('updated_at','DESC')->paginate(6);
 
         return view('kendaraan.kendaraan')
-                ->with('pegawai',$pegawai)
                 ->with('datakendaraan',$datakendaraan);
     }
 
     function peminjaman()
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
         $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
                                         ->orderBy('created_at','DESC')
                                         ->whereNot('status', '=', 'selesai')->paginate(6);
-        $datadetail_peminjaman = detail_peminjaman::all();
+        $data_detail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.peminjaman')
-                ->with('pegawai',$pegawai)
                 ->with('datapeminjaman',$datapeminjaman)
-                ->with('datadetail_peminjaman',$datadetail_peminjaman);
+                ->with('data_detail_peminjaman',$data_detail_peminjaman);
     }
 
     function arsip()
     {   
-        $pegawai = pegawai::where('id',Auth::id())->first();
         $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'selesai', 'pengajuan', 'diterima')")
                                         ->orderBy('created_at','DESC')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.arsip')
-                ->with('pegawai',$pegawai)
                 ->with('datapeminjaman',$datapeminjaman)
                 ->with('datadetail_peminjaman',$datadetail_peminjaman) ;
     }
 
     function createkendaraan()
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
-
-        return view('kendaraan.tambah_kendaraan')
-                ->with('pegawai',$pegawai);
+        return view('kendaraan.tambah_kendaraan');
     }
 
     function storekendaraan(Request $request)
@@ -99,11 +90,9 @@ class KendaraanController extends Controller
 
     function editkendaraan(string $id)
     {
-        $pegawai = pegawai::where('id',Auth::id())->first();
         $datakendaraan = kendaraan::findOrFail($id);
 
         return view('kendaraan.ubah_kendaraan')
-                ->with('pegawai',$pegawai)
                 ->with('datakendaraan',$datakendaraan);
     }
 

@@ -22,7 +22,7 @@ class AdminController extends Controller
 
     function kendaraan()
     {
-        $datakendaraan = kendaraan::orderBy('created_at','DESC')->paginate(6);
+        $datakendaraan = kendaraan::orderBy('updated_at','DESC')->paginate(6);
 
         return view('admin.kendaraan')
                 ->with('datakendaraan',$datakendaraan);

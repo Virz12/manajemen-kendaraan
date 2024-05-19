@@ -129,7 +129,7 @@ class DatabaseSeeder extends Seeder
                 'kondisi' => 'baik',
                 'status' => 'tersedia'
             ],[
-                'jenis_kendaraan' => 'Nissan GT-R',
+                'jenis_kendaraan' => 'Nissan GTR',
                 'tahun' => '2017',
                 'nopol' => 'AB1234RFS',
                 'warna' => 'Kuning',
