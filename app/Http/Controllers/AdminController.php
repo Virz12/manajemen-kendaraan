@@ -14,7 +14,7 @@ class AdminController extends Controller
 {
     function pegawai()
     {
-        $datapegawai = pegawai::orderBy('created_at','DESC')->paginate(6);
+        $datapegawai = pegawai::orderBy('updated_at','DESC')->orderBy('id', 'DESC')->paginate(6);
 
         return view('admin.pegawai')
                 ->with('datapegawai',$datapegawai);
@@ -22,7 +22,7 @@ class AdminController extends Controller
 
     function kendaraan()
     {
-        $datakendaraan = kendaraan::orderBy('updated_at','DESC')->paginate(6);
+        $datakendaraan = kendaraan::orderBy('updated_at','DESC')->orderBy('tahun', 'DESC')->paginate(6);
 
         return view('admin.kendaraan')
                 ->with('datakendaraan',$datakendaraan);
@@ -42,7 +42,7 @@ class AdminController extends Controller
 
     function arsip()
     {
-        $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
+        $datapeminjaman = peminjaman::where('status','selesai')
                                         ->orderBy('created_at','DESC')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::all();
 

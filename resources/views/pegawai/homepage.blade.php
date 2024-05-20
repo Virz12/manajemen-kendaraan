@@ -56,12 +56,29 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item ">NIP : {{$datapbaru->nip_peminjam}}</li>
                                 <li class="list-group-item "> {{$datapbaru->tanggal_awal}} <br>  {{$datapbaru->tanggal_akhir}}</li>
-                                <li class="list-group-item ">Supir : @if ($datapbaru->supir == true)
+                                <li class="list-group-item ">Supir : 
+                                @if ($datapbaru->supir == true)
                                     <i class="fa-regular fa-square-check text-success" ></i>
                                 @else
                                     -
                                 @endif</li>
-                                <li class="list-group-item ">Kendaraan :  </li>
+                                <li class="list-group-item ">Kendaraan :  <br>
+                                    @if ($datapbaru->status == 'pengajuan')
+                                        -
+                                    @elseif ($datapbaru->status == 'diterima')
+                                        @foreach($datapbaru->detail_peminjaman as $detailpeminjaman)
+                                            @foreach($detailpeminjaman->kendaraan as $kendaraan)
+                                                {{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}<br>
+                                            @endforeach                                    
+                                        @endforeach
+                                    @elseif ($datapbaru->status == 'selesai')
+                                        @foreach($datapbaru->detail_peminjaman as $detailpeminjaman)
+                                            @foreach($detailpeminjaman->kendaraan as $kendaraan)
+                                                {{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}<br>
+                                            @endforeach                                    
+                                        @endforeach
+                                    @endif
+                                </li>
                                 <li class="list-group-item ">Jumlah Kendaraan : {{$datapbaru->jumlah}}</li>
                                 <li class="list-group-item fw-bold">Status : {{$datapbaru->status}}</li>
                             </ul>
@@ -142,7 +159,7 @@
                         <div class="row justify-content-between text-left mb-2">
                             <div class="col-sm-6 flex-column d-flex ">
                                 <label for="jumlah" class="form-label">Jumlah Kendaraan</label>
-                                <input type="number" id="jumlah" name="jumlah" min="1" class="form-control " placeholder="masukkan angka" >
+                                <input type="number" id="jumlah" name="jumlah" min="1" max="{{ $jumlah_kendaraan }}" class="form-control " placeholder="masukkan angka" >
                             </div>
                             <div class="col-sm-6 flex-column  text-center mt-4">
                                 <label for="supir" class="form-label">Supir</label>

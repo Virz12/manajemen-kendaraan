@@ -13,7 +13,7 @@ class KendaraanController extends Controller
 {
     function kendaraan()
     {
-        $datakendaraan = kendaraan::orderBy('updated_at','DESC')->paginate(6);
+        $datakendaraan = kendaraan::orderBy('updated_at','DESC')->orderBy('tahun', 'DESC')->paginate(6);
 
         return view('kendaraan.kendaraan')
                 ->with('datakendaraan',$datakendaraan);
@@ -24,22 +24,18 @@ class KendaraanController extends Controller
         $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
                                         ->orderBy('created_at','DESC')
                                         ->whereNot('status', '=', 'selesai')->paginate(6);
-        $data_detail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.peminjaman')
-                ->with('datapeminjaman',$datapeminjaman)
-                ->with('data_detail_peminjaman',$data_detail_peminjaman);
+                ->with('datapeminjaman',$datapeminjaman);
     }
 
     function arsip()
     {   
-        $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'selesai', 'pengajuan', 'diterima')")
+        $datapeminjaman = peminjaman::where('status','selesai')
                                         ->orderBy('created_at','DESC')->paginate(6);
-        $datadetail_peminjaman = detail_peminjaman::all();
 
         return view('kendaraan.arsip')
-                ->with('datapeminjaman',$datapeminjaman)
-                ->with('datadetail_peminjaman',$datadetail_peminjaman) ;
+                ->with('datapeminjaman',$datapeminjaman);
     }
 
     function createkendaraan()

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -50,5 +51,20 @@ class pegawai extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function peminjaman(): HasMany
+    {
+        return $this->hasMany(peminjaman::class, 'nip_peminjam', 'nip');
+    }
+
+    public function detail_peminjaman(): BelongsTo
+    {
+        return $this->belongsTo(detail_peminjaman::class, 'id', 'id_supir');
+    }
+
+    public function detailpeminjaman(): BelongsTo
+    {
+        return $this->belongsTo(detail_peminjaman::class, 'id', 'id_pegawai');
     }
 }
