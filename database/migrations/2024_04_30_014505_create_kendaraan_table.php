@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('jenis_kendaraan',50);
             $table->string('tahun',4);
-            $table->string('nopol',15);
+            $table->string('nopol',15)->unique();
             $table->string('warna',15);
             $table->enum('kondisi',['baik','rusak','perbaikan'])->default('baik');
             $table->enum('status',['tersedia','digunakan'])->default('tersedia');

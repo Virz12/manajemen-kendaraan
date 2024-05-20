@@ -96,10 +96,12 @@ class RedirectController extends Controller
     {
         $data_peminjaman = peminjaman::where('nip_peminjam',Auth::user()->nip)->orderBy('created_at','DESC')->paginate(6);
         $data_terbaru = peminjaman::where('nip_peminjam',Auth::user()->nip)->orderBy('created_at','DESC')->paginate(1);
+        $jumlah_kendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->count();
         
         return view('pegawai.homepage')
                 ->with('data_peminjaman',$data_peminjaman)
-                ->with('data_terbaru',$data_terbaru);
+                ->with('data_terbaru',$data_terbaru)
+                ->with('jumlah_kendaraan',$jumlah_kendaraan);
     }
 
     function kendaraan(Request $request)

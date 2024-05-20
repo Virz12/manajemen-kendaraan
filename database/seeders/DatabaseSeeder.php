@@ -103,7 +103,7 @@ class DatabaseSeeder extends Seeder
             ],[
                 'jenis_kendaraan' => 'Toyota Rush',
                 'tahun' => '2018',
-                'nopol' => 'F1234RFS',
+                'nopol' => 'AA1234RFS',
                 'warna' => 'SIlver',
                 'kondisi' => 'baik',
                 'status' => 'tersedia'
@@ -152,7 +152,7 @@ class DatabaseSeeder extends Seeder
             ],[
                 'jenis_kendaraan' => 'Volvo FH16 750',
                 'tahun' => '2022',
-                'nopol' => 'A2542SXE',
+                'nopol' => 'BK2542SXE',
                 'warna' => 'Biru',
                 'kondisi' => 'baik',
                 'status' => 'tersedia'
