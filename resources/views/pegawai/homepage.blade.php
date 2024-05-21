@@ -35,7 +35,7 @@
                                 @endif
                             @endif
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-1 rounded-0 rounded-bottom m-0">
                             <a href="/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -49,7 +49,6 @@
                 <div class="d-flex align-items-center mb-4">
                     <h6 class="fs-4 mb-0 ">Peminjaman Terbaru</h6>
                 </div>
-                
                     @forelse ($data_terbaru as $datapbaru)
                     <div class="col-sm-3 m-auto">
                         <div class="shadow-lg card">
