@@ -14,6 +14,7 @@
 </head>
 <body>
     <div class="container-fluid ">
+
         <div class="row">
             <div class="col-sm-7 width-xxl px-0 d-none d-sm-block ">
                 <img src="{{asset('img/bglog.jpg')}}"
@@ -23,7 +24,7 @@
                 <div class="mx-auto mt-3 pb-xxl-5" style="width: 140px;">
                     <img src="{{asset('img/logo.png')}}" class="logo img-fluid" >
                 </div>
-                <div class="d-flex align-items-center px-2 px-xl-4 ms-xl-3 pb-xl-5 mt-xxl-5">
+                <div class="d-flex align-items-center justify-content-center px-2 pb-2 mt-2">
                     <form action="" method="POST" style="width: 460px;" class="shadow-lg  mt-4 px-4 pt-4 card bg-white" style="border-radius: 1rem;">
                         @csrf
                             <h3 class="fw-semibold fs-1 pb-2 text-black " style="width:150px ">Masuk</h3>
