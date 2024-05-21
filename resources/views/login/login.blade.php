@@ -14,7 +14,6 @@
 </head>
 <body>
     <div class="container-fluid ">
-
         <div class="row">
             <div class="col-sm-7 width-xxl px-0 d-none d-sm-block ">
                 <img src="{{asset('img/bglog.jpg')}}"
@@ -30,11 +29,11 @@
                             <h3 class="fw-semibold fs-1 pb-2 text-black " style="width:150px ">Masuk</h3>
                             <i class="fa-solid fa-arrow-right-long icon pt-xl-2 pt-md-2" style="font-size: 35px"></i>
                         <div class="form-floating mb-4" >
-                            <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border border-black" placeholder="" autocomplete="off" >
+                            <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border-2 border-warning" placeholder="" autocomplete="off" >
                             <label class="form-label" for="username">Nama Pengguna</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" name="password" value="{{ @old('password') }}" id="floatingInput" class="form-control form-control-lg border border-black" placeholder="" autocomplete="off" >
+                            <input type="password" name="password" value="{{ @old('password') }}" id="floatingInput" class="form-control form-control-lg border-2 border-warning" placeholder="" autocomplete="off" >
                             <label class="form-label " for="floatingInput">Sandi</label>
                         </div>
                         <div class="pt-1 mb-5">
@@ -59,5 +58,4 @@
     </div>
     <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
 </body>
-
 </html>
