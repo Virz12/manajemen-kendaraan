@@ -7,48 +7,118 @@ use App\Models\kendaraan;
 use App\Models\pegawai;
 use App\Models\peminjaman;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
-    function pegawai()
+    function pegawai(Request $request)
     {
         $datapegawai = pegawai::orderBy('updated_at','DESC')->orderBy('id', 'DESC')->paginate(6);
-
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $datapegawai = DB::table('pegawai')
+                ->orderBy('updated_at', 'DESC')
+                ->orderBy('id', 'DESC')
+                ->whereAny([
+                    'nip',
+                    'nama',
+                    'kelompok',
+                    'status',
+                ], 'LIKE', $keyword)
+                ->paginate(6);
+        }
+        
         return view('admin.pegawai')
-                ->with('datapegawai',$datapegawai);
+                ->with('datapegawai',$datapegawai)
+                ->with('keyword',$keyword);
     }
 
-    function kendaraan()
+    function kendaraan(Request $request)
     {
         $datakendaraan = kendaraan::orderBy('updated_at','DESC')->orderBy('tahun', 'DESC')->paginate(6);
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $datakendaraan = DB::table('kendaraan')
+                ->orderBy('updated_at', 'DESC')
+                ->orderBy('tahun', 'DESC')
+                ->whereAny([
+                    'jenis_kendaraan',
+                    'tahun',
+                    'nopol',
+                    'warna',
+                    'kondisi',
+                    'status',
+                ], 'LIKE', $keyword)
+                ->paginate(6);
+        }
 
         return view('admin.kendaraan')
-                ->with('datakendaraan',$datakendaraan);
+                ->with('datakendaraan',$datakendaraan)
+                ->with('keyword',$keyword);
     }
 
-    function peminjaman()
+    function peminjaman(Request $request)
     {
         $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
-                                        ->orderBy('created_at','DESC')
+                                        ->orderBy('updated_at','DESC')
                                         ->whereNot('status', '=', 'selesai')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::all();
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $datapeminjaman = DB::table('peminjaman')
+                ->orderBy('updated_at', 'DESC')
+                ->whereNot('status', '=', 'selesai')
+                ->whereAny([
+                    'nip_peminjam',
+                    'jumlah',
+                    'tanggal_awal',
+                    'tanggal_akhir',
+                    'status',
+                ], 'LIKE', $keyword)
+                ->paginate(6);
+
+            $datadetail_peminjaman = DB::table('detail_peminjaman')
+                ->orderBy('created_at', 'DESC')
+                ->whereAny([
+                    'nopol',
+                    'id_peminjaman',
+                    'id_pegawai',
+                    'id_supir',
+                ], 'LIKE', $keyword)
+                ->paginate(6);
+        }
 
         return view('admin.peminjaman')
                 ->with('datapeminjaman',$datapeminjaman)
-                ->with('datadetail_peminjaman',$datadetail_peminjaman) ;
+                ->with('datadetail_peminjaman',$datadetail_peminjaman)
+                ->with('keyword',$keyword);
     }
 
-    function arsip()
+    function arsip(Request $request)
     {
         $datapeminjaman = peminjaman::where('status','selesai')
                                         ->orderBy('created_at','DESC')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::all();
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $datapeminjaman = DB::table('peminjaman')
+                ->orderBy('created_at', 'DESC')
+                ->where('status','selesai')
+                ->whereAny([
+                    'nip_peminjam',
+                    'jumlah',
+                    'tanggal_awal',
+                    'tanggal_akhir',
+                    'status',
+                ], 'LIKE', $keyword)
+                ->paginate(6);
+        }
 
         return view('admin.arsip')
                 ->with('datapeminjaman',$datapeminjaman)
-                ->with('datadetail_peminjaman',$datadetail_peminjaman) ;
+                ->with('datadetail_peminjaman',$datadetail_peminjaman)
+                ->with('keyword',$keyword);
     }
     
     function createpegawai()

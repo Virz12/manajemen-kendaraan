@@ -143,7 +143,7 @@ class DatabaseSeeder extends Seeder
                 'kondisi' => 'baik',
                 'status' => 'tersedia'
             ],[
-                'jenis_kendaraan' => 'Mercedez-Benz Arocs 2842',
+                'jenis_kendaraan' => 'MercedezBenz Arocs 2842',
                 'tahun' => '2018',
                 'nopol' => 'KT1234AFR',
                 'warna' => 'Putih',
@@ -171,7 +171,7 @@ class DatabaseSeeder extends Seeder
                 'kondisi' => 'baik',
                 'status' => 'tersedia'
             ],[
-                'jenis_kendaraan' => 'Isuzu ELF NMR-81',
+                'jenis_kendaraan' => 'Isuzu ELF NMR81',
                 'tahun' => '2019',
                 'nopol' => 'A2542SXE',
                 'warna' => 'Putih',

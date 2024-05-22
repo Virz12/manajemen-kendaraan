@@ -2,40 +2,85 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\detail_peminjaman;
 use App\Models\kendaraan;
-use App\Models\pegawai;
 use App\Models\peminjaman;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class KendaraanController extends Controller
 {
-    function kendaraan()
+    function kendaraan(Request $request)
     {
         $datakendaraan = kendaraan::orderBy('updated_at','DESC')->orderBy('tahun', 'DESC')->paginate(6);
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $datakendaraan = DB::table('kendaraan')
+                ->orderBy('updated_at', 'DESC')
+                ->orderBy('tahun', 'DESC')
+                ->whereAny([
+                    'jenis_kendaraan',
+                    'tahun',
+                    'nopol',
+                    'warna',
+                    'kondisi',
+                    'status',
+                ], 'LIKE', $keyword)
+                ->paginate(6);
+        }
 
         return view('kendaraan.kendaraan')
-                ->with('datakendaraan',$datakendaraan);
+                ->with('datakendaraan',$datakendaraan)
+                ->with('keyword',$keyword);
     }
 
-    function peminjaman()
+    function peminjaman(Request $request)
     {
         $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
-                                        ->orderBy('created_at','DESC')
+                                        ->orderBy('updated_at','DESC')
                                         ->whereNot('status', '=', 'selesai')->paginate(6);
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $datapeminjaman = DB::table('peminjaman')
+                ->orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
+                ->orderBy('updated_at', 'DESC')
+                ->whereNot('status', '=', 'selesai')
+                ->whereAny([
+                    'nip_peminjam',
+                    'jumlah',
+                    'tanggal_awal',
+                    'tanggal_akhir',
+                    'status',
+                ], 'LIKE', $keyword)
+                ->paginate(6);
+        }
 
         return view('kendaraan.peminjaman')
-                ->with('datapeminjaman',$datapeminjaman);
+                ->with('datapeminjaman',$datapeminjaman)
+                ->with('keyword',$keyword);
     }
 
-    function arsip()
+    function arsip(Request $request)
     {   
         $datapeminjaman = peminjaman::where('status','selesai')
                                         ->orderBy('created_at','DESC')->paginate(6);
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $datapeminjaman = DB::table('peminjaman')
+                ->orderBy('created_at', 'DESC')
+                ->where('status','selesai')
+                ->whereAny([
+                    'nip_peminjam',
+                    'jumlah',
+                    'tanggal_awal',
+                    'tanggal_akhir',
+                    'status',
+                ], 'LIKE', $keyword)
+                ->paginate(6);
+        }
 
         return view('kendaraan.arsip')
-                ->with('datapeminjaman',$datapeminjaman);
+                ->with('datapeminjaman',$datapeminjaman)
+                ->with('keyword',$keyword);
     }
 
     function createkendaraan()

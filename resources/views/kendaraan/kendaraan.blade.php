@@ -21,8 +21,8 @@
                     <img src="{{ asset('img/logo.png') }}" class="img-fluid px-3 mb-4 rounded-circle" alt="Logo">
                 </div>
                 <div class="navbar-nav w-100 gap-2 fw-medium mt-7 mt-lg-0">
-                    <form class="d-flex d-md-none ms-3 mb-3"> {{-- Form Sidebar --}}
-                        <input class="form-control border-0" type="search" placeholder="Search">
+                    <form class="d-flex d-md-none ms-3 mb-3" action="" method="GET"> {{-- Form Sidebar --}}
+                        <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Search">
                     </form>
                     <a href="/dashboard_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
@@ -52,8 +52,8 @@
                 <a href="" class="sidebar-toggler flex-shrink-0 text-decoration-none text-black">
                     <i class="fa-solid fa-bars-staggered"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4"> {{-- Form Navbar --}}
-                    <input class="form-control border-0" type="search" placeholder="Search">
+                <form class="d-none d-md-flex ms-4" action="" method="GET"> {{-- Form Navbar --}}
+                    <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
