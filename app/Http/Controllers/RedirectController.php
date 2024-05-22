@@ -6,7 +6,6 @@ use App\Models\detail_peminjaman;
 use App\Models\kendaraan;
 use App\Models\pegawai;
 use App\Models\peminjaman;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use DateTime;
