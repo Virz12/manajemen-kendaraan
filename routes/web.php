@@ -8,11 +8,10 @@ use App\Http\Controllers\RedirectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::middleware(['preventBackHistory','guest'])->group(function () {
+    Route::get('/', function () {
+        return redirect('/login');
+    });
     Route::get('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/login', [LoginController::class, 'storelogin']);
 });
@@ -27,7 +26,6 @@ Route::middleware(['preventBackHistory','auth'])->group(function () {
             return redirect('/dashboard_kendaraan');
         }
     });
-
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
@@ -39,7 +37,6 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
     Route::get('/ubahpegawai/{pegawai:id}', [AdminController::class, 'editpegawai'])->name('pegawai.edit');
     Route::put('/ubahpegawai/{pegawai:id}', [AdminController::class, 'updatepegawai']);
     Route::get('/hapuspegawai/{pegawai:id}',[AdminController::class, 'deletepegawai'])->name('pegawai.delete');
-
     Route::get('/pegawai', [AdminController::class, 'pegawai']);
     Route::get('/kendaraan', [AdminController::class, 'kendaraan']);
     Route::get('/peminjaman', [AdminController::class, 'peminjaman']);
@@ -63,7 +60,6 @@ Route::middleware(['preventBackHistory','auth','userAccess:kendaraan'])->group(f
     Route::get('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'editpeminjaman'])->name('peminjaman.edit');
     Route::post('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'updatepeminjaman']);
     Route::get('/selesai_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'selesaipeminjaman']);
-
     Route::get('/data_kendaraan', [KendaraanController::class, 'kendaraan']);
     Route::get('/data_peminjaman', [KendaraanController::class, 'peminjaman']);
     Route::get('/data_arsip', [KendaraanController::class, 'arsip']);
