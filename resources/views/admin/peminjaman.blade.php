@@ -125,13 +125,6 @@
                                     @endif
                                 </li>
                                 <li class="list-group-item fw-bold">Status : {{ $peminjaman->status }}</li>
-                                <li class="list-group-item">
-                                    @if ($peminjaman->status == 'pengajuan')
-                                        <a href="/verifikasi_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-secondary m-auto w-100">Verifikasi</button></a>
-                                    @elseif ($peminjaman->status == 'diterima')
-                                        <a href="/selesai_peminjaman/{{ $peminjaman->id }}" class="text-decoration-none "><button class="btn btn-success m-auto w-100">Selesai</button></a>
-                                    @endif
-                                </li>
                             </ul>
                         </div>
                     </div>
