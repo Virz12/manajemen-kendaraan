@@ -15,17 +15,16 @@ class LoginController extends Controller
     function storelogin(Request $request)
     {
         $messages = [
-            'required' => 'Kolom :attribute wajib diisi.',
-            'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
-            'size' => 'Kolom :attribute tidak boleh lebih dari 10 karakter',
-            'numeric' => 'Kolom :attribute hanya boleh berisi angka',
-            'unique' => ':attribute sudah dipakai',
-            'regex' => 'Kolom :attribute hanya boleh berisi huruf.'
+            'required' => 'Kolom :attribute belum terisi.',
+            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
+            'lowercase' => 'Kolom :attribute hanya dapat diisi huruf kecil'
         ];
 
         $request->validate([
-            'username' => 'required|regex:/^[\pL\s]+$/u',
-            'password' => 'required' 
+            'username' => 'required|max:15|alpha_dash:ascii|lowercase',
+            'password' => 'required|max:15|alpha_num:ascii', 
         ],$messages);
 
         $inputeddata = [

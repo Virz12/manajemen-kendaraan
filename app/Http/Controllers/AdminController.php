@@ -9,6 +9,7 @@ use App\Models\peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -130,26 +131,25 @@ class AdminController extends Controller
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
-            'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
-            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
-            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
-            'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah digunakan',
+            'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
-            'image' => 'File Harus Berupa Gambar.',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'image' => 'File harus berupa gambar.',
             'max:2048' => 'Ukuran file maksimal 2MB.',
-            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
+            'lowercase' => 'Kolom :attribute hnaya boleh berisi huruf kecil',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
         ];
 
         $request->validate([
             'nip' => 'required|numeric|digits_between:1,20|unique:pegawai,nip',
-            'nama' => 'required|regex:/^[\pL\s]+$/u',
+            'nama' => 'required|max:50|regex:/^[\pL\s]+$/u',
             'foto_profil' => 'nullable|image|max:2048',
-            'kelompok' => 'required|alpha',
-            'username' => 'required|max:15|alpha_dash|unique:pegawai,username',
-            'password' => 'required|alpha_num',
+            'kelompok' => 'required|in:pegawai,kendaraan,admin,supir',
+            'username' => 'required|max:15|alpha_dash:ascii|lowercase|unique:pegawai,username',
+            'password' => 'required|max:15|alpha_num:ascii',
         ],$messages);
  
         $data = [
@@ -187,26 +187,24 @@ class AdminController extends Controller
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
-            'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
-            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
-            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
-            'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
-            'numeric' => 'Kolom :attribute hanya boleh berisi angka',
-            'unique' => ':attribute sudah digunakan',
-            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
-            'image' => 'File Harus Berupa Gambar.',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'digits_between' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+            'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
+            'regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'image' => 'File harus berupa gambar.',
             'max:2048' => 'Ukuran file maksimal 2MB.',
-            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
+            'lowercase' => 'Kolom :attribute hanya boleh berisi hurufu kecil',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
         ];
 
         $request->validate([
-            'nip' => 'required|numeric|digits_between:1,20',
-            'nama' => 'required|regex:/^[\pL\s]+$/u',
+            'nip' => 'required|numeric|digits_between:1,20|',Rule::unique('pegawai','nip')->ignore($request->input('nip')),
+            'nama' => 'required|max:50|regex:/^[\pL\s]+$/u',
             'foto_profil' => 'nullable|image|max:2048',
-            'kelompok' => 'required|alpha',
-            'username' => 'required|max:15|alpha_dash',
-            'password' => 'required|alpha_num',
+            'kelompok' => 'required|in:pegawai,kendaraan,admin,supir',
+            'username' => 'required|max:15|alpha_dash:ascii|lowercase|',Rule::unique('pegawai','username')->ignore($request->input('username')),
+            'password' => 'required|max:15|alpha_num:ascii',
         ],$messages);
 
         $data = [

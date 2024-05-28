@@ -24,64 +24,64 @@ class DatabaseSeeder extends Seeder
                 'nama' => 'Admin',
                 'status' => 'aktif',
                 'kelompok' => 'admin',
-                'username' => 'MasAdmin',
-                'password' => bcrypt('MasAdmin')
+                'username' => 'masadmin',
+                'password' => bcrypt('masadmin')
             ],[
                 'id' => '2',
                 'nip' => '2233445566',
                 'nama' => 'Pegawai',
                 'status' => 'aktif',
                 'kelompok' => 'pegawai',
-                'username' => 'MasPegawai',
-                'password' => bcrypt('MasPegawai')
+                'username' => 'maspegawai',
+                'password' => bcrypt('maspegawai')
             ],[
                 'id' => '3',
                 'nip' => '3344556677',
                 'nama' => 'Kendaraan',
                 'status' => 'aktif',
                 'kelompok' => 'kendaraan',
-                'username' => 'MasKendaraan',
-                'password' => bcrypt('MasKendaraan')
+                'username' => 'maskendaraan',
+                'password' => bcrypt('maskendaraan')
             ],[
                 'id' => '4',
                 'nip' => '4455667788',
                 'nama' => 'Supir',
                 'status' => 'aktif',
                 'kelompok' => 'supir',
-                'username' => 'MasSupir',
-                'password' => bcrypt('MasSupir')
+                'username' => 'massupir',
+                'password' => bcrypt('maskendaraan')
             ],[
                 'id' => '5',
                 'nip' => '5566778899',
                 'nama' => 'Arie',
                 'status' => 'aktif',
                 'kelompok' => 'supir',
-                'username' => 'MasArie',
-                'password' => bcrypt('MasArie')
+                'username' => 'masarie',
+                'password' => bcrypt('masarie')
             ],[
                 'id' => '6',
                 'nip' => '6677889900',
                 'nama' => 'Arif',
                 'status' => 'aktif',
                 'kelompok' => 'supir',
-                'username' => 'MasArif',
-                'password' => bcrypt('MasArif')
+                'username' => 'masarif',
+                'password' => bcrypt('masarif')
             ],[
                 'id' => '7',
                 'nip' => '7788990011',
                 'nama' => 'Andi',
                 'status' => 'aktif',
                 'kelompok' => 'supir',
-                'username' => 'MasAndi',
-                'password' => bcrypt('MasAndi')
+                'username' => 'masandi',
+                'password' => bcrypt('masandi')
             ],[
                 'id' => '8',
                 'nip' => '8899001122',
                 'nama' => 'Budi',
                 'status' => 'aktif',
                 'kelompok' => 'supir',
-                'username' => 'MasBudi',
-                'password' => bcrypt('MasBudi')
+                'username' => 'masbudi',
+                'password' => bcrypt('masbudi')
             ]
         ];
 

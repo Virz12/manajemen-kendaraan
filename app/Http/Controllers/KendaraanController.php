@@ -6,6 +6,7 @@ use App\Models\kendaraan;
 use App\Models\peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class KendaraanController extends Controller
 {
@@ -92,26 +93,22 @@ class KendaraanController extends Controller
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
-            'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
-            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
-            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
-            'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
+            'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
+            'regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
+            'digits' => 'kolom :attribute tidak valid',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'unique' => ':attribute sudah digunakan',
-            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
-            'image' => 'File Harus Berupa Gambar.',
             'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'max:2048' => 'Ukuran file maksimal 2MB.',
-            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
 
         $request->validate([
-            'jenis_kendaraan' => 'required|regex:/^[\pL\s]+$/u',
-            'tahun' => 'required|numeric',
+            'jenis_kendaraan' => 'required|max:50|regex:/^[\pL\s]+$/u',
+            'tahun' => 'required|numeric|digits:4',
             'nopol' => 'nullable|alpha_num|unique:kendaraan,nopol',
-            'warna' => 'required|alpha',
-            'kondisi' => 'required|alpha',
-            'status' => 'required|alpha',
+            'warna' => 'required|max:15|regex:/^[\pL\s]+$/u',
+            'kondisi' => 'required|in:baik,rusak,perbaikan',
+            'status' => 'required|in:tersedia,digunakan',
         ],$messages);
 
         $data = [
@@ -141,26 +138,21 @@ class KendaraanController extends Controller
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
-            'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
-            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
-            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
-            'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
+            'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
+            'regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
-            'unique' => ':attribute sudah digunakan',
-            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
-            'image' => 'File Harus Berupa Gambar.',
+            'digits' => 'kolom :attribute tidak valid',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'max:2048' => 'Ukuran file maksimal 2MB.',
-            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
 
         $request->validate([
-            'jenis_kendaraan' => 'required|regex:/^[\pL\s]+$/u',
-            'tahun' => 'required|numeric',
-            'nopol' => 'nullable|alpha_num',
-            'warna' => 'required|alpha',
-            'kondisi' => 'required|alpha',
-            'status' => 'required|alpha',
+            'jenis_kendaraan' => 'required|max:50|regex:/^[\pL\s]+$/u',
+            'tahun' => 'required|numeric|digits:4',
+            'nopol' => 'nullable|alpha_num|',Rule::unique('kendaraan','nopol')->ignore($request->input('nopol')),
+            'warna' => 'required|max:15|regex:/^[\pL\s]+$/u',
+            'kondisi' => 'required|in:baik,rusak,perbaikan',
+            'status' => 'required|in:tersedia,digunakan',
         ],$messages);
  
         $data = [
