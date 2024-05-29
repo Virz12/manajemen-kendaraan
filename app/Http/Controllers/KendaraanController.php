@@ -94,7 +94,7 @@ class KendaraanController extends Controller
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
             'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
-            'regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'regex' => 'Kolom :attribute tidak valid.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'digits' => 'kolom :attribute tidak valid',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
@@ -103,7 +103,7 @@ class KendaraanController extends Controller
         ];
 
         $request->validate([
-            'jenis_kendaraan' => 'required|max:50|regex:/^[\pL\s]+$/u',
+            'jenis_kendaraan' => 'required|max:50|regex:/^[a-z\d\-_\s]+$/i',
             'tahun' => 'required|numeric|digits:4',
             'nopol' => 'nullable|alpha_num|unique:kendaraan,nopol',
             'warna' => 'required|max:15|regex:/^[\pL\s]+$/u',
