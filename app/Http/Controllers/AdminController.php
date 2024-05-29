@@ -78,16 +78,6 @@ class AdminController extends Controller
                     'status',
                 ], 'LIKE', $keyword)
                 ->paginate(6);
-
-            $datadetail_peminjaman = DB::table('detail_peminjaman')
-                ->orderBy('created_at', 'DESC')
-                ->whereAny([
-                    'nopol',
-                    'id_peminjaman',
-                    'id_pegawai',
-                    'id_supir',
-                ], 'LIKE', $keyword)
-                ->paginate(6);
         }
 
         return view('admin.peminjaman')
