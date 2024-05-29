@@ -93,7 +93,10 @@ class RedirectController extends Controller
 
     function pegawai()
     {
-        $data_peminjaman = peminjaman::where('nip_peminjam',Auth::user()->nip)->orderBy('created_at','DESC')->paginate(6);
+        $data_peminjaman = peminjaman::where('nip_peminjam',Auth::user()->nip)
+                                        ->orderByRaw("FIELD(status, 'pengajuan', 'diterima' ,'selesai')")
+                                        ->orderBy('created_at','DESC')->paginate(6);
+                                        
         $data_terbaru = peminjaman::where('nip_peminjam',Auth::user()->nip)->orderBy('created_at','DESC')->paginate(1);
         $jumlah_kendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->count();
         
