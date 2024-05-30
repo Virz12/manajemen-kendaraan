@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="{{ asset('css/pegawai.css') }}">
         <title>Homepage</title>
     </head>
-    <body class=" bg-color">
+    <body>
         <div class="container-fluid p-0">
             {{-- header --}}
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-2 py-1">
