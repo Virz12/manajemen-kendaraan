@@ -106,10 +106,11 @@
                                 <div class="col-md-6">
                                     <label for="Role" class="form-label w-100 text-start">Kelompok</label>
                                     <select id="Role" name="kelompok" class="form-select">
-                                      <option value="{{ $datapegawai->kelompok }}" selected hidden>{{ $datapegawai->kelompok }}</option>
-                                      <option>Admin</option>
-                                      <option>Supir</option>
-                                      <option>Kendaraan</option>
+                                        <option value="{{ $datapegawai->kelompok }}" selected hidden>{{ $datapegawai->kelompok }}</option>
+                                        <option value="pegawai" >Pegawai</option>
+                                        <option value="admin" >Admin</option>
+                                        <option value="supir" >Supir</option>
+                                        <option value="kendaraan" >Kendaraan</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">

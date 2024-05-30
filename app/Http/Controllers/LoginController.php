@@ -16,10 +16,10 @@ class LoginController extends Controller
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'max' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
-            'lowercase' => 'Kolom :attribute hanya dapat diisi huruf kecil'
+            'lowercase' => 'Kolom :attribute hanya dapat diisi huruf kecil',
         ];
 
         $request->validate([

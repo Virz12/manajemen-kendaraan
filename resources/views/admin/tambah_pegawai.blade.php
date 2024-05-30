@@ -105,10 +105,10 @@
                                 <div class="col-md-6">
                                     <label for="Role" class="form-label w-100 text-start">Kelompok</label>
                                     <select id="Role" name="kelompok" class="form-select">
-                                        <option selected>Pegawai</option>
-                                        <option>Admin</option>
-                                        <option>Supir</option>
-                                        <option>Kendaraan</option>
+                                        <option value="pegawai" selected>Pegawai</option>
+                                        <option value="admin" >Admin</option>
+                                        <option value="supir" >Supir</option>
+                                        <option value="kendaraan" >Kendaraan</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">

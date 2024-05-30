@@ -213,7 +213,7 @@ class AdminController extends Controller
             'max:2048' => 'Ukuran file maksimal 2MB.',
             'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
-            'lowercase' => 'Kolom :attribute hanya boleh berisi hurufu kecil',
+            'lowercase' => 'Kolom :attribute hanya boleh berisi huruf kecil',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
         ];
 
