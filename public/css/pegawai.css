@@ -6,7 +6,7 @@
     --white: #fff;
 }
 
-.h-70vh {
+.h-80vh {
     height: 80vh;
 }
 
@@ -22,13 +22,17 @@
     width: 90px;
 }
 
-.w-80 {
-    width: 95%;
+.w-70 {
+    width: 70%;
 }
 
 .bg-light {
     background-color: var(--light);
 
+}
+
+.bg-color {
+    background-color: var(--primary);
 }
 
 .text-primary {
@@ -116,8 +120,20 @@ a.page-link {
     background-color: var(--primary);
 }
 
-@media (min-width: 360px) {
-    .w-80 {
-        width: 70%;
+@media (min-width: 1920px) {
+    .h-80vh {
+        height: 50vh;
+    }
+    .h-90vh {
+        height: 60vh;
+    }
+    .w-70 {
+        width: 50%;
+    }
+}
+
+@media (max-width: 400px) {
+    .w-70 {
+        width: 90%;
     }
 }

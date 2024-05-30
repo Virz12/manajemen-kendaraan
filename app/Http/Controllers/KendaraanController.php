@@ -154,7 +154,7 @@ class KendaraanController extends Controller
             'kondisi' => 'required|in:baik,rusak,perbaikan',
             'status' => 'required|in:tersedia,digunakan',
         ],$messages);
- 
+
         $data = [
             'jenis_kendaraan' => $request->jenis_kendaraan,
             'tahun' => $request->tahun,

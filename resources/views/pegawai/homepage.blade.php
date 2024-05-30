@@ -12,8 +12,8 @@
         <link rel="stylesheet" href="{{ asset('css/pegawai.css') }}">
         <title>Homepage</title>
     </head>
-    <body >
-        <div class="container-fluid p-0 ">
+    <body class=" bg-color">
+        <div class="container-fluid p-0">
             {{-- header --}}
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-2 py-1">
                     <img src="{{ asset('img/logo.png') }}" class="w-40px rounded-circle" alt="Logo">  
@@ -21,14 +21,14 @@
                     <div class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             @if(Auth::user()->foto_profil == null)
-                                <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                                <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
                             @else
                                 @if(File::exists(Auth::user()->foto_profil))
                                     <img class="rounded-circle me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture"
                                     style="width: 40px; height: 40px;">
-                                    <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                                    <span class=" d-lg-inline-flex">{{ Auth::user()->username }}</span>
                                 @else
-                                    <span class="d-none d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                                    <span class=" d-lg-inline-flex">{{ Auth::user()->username }}</span>
                                 @endif
                             @endif
                         </a>
@@ -40,8 +40,8 @@
             </nav>
             <main>
                 {{-- card peminjaman terbaru --}}
-                <div class="container-fluid p-0 mb-4 mt-4 bg-light-subtle">
-                    <div class="shadow-lg bg-light text-center rounded p-4 w-80  m-auto h-70vh ">
+                <div class="container-fluid p-0 mb-4 mt-4 ">
+                    <div class="shadow-lg bg-light text-center rounded p-4 w-70  m-auto h-70vh ">
                         <div class="d-md-flex align-items-center justify-content-between mb-4">
                             <h6 class="fs-3 mb-0  ">Peminjaman Terbaru</h6>
                             <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#formPengajuan"><i class="fa-solid fa-car me-1 car-icon" style="color: #000000;"></i>Ajukan Peminjaman</button>
