@@ -1052,16 +1052,16 @@
         },
         {
             "name": "icehouse-ventures/laravel-chartjs",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/icehouse-ventures/laravel-chartjs.git",
-                "reference": "6576013be6de7c5299f44dc9217efca26bb2987b"
+                "reference": "4a87ed914e6bf3f35270a8eb46e2676efd4df7a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/icehouse-ventures/laravel-chartjs/zipball/6576013be6de7c5299f44dc9217efca26bb2987b",
-                "reference": "6576013be6de7c5299f44dc9217efca26bb2987b",
+                "url": "https://api.github.com/repos/icehouse-ventures/laravel-chartjs/zipball/4a87ed914e6bf3f35270a8eb46e2676efd4df7a8",
+                "reference": "4a87ed914e6bf3f35270a8eb46e2676efd4df7a8",
                 "shasum": ""
             },
             "require": {
@@ -1108,9 +1108,9 @@
             ],
             "support": {
                 "issues": "https://github.com/icehouse-ventures/laravel-chartjs/issues",
-                "source": "https://github.com/icehouse-ventures/laravel-chartjs/tree/v1.1.0"
+                "source": "https://github.com/icehouse-ventures/laravel-chartjs/tree/v1.2.0"
             },
-            "time": "2024-05-17T01:06:33+00:00"
+            "time": "2024-05-29T12:17:00+00:00"
         },
         {
             "name": "laravel/framework",
@@ -7890,16 +7890,16 @@
         },
         {
             "name": "spatie/ignition",
-            "version": "1.14.1",
+            "version": "1.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ignition.git",
-                "reference": "c23cc018c5f423d2f413b99f84655fceb6549811"
+                "reference": "5e11c11f675bb5251f061491a493e04a1a571532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ignition/zipball/c23cc018c5f423d2f413b99f84655fceb6549811",
-                "reference": "c23cc018c5f423d2f413b99f84655fceb6549811",
+                "url": "https://api.github.com/repos/spatie/ignition/zipball/5e11c11f675bb5251f061491a493e04a1a571532",
+                "reference": "5e11c11f675bb5251f061491a493e04a1a571532",
                 "shasum": ""
             },
             "require": {
@@ -7969,7 +7969,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-03T15:56:16+00:00"
+            "time": "2024-05-29T08:10:20+00:00"
         },
         {
             "name": "spatie/laravel-ignition",
