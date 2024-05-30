@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\kendaraan;
 use App\Models\peminjaman;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -25,7 +26,7 @@ class KendaraanController extends Controller
                     'warna',
                     'kondisi',
                     'status',
-                ], 'LIKE', $keyword)
+                ], 'LIKE', "%$keyword%")
                 ->paginate(6);
         }
 
@@ -41,17 +42,31 @@ class KendaraanController extends Controller
                                         ->whereNot('status', '=', 'selesai')->paginate(6);
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $datapeminjaman = DB::table('peminjaman')
-                ->orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
-                ->orderBy('updated_at', 'DESC')
-                ->whereNot('status', '=', 'selesai')
+            $datapeminjaman = peminjaman::whereNot('status',  '=', 'selesai')
                 ->whereAny([
                     'nip_peminjam',
                     'jumlah',
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
-                ], 'LIKE', $keyword)
+                ], 'like', "%$keyword%")
+                ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
+                    $query->where('nopol', 'like', "%$keyword%")
+                        ->orWhere('id_peminjaman', 'like', "%$keyword%")
+                        ->orWhere('id_pegawai', 'like', "%$keyword%")
+                        ->orWhere('id_supir', 'like', "%$keyword%")
+                        ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
+                            $query->where('jenis_kendaraan', 'like', "%$keyword%");
+                        })
+                        ->orWhereHas('supir', function (Builder $query) use ($keyword) {
+                            $query->where('nama', 'like', "%$keyword%");
+                        })
+                        ->orWhereHas('tim_kendaraan', function (Builder $query) use ($keyword) {
+                            $query->where('nama', 'like', "%$keyword%");
+                        });
+                })
+                ->orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
+                ->orderBy('updated_at', 'desc')
                 ->paginate(6);
         }
 
@@ -66,16 +81,30 @@ class KendaraanController extends Controller
                                         ->orderBy('created_at','DESC')->paginate(6);
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $datapeminjaman = DB::table('peminjaman')
-                ->orderBy('created_at', 'DESC')
-                ->where('status','selesai')
+            $datapeminjaman = peminjaman::where('status','selesai')
                 ->whereAny([
                     'nip_peminjam',
                     'jumlah',
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
-                ], 'LIKE', $keyword)
+                ], 'like', "%$keyword%")
+                ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
+                    $query->where('nopol', 'like', "%$keyword%")
+                        ->orWhere('id_peminjaman', 'like', "%$keyword%")
+                        ->orWhere('id_pegawai', 'like', "%$keyword%")
+                        ->orWhere('id_supir', 'like', "%$keyword%")
+                        ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
+                            $query->where('jenis_kendaraan', 'like', "%$keyword%");
+                        })
+                        ->orWhereHas('supir', function (Builder $query) use ($keyword) {
+                            $query->where('nama', 'like', "%$keyword%");
+                        })
+                        ->orWhereHas('tim_kendaraan', function (Builder $query) use ($keyword) {
+                            $query->where('nama', 'like', "%$keyword%");
+                        });
+                })
+                ->orderBy('created_at', 'desc')
                 ->paginate(6);
         }
 

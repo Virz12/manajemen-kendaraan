@@ -104,7 +104,7 @@ class PeminjamanController extends Controller
         foreach($kendaraan as $data)
         {
             kendaraan::where('nopol',$data)->update([
-                'status' => 'digunakan'
+                'status' => 'digunakan',
             ]);
         }
 
