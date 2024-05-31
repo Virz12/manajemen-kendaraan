@@ -15,19 +15,7 @@ class PeminjamanController extends Controller
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
-            'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
-            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
-            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
-            'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
-            'unique' => ':attribute sudah digunakan',
-            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
-            'image' => 'File harus berupa gambar.',
-            'digits' => 'kolom :attribute tidak valid',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
-            'max:2048' => 'Ukuran file maksimal 2MB.',
-            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
             'date' => 'Kolom :attribute harus berupa tanggal',
             'after_or_equal' => 'Kolom :attribute harus berupa tanggal setelah atau sama dengan hari ini',
         ];

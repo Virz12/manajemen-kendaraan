@@ -122,13 +122,13 @@ class KendaraanController extends Controller
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
-            'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
             'regex' => 'Kolom :attribute tidak valid.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'digits' => 'kolom :attribute tidak valid',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'unique' => ':attribute sudah digunakan',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'jenis_kendaraan.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
+            'warna.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
         ];
 
         $request->validate([
@@ -167,12 +167,12 @@ class KendaraanController extends Controller
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
-            'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
             'regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'digits' => 'kolom :attribute tidak valid',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'jenis_kendaraan.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
+            'warna.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
         ];
 
         $request->validate([

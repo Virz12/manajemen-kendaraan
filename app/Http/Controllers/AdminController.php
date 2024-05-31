@@ -152,14 +152,15 @@ class AdminController extends Controller
             'required' => 'Kolom :attribute belum terisi.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah digunakan',
-            'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'image' => 'File harus berupa gambar.',
-            'max:2048' => 'Ukuran file maksimal 2MB.',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
             'lowercase' => 'Kolom :attribute hnaya boleh berisi huruf kecil',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
+            'nama.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
+            'foto_profil.max' => 'Ukuran file maksimal 2MB.',
+            'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'password.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
         ];
 
         $request->validate([
@@ -207,14 +208,15 @@ class AdminController extends Controller
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
             'digits_between' => 'Kolom :attribute maksimal berisi angka 20 digit.',
-            'max:50' => 'Kolom :attribute maksimal berisi 50 huruf.',
             'regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'image' => 'File harus berupa gambar.',
-            'max:2048' => 'Ukuran file maksimal 2MB.',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
             'lowercase' => 'Kolom :attribute hanya boleh berisi huruf kecil',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
+            'nama.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
+            'foto_profil.max' => 'Ukuran file maksimal 2MB.',
+            'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'password.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
         ];
 
         $request->validate([
