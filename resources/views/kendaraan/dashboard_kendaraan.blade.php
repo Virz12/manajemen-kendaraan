@@ -77,7 +77,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_digunakan }}/{{ $jumlah_kendaraan }}</b>
-                                <p class="mb-1">Kendaraan Dipakai</p>
+                                <p class="mb-1 fs-4">Kendaraan Dipakai</p>
                             </div>
                             <i class="fa-solid fa-car-on fa-3x text-primary w-25"></i>
                         </div>
@@ -86,7 +86,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_rusak }}/{{ $jumlah_kendaraan }}</b>
-                                <p class="mb-1">Rusak</p>
+                                <p class="mb-1 fs-4">Rusak</p>
                             </div>
                             <i class="fa-solid fa-car-burst fa-3x text-primary w-25"></i>
                         </div>
@@ -95,7 +95,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_tersedia }}/{{ $jumlah_kendaraan }}</b>
-                                <p class="mb-1">Kendaraan Tersisa</p>
+                                <p class="mb-1 fs-4">Kendaraan Tersisa</p>
                             </div>
                             <i class="fa-solid fa-car fa-3x text-primary w-25"></i>
                         </div>
@@ -104,7 +104,7 @@
                         <div class="bg-light p-4 d-flex flex-row align-items-center justify-content-between rounded">
                             <div>
                                 <b class="text-start fs-1 d-inline-block w-100">{{ $jumlah_kendaraan_diperbaiki }}/{{ $jumlah_kendaraan }}</b>
-                                <p class="mb-1">Servis</p>
+                                <p class="mb-1 fs-4">Servis</p>
                             </div>
                             <i class="fa-solid fa-wrench fa-3x text-primary w-25"></i>
                         </div>

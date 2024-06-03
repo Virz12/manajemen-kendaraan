@@ -87,7 +87,6 @@
                                 <table class="table-hover align-middle table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#</th>
                                             <th scope="col">NIP Peminjam</th>
                                             <th scope="col">Jumlah Kendaraan</th>
                                             <th scope="col">Tanggal Awal</th>
@@ -97,7 +96,6 @@
                                     </thead>
                                     <tbody>
                                         <tr class="align-middle">
-                                            <th>{{ $datapeminjam->id }}</th>
                                             <td>{{ $datapeminjam->nip_peminjam }}</td>
                                             <td>{{ $datapeminjam->jumlah }}</td>
                                             <td>{{ $datapeminjam->tanggal_awal }}</td>
@@ -153,6 +151,8 @@
                             </div>
                         </div>
                     </div>
+
+                    @if ($datapeminjam->supir == true)
                     <div class="col-md-12">
                         <div class="bg-light text-center rounded p-4">
                             <div class="text-start mb-4">
@@ -187,6 +187,9 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                        
+                    @endif
                     <div class="col-md-12 w-100 text-start mb-3">
                         <button type="submit" class="btn btn-primary">Verifikasi</button>
                     </div>
