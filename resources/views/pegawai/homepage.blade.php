@@ -155,7 +155,7 @@
                                     <div class="row justify-content-between text-left mb-2">
                                         <div class="col-sm-6 flex-column d-flex ">
                                             <label for="jumlah" class="form-label">Jumlah Kendaraan</label>
-                                            <input type="number" id="jumlah" name="jumlah" min="1" max="{{ $jumlah_kendaraan }}" class="form-control " placeholder="masukkan angka" >
+                                            <input type="number" id="jumlah" name="jumlah" class="form-control " placeholder="masukkan angka" >
                                         </div>
                                         <div class="col-sm-6 flex-column  text-center mt-4">
                                             <label for="supir" class="form-label">Supir</label>

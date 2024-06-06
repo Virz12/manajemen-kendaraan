@@ -42,19 +42,20 @@ class KendaraanController extends Controller
                                         ->whereNot('status', '=', 'selesai')->paginate(6);
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $datapeminjaman = peminjaman::whereNot('status',  '=', 'selesai')
+            $datapeminjaman = peminjaman::whereNot('status', '=', 'selesai')
                 ->whereAny([
                     'nip_peminjam',
-                    'jumlah',
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
                 ], 'like', "%$keyword%")
                 ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
-                    $query->where('nopol', 'like', "%$keyword%")
-                        ->orWhere('id_peminjaman', 'like', "%$keyword%")
-                        ->orWhere('id_pegawai', 'like', "%$keyword%")
-                        ->orWhere('id_supir', 'like', "%$keyword%")
+                    $query->whereNot('status', '=', 'selesai')
+                        ->whereAny([
+                            'nopol',
+                            'id_pegawai',
+                            'id_supir',
+                        ], 'like', "%$keyword%")
                         ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
                             $query->where('jenis_kendaraan', 'like', "%$keyword%");
                         })
@@ -84,16 +85,17 @@ class KendaraanController extends Controller
             $datapeminjaman = peminjaman::where('status','selesai')
                 ->whereAny([
                     'nip_peminjam',
-                    'jumlah',
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
                 ], 'like', "%$keyword%")
                 ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
-                    $query->where('nopol', 'like', "%$keyword%")
-                        ->orWhere('id_peminjaman', 'like', "%$keyword%")
-                        ->orWhere('id_pegawai', 'like', "%$keyword%")
-                        ->orWhere('id_supir', 'like', "%$keyword%")
+                    $query->where('status','selesai')
+                        ->whereAny([
+                            'nopol',
+                            'id_pegawai',
+                            'id_supir',
+                        ], 'like', "%$keyword%")
                         ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
                             $query->where('jenis_kendaraan', 'like', "%$keyword%");
                         })
@@ -167,7 +169,7 @@ class KendaraanController extends Controller
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
-            'regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'regex' => 'Kolom :attribute tidak valid.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'digits' => 'kolom :attribute tidak valid',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
@@ -176,7 +178,7 @@ class KendaraanController extends Controller
         ];
 
         $request->validate([
-            'jenis_kendaraan' => 'required|max:50|regex:/^[\pL\s]+$/u',
+            'jenis_kendaraan' => 'required|max:50|regex:/^[a-z\d\-_\s]+$/i',
             'tahun' => 'required|numeric|digits:4',
             'nopol' => 'nullable|alpha_num|',Rule::unique('kendaraan','nopol')->ignore($request->input('nopol')),
             'warna' => 'required|max:15|regex:/^[\pL\s]+$/u',

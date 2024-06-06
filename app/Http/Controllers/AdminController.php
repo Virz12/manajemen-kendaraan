@@ -68,19 +68,20 @@ class AdminController extends Controller
         $datadetail_peminjaman = detail_peminjaman::all();
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $datapeminjaman = peminjaman::whereNot('status',  '=', 'selesai')
+            $datapeminjaman = peminjaman::whereNot('status', '=', 'selesai')
                 ->whereAny([
                     'nip_peminjam',
-                    'jumlah',
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
                 ], 'like', "%$keyword%")
                 ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
-                    $query->where('nopol', 'like', "%$keyword%")
-                        ->orWhere('id_peminjaman', 'like', "%$keyword%")
-                        ->orWhere('id_pegawai', 'like', "%$keyword%")
-                        ->orWhere('id_supir', 'like', "%$keyword%")
+                    $query->whereNot('status', '=', 'selesai')
+                        ->whereAny([
+                            'nopol',
+                            'id_pegawai',
+                            'id_supir',
+                        ], 'like', "%$keyword%")
                         ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
                             $query->where('jenis_kendaraan', 'like', "%$keyword%");
                         })
@@ -91,6 +92,7 @@ class AdminController extends Controller
                             $query->where('nama', 'like', "%$keyword%");
                         });
                 })
+                ->orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
                 ->orderBy('updated_at', 'desc')
                 ->paginate(6);
         }
@@ -111,16 +113,17 @@ class AdminController extends Controller
             $datapeminjaman = peminjaman::where('status','selesai')
                 ->whereAny([
                     'nip_peminjam',
-                    'jumlah',
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
                 ], 'like', "%$keyword%")
                 ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
-                    $query->where('nopol', 'like', "%$keyword%")
-                        ->orWhere('id_peminjaman', 'like', "%$keyword%")
-                        ->orWhere('id_pegawai', 'like', "%$keyword%")
-                        ->orWhere('id_supir', 'like', "%$keyword%")
+                    $query->where('status','selesai')
+                        ->whereAny([
+                            'nopol',
+                            'id_pegawai',
+                            'id_supir',
+                        ], 'like', "%$keyword%")
                         ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
                             $query->where('jenis_kendaraan', 'like', "%$keyword%");
                         })

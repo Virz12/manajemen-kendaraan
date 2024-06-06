@@ -13,17 +13,22 @@ class PeminjamanController extends Controller
 {
     function storepeminjaman(Request $request)
     {
+        $jumlah_kendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->count();
+
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'date' => 'Kolom :attribute harus berupa tanggal',
-            'after_or_equal' => 'Kolom :attribute harus berupa tanggal setelah atau sama dengan hari ini',
+            'jumlah.min' => 'Jumlah kendaraan tidak dapat nol',
+            'jumlah.max' => "Jumlah kendaraan maksimal adalah $jumlah_kendaraan",
+            'tanggal_awal.after_or_equal' => 'Tanggal tidak valid',
+            'tanggal_akhir.after_or_equal' => 'Tanggal tidak valid',            
         ];
 
         $request->validate([
-            'jumlah' => 'required|numeric',
+            'jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
             'tanggal_awal' => 'required|date|after_or_equal:today',
-            'tanggal_akhir' => 'required|date|after_or_equal:today',
+            'tanggal_akhir' => "required|date|after_or_equal:$request->tanggal_awal",
             'supir' => 'nullable',
         ],$messages);
 
@@ -55,13 +60,17 @@ class PeminjamanController extends Controller
 
     function updatepeminjaman(Request $request, string $id)
     {
+        $jumlah_kendaraan = peminjaman::findOrFail($id)->count();
+
         $messages = [
             'nopol.required' => 'Data Kendaraan belum terisi.',
+            'nopol.max' => 'Jumlah kendaraan melebihi permintaan',
+            'id_supir' => 'Jumlah supir tidak sesuai',
         ];
 
         $request->validate([
-            'nopol' => 'required',
-            'id_supir' => 'nullable',
+            'nopol' => "required|max:$jumlah_kendaraan",
+            'id_supir' => "nullable|size:$jumlah_kendaraan",
         ], $messages);
 
         $kendaraan = $request->input('nopol');
