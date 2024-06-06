@@ -6,6 +6,7 @@ use App\Models\detail_peminjaman;
 use App\Models\kendaraan;
 use App\Models\pegawai;
 use App\Models\peminjaman;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use DateTime;
@@ -33,7 +34,7 @@ class RedirectController extends Controller
         if ($request->tahun) {
             $tahun = $request->tahun;
         } else {
-            $tahun = 2024;
+            $tahun = Carbon::now()->year;
         }
 
         $peminjaman = DB::table('peminjaman')
@@ -125,7 +126,7 @@ class RedirectController extends Controller
         if ($request->tahun) {
             $tahun = $request->tahun;
         } else {
-            $tahun = 2024;
+            $tahun = Carbon::now()->year;
         }
 
         $peminjaman = DB::table('peminjaman')
