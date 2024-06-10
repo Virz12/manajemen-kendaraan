@@ -67,4 +67,9 @@ class pegawai extends Authenticatable
     {
         return $this->belongsTo(detail_peminjaman::class, 'id', 'id_pegawai');
     }
+
+    public function notification(): HasMany
+    {
+        return $this->hasMany(notification::class, 'id_pegawai', 'id');
+    }
 }

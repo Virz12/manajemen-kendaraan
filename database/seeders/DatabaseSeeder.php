@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\detail_peminjaman;
 use App\Models\kendaraan;
 use App\Models\pegawai;
-use App\Models\peminjaman;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

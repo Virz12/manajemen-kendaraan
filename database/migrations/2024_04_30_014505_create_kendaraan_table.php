@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('tahun',4);
             $table->string('nopol',15)->unique();
             $table->string('warna',15);
+            $table->string('foto_kendaraan')->nullable();
             $table->enum('kondisi',['baik','rusak','perbaikan'])->default('baik');
             $table->enum('status',['tersedia','digunakan'])->default('tersedia');
             $table->timestamps();

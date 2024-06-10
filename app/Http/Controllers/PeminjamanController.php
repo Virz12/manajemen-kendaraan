@@ -60,17 +60,18 @@ class PeminjamanController extends Controller
 
     function updatepeminjaman(Request $request, string $id)
     {
-        $jumlah_kendaraan = peminjaman::findOrFail($id)->count();
+        $jumlah_kendaraan = peminjaman::findOrFail($id)->jumlah;
 
         $messages = [
-            'nopol.required' => 'Data Kendaraan belum terisi.',
-            'nopol.max' => 'Jumlah kendaraan melebihi permintaan',
-            'id_supir' => 'Jumlah supir tidak sesuai',
+            'nopol.required' => 'Data kendaraan belum terisi.',
+            'id_supir.required' => 'Data supir belum terisi.',
+            'nopol.size' => 'Jumlah kendaraan tidak sesuai permintaan',
+            'id_supir.size' => 'Jumlah supir tidak sesuai',
         ];
 
         $request->validate([
-            'nopol' => "required|max:$jumlah_kendaraan",
-            'id_supir' => "nullable|size:$jumlah_kendaraan",
+            'nopol' => "required|size:$jumlah_kendaraan",
+            'id_supir' => "required|size:$jumlah_kendaraan",
         ], $messages);
 
         $kendaraan = $request->input('nopol');

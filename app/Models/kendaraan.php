@@ -16,6 +16,7 @@ class kendaraan extends Model
         'tahun',
         'nopol',
         'warna',
+        'foto_kendaraan',
         'kondisi',
         'status',
     ];

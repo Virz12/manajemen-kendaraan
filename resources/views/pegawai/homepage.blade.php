@@ -145,17 +145,17 @@
                                     <div class="row justify-content-between text-left mb-2">
                                         <div class="col-sm-6 flex-column d-flex">
                                             <label for="tanggal_awal" class="form-label">Tanggal Awal </label>
-                                            <input type="date" id="tanggal_awal" name="tanggal_awal" min="2000-01-01" class="form-control ">
+                                            <input type="date" id="tanggal_awal" name="tanggal_awal" min="{{ date("Y-m-d") }}" class="form-control ">
                                         </div>
                                         <div class="col-sm-6 flex-column d-flex">
                                             <label for="tanggal_akhir" class="form-label">Tanggal Akhir </label>
-                                            <input type="date" id="tanggal_akhir" name="tanggal_akhir" max="2100-01-01" class="form-control ">
+                                            <input type="date" id="tanggal_akhir" name="tanggal_akhir" min="{{ date("Y-m-d") }}" class="form-control ">
                                         </div> 
                                     </div>
                                     <div class="row justify-content-between text-left mb-2">
                                         <div class="col-sm-6 flex-column d-flex ">
                                             <label for="jumlah" class="form-label">Jumlah Kendaraan</label>
-                                            <input type="number" id="jumlah" name="jumlah" class="form-control " placeholder="masukkan angka" >
+                                            <input type="number" id="jumlah" name="jumlah" min="1" max="{{ $jumlah_kendaraan }}" class="form-control " placeholder="masukkan angka" >
                                         </div>
                                         <div class="col-sm-6 flex-column  text-center mt-4">
                                             <label for="supir" class="form-label">Supir</label>
