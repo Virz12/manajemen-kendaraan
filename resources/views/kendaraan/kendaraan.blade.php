@@ -97,17 +97,31 @@
                                         <th scope="col">Warna Kendaraan</th>
                                         <th scope="col">Kondisi Kendaraan</th>
                                         <th scope="col">Status Kendaraan</th>
+                                        <th scope="col">Gambar</th>
                                         <th scope="col" colspan="2">Aksi</th>
                                     </tr>
                                     @forelse($datakendaraan as $kendaraan)
-                                        <tr>
+                                        <tr class="align-middle">
                                             <th>{{($datakendaraan->currentPage()-1) * $datakendaraan->perPage() + $loop->iteration}}</th>
                                             <td>{{ $kendaraan->jenis_kendaraan }}</td>
                                             <td>{{ $kendaraan->tahun }}</td>
                                             <td>{{ $kendaraan->nopol }}</td>
                                             <td>{{ $kendaraan->warna }}</td>
-                                            <td>{{ $kendaraan->kondisi }}</td>
-                                            <td>{{ $kendaraan->status }}</td>
+                                            @if ($kendaraan->kondisi == 'baik')
+                                                <td><i class="fa-solid fa-check fa-lg text-success"></i></td>
+                                            @elseif ($kendaraan->kondisi == 'rusak')
+                                                <td><i class="fa-solid fa-xmark fa-lg text-danger"></i></td>
+                                            @else
+                                                <td><i class="fa-solid fa-triangle-exclamation fa-lg text-warning"></i></td>
+                                            @endif
+                                            @if ($kendaraan->status == 'tersedia')
+                                                <td><i class="fa-solid fa-car fa-lg text-success"></i></td>
+                                            @else
+                                                <td><i class="fa-solid fa-car-on fa-lg text-secondary"></i></td>
+                                            @endif
+                                            <td>
+                                                <img class="me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $kendaraan->id }}" style="width: 120px;">
+                                            </td>
                                             <td>
                                                 <form action="/ubahkendaraan/{{ $kendaraan->id }}">
                                                     @csrf
@@ -138,6 +152,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            {{-- Lightbox Modal --}}
+                                            <div class="modal fade" id="lightbox{{ $kendaraan->id }}">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <img src="{{ asset(Auth::user()->foto_profil) }}" alt="Foto Kendaraan">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </tr>
                                     @empty
                                         <h2 class="text-center py-5">Data Kosong</h2>

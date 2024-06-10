@@ -88,23 +88,23 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="col-md-6">
-                                    <label for="nip" class="form-label w-100 text-start">NIP Pegawai</label>
+                                    <label for="nip" class="form-label w-100 text-start">NIP<span class="text-danger">*</span></label>
                                     <input type="number" value="{{ $datapegawai->nip }}" name="nip" class="form-control" id="nip" min="1">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="nama" class="form-label w-100 text-start">Nama Pegawai</label>
+                                    <label for="nama" class="form-label w-100 text-start">Nama<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ $datapegawai->nama }}" name="nama" class="form-control" id="nama" autocomplete="off">
                                 </div>
                                 <div class="col-12">
-                                    <label for="username" class="form-label w-100 text-start">Nama Pengguna</label>
+                                    <label for="username" class="form-label w-100 text-start">Nama Pengguna<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ $datapegawai->username }}" name="username" class="form-control" id="username" autocomplete="off">
                                 </div>
                                 <div class="col-12">
-                                    <label for="password" class="form-label w-100 text-start">Sandi</label>
+                                    <label for="password" class="form-label w-100 text-start">Sandi<span class="text-danger">*</span></label>
                                     <input type="password" name="password" class="form-control" id="password">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="Role" class="form-label w-100 text-start">Kelompok</label>
+                                    <label for="Role" class="form-label w-100 text-start">Kelompok<span class="text-danger">*</span></label>
                                     <select id="Role" name="kelompok" class="form-select">
                                         <option value="{{ $datapegawai->kelompok }}" selected hidden>{{ $datapegawai->kelompok }}</option>
                                         <option value="pegawai" >Pegawai</option>
@@ -114,7 +114,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="Profile" class="form-label w-100 text-start">Foto Pegawai<i class="opacity-75"> - Optional</i></label>
+                                    <label for="Profile" class="form-label w-100 text-start">Foto Profil</label>
                                     <input class="form-control" type="file" name="foto_profil" id="Profile">
                                   </div>
                                 <div class="col-md-12 w-100 text-start">

@@ -87,23 +87,23 @@
                             <form action="" method="POST" enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 <div class="col-md-6">
-                                    <label for="nip" class="form-label w-100 text-start">NIP</label>
+                                    <label for="nip" class="form-label w-100 text-start">NIP<span class="text-danger">*</span></label>
                                     <input type="number" value="{{ @old('nip') }}" name="nip" class="form-control" id="nip" min="1">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="nama" class="form-label w-100 text-start">Nama</label>
+                                    <label for="nama" class="form-label w-100 text-start">Nama<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ @old('nama') }}" name="nama" class="form-control" id="nama" autocomplete="off">
                                 </div>
                                 <div class="col-12">
-                                    <label for="username" class="form-label w-100 text-start">Nama Pengguna</label>
+                                    <label for="username" class="form-label w-100 text-start">Nama Pengguna<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ @old('username') }}" name="username" class="form-control" id="username" autocomplete="off">
                                 </div>
                                 <div class="col-12">
-                                    <label for="password" class="form-label w-100 text-start">Sandi</label>
+                                    <label for="password" class="form-label w-100 text-start">Sandi<span class="text-danger">*</span></label>
                                     <input type="password" name="password" class="form-control" id="password">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="Role" class="form-label w-100 text-start">Kelompok</label>
+                                    <label for="Role" class="form-label w-100 text-start">Kelompok<span class="text-danger">*</span></label>
                                     <select id="Role" name="kelompok" class="form-select">
                                         <option value="pegawai" selected>Pegawai</option>
                                         <option value="admin" >Admin</option>
@@ -112,7 +112,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="Profile" class="form-label w-100 text-start">Foto Profil<i class="opacity-75"> - Optional</i></label>
+                                    <label for="Profile" class="form-label w-100 text-start">Foto Profil</label>
                                     <input class="form-control" type="file" name="foto_profil" id="Profile">
                                 </div>
                                 <div class="col-md-12 w-100 text-start">
