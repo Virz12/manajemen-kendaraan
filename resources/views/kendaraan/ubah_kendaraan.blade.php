@@ -85,18 +85,30 @@
                                 <div class="col-md-6">
                                     <label for="jenis_kendaraan" class="form-label w-100 text-start">Jenis Kendaraan<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ $datakendaraan->jenis_kendaraan }}" name="jenis_kendaraan" class="form-control" id="jenis_kendaraan" min="1" autocomplete="off">
+                                    @error('jenis_kendaraan')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="tahun" class="form-label w-100 text-start">Tahun Kendaraan<span class="text-danger">*</span></label>
                                     <input type="number" value="{{ $datakendaraan->tahun }}" name="tahun" class="form-control" id="tahun">
+                                    @error('tahun')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="nopol" class="form-label w-100 text-start">No Polisi</label>
                                     <input type="text" value="{{ $datakendaraan->nopol }}" name="nopol" class="form-control" id="nopol" autocomplete="off">
+                                    @error('nopol')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="warna" class="form-label w-100 text-start">Warna Kendaraan<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ $datakendaraan->warna }}" name="warna" class="form-control" id="warna" autocomplete="off">
+                                    @error('warna')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="kondisi" class="form-label w-100 text-start">Kondisi Kendaraan<span class="text-danger">*</span></label>
@@ -106,6 +118,9 @@
                                         <option value="rusak">Rusak</option>
                                         <option value="perbaikan">Perbaikan</option>
                                     </select>
+                                    @error('kondisi')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="status" class="form-label w-100 text-start">Status Kendaraan<span class="text-danger">*</span></label>
@@ -114,6 +129,9 @@
                                         <option value="tersedia">Tersedia</option>
                                         <option value="digunakan">Digunakan</option>
                                     </select>
+                                    @error('status')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-12 w-100 text-start">
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -126,13 +144,11 @@
             {{-- Alert --}}
             @if($errors->any())
                 <div class="position-fixed bottom-0 end-0 p-3">
-                    @foreach ($errors->all() as $item)
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                            {{ $item }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endforeach
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                        Proses edit tidak berhasil!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 </div>
             @endif
         </main>
