@@ -36,7 +36,7 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
     Route::post('/tambah_pegawai', [AdminController::class, 'storepegawai']);
     Route::get('/ubahpegawai/{pegawai:id}', [AdminController::class, 'editpegawai'])->name('pegawai.edit');
     Route::put('/ubahpegawai/{pegawai:id}', [AdminController::class, 'updatepegawai']);
-    Route::get('/hapuspegawai/{pegawai:id}',[AdminController::class, 'deletepegawai'])->name('pegawai.delete');
+    Route::get('/hapuspegawai/{pegawai:id}', [AdminController::class, 'deletepegawai'])->name('pegawai.delete');
     Route::get('/pegawai', [AdminController::class, 'pegawai']);
     Route::get('/kendaraan', [AdminController::class, 'kendaraan']);
     Route::get('/peminjaman', [AdminController::class, 'peminjaman']);
@@ -47,6 +47,7 @@ Route::middleware(['preventBackHistory','auth','userAccess:pegawai'])->group(fun
     //Pegawai
     Route::get('/homepage_pegawai', [RedirectController::class, 'pegawai'])->name('pegawai.homepage');
     Route::post('/homepage_pegawai', [PeminjamanController::class, 'storepeminjaman']);
+    Route::post('edit_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'editpeminjaman']);
 });
 
 Route::middleware(['preventBackHistory','auth','userAccess:kendaraan'])->group(function () {
@@ -57,8 +58,8 @@ Route::middleware(['preventBackHistory','auth','userAccess:kendaraan'])->group(f
     Route::get('/ubahkendaraan/{kendaraan:id}', [KendaraanController::class, 'editkendaraan'])->name('kendaraan.edit');
     Route::put('/ubahkendaraan/{kendaraan:id}', [KendaraanController::class, 'updatekendaraan']);
     Route::get('/hapuskendaraan/{kendaraan:id}', [KendaraanController::class, 'deletekendaraan'])->name('kendaraan.delete');
-    Route::get('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'editpeminjaman'])->name('peminjaman.edit');
-    Route::post('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'updatepeminjaman']);
+    Route::get('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'pageverifikasipeminjaman'])->name('peminjaman.edit');
+    Route::post('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'verifikasipeminjaman']);
     Route::get('/selesai_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'selesaipeminjaman']);
     Route::get('/data_kendaraan', [KendaraanController::class, 'kendaraan']);
     Route::get('/data_peminjaman', [KendaraanController::class, 'peminjaman']);

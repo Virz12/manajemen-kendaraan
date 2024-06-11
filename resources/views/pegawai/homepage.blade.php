@@ -27,20 +27,15 @@
                             </i>
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Pengajuan diterima</h6>
-                                <small>10/06/2024</small>
-                            </li>
-                            <hr class="dropdown-divider">
-                            <li class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Pengajuan diterima</h6>
-                                <small>10/06/2024</small>
-                            </li>
-                            <hr class="dropdown-divider">
-                            <li class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Pengajuan diterima</h6>
-                                <small>10/06/2024</small>
-                            </li>
+                            @forelse(Auth::user()->notification->slice(0, 3) as $notification)
+                                <li class="dropdown-item">
+                                    <h6 class="fw-normal mb-0">{{ $notification->notification }}</h6>
+                                    <small>{{ $notification->created_at }}</small>
+                                </li>
+                                <hr class="dropdown-divider">
+                            @empty
+                                Tidak ada notifikasi terbaru!
+                            @endforelse
                         </ul>
                     </div>
                     <div class="nav-item dropdown">
@@ -64,12 +59,63 @@
                 </div>
             </nav>
             <main>
-                {{-- card peminjaman terbaru --}}
+                {{-- Card Peminjaman Terbaru --}}
                 <div class="container-fluid p-0 mb-4 mt-4 ">
                     <div class="shadow-lg bg-light text-center rounded p-4 w-70  m-auto h-70vh ">
                         <div class="d-md-flex align-items-center justify-content-between mb-4">
                             <h6 class="fs-3 mb-0">Peminjaman Terbaru</h6>
                             <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#formPengajuan"><i class="fa-solid fa-car me-1 car-icon" style="color: #000000;"></i>Ajukan Peminjaman</button>
+                        </div>
+                        {{-- Modal Pengajuan Peminjaman --}}
+                        <div class="modal fade" id="formPengajuan" tabindex="-1" aria-labelledby="formPengajuanLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content container-fluid p-0">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="formPengajuanLabel">Pengajuan Peminjaman</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="" method="POST" class="form-card px-4 pt-4">
+                                        @csrf
+                                        <div class="row justify-content-between text-left mb-2">
+                                            <div class="col-sm-6 flex-column d-flex">
+                                                <label for="tanggal_awal" class="form-label">Tanggal Awal<span class="text-danger">*</span></label>
+                                                <input type="date" id="tanggal_awal" name="pengajuan_tanggal_awal" min="{{ date("Y-m-d") }}" class="form-control ">
+                                                @error('pengajuan_tanggal_awal')
+                                                <div class="text-danger"><small>{{ $message }}</small></div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6 flex-column d-flex">
+                                                <label for="tanggal_akhir" class="form-label">Tanggal Akhir<span class="text-danger">*</span></label>
+                                                <input type="date" id="tanggal_akhir" name="pengajuan_tanggal_akhir" min="{{ date("Y-m-d") }}" class="form-control ">
+                                                @error('pengajuan_tanggal_akhir')
+                                                <div class="text-danger"><small>{{ $message }}</small></div>
+                                                @enderror
+                                            </div> 
+                                        </div>
+                                        <div class="row justify-content-between text-left mb-2">
+                                            <div class="col-sm-6 flex-column d-flex ">
+                                                <label for="jumlah" class="form-label">Jumlah Kendaraan<span class="text-danger">*</span></label>
+                                                <input type="number" id="jumlah" name="pengajuan_jumlah" min="1" max="{{ $jumlah_kendaraan }}" class="form-control " placeholder="masukkan angka" >
+                                                @error('pengajuan_jumlah')
+                                                <div class="text-danger"><small>{{ $message }}</small></div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6 flex-column  text-center mt-4">
+                                                <label for="supir" class="form-label">Supir</label>
+                                                <input type="checkbox" id="supir" name="pengajuan_supir" value="1" class="">
+                                                @error('pengajuan_supir')
+                                                <div class="text-danger"><small>{{ $message }}</small></div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-car-on me-1 car-icon"></i>Ajukan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                         @forelse ($data_terbaru as $datapbaru)
                             <div class="col-sm-4 m-auto">
@@ -146,8 +192,63 @@
                                                 @endif
                                             </td>
                                             <td>{{$datapeminjam->status}}</td>
-                                            <td><button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#formEditPengajuan">Edit</button></td>
-                                        </tr> 
+                                            @if($datapeminjam->status == 'pengajuan')
+                                                <td><button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#formEditPengajuan{{ $datapeminjam->id }}">Edit</button></td>
+                                            @else
+                                                <td><button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#formEditPengajuan{{ $datapeminjam->id }}" disabled>Edit</button></td>
+                                            @endif
+                                        </tr>
+                                        {{-- Modal Ubah Peminjaman --}}
+                                        <div class="modal fade" id="formEditPengajuan{{ $datapeminjam->id }}" tabindex="-1" aria-labelledby="formEditPengajuanLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content container-fluid p-0">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="formEditPengajuanLabel">Ubah Data Peminjaman</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/edit_peminjaman/{{ $datapeminjam->id }}" method="POST" class="form-card px-4 pt-4 ">
+                                                        @csrf
+                                                        <div class="row justify-content-between text-left mb-2">
+                                                            <div class="col-sm-6 flex-column d-flex">
+                                                                <label for="tanggal_awal" class="form-label">Tanggal Awal<span class="text-danger">*</span></label>
+                                                                <input type="date" id="tanggal_awal" name="ubah_tanggal_awal" value="{{ $datapeminjam->tanggal_awal }}" min="{{ date("Y-m-d") }}" class="form-control ">
+                                                                @error('ubah_tanggal_awal')
+                                                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-sm-6 flex-column d-flex">
+                                                                <label for="tanggal_akhir" class="form-label">Tanggal Akhir<span class="text-danger">*</span></label>
+                                                                <input type="date" id="tanggal_akhir" name="ubah_tanggal_akhir" value="{{ $datapeminjam->tanggal_akhir }}" min="{{ date("Y-m-d") }}" class="form-control ">
+                                                                @error('ubah_tanggal_akhir')
+                                                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                                                @enderror
+                                                            </div> 
+                                                        </div>
+                                                        <div class="row justify-content-between text-left mb-2">
+                                                            <div class="col-sm-6 flex-column d-flex ">
+                                                                <label for="jumlah" class="form-label">Jumlah Kendaraan<span class="text-danger">*</span></label>
+                                                                <input type="number" id="jumlah" name="ubah_jumlah" value="{{ $datapeminjam->jumlah }}" min="1" max="{{ $jumlah_kendaraan }}" class="form-control " placeholder="masukkan angka" >
+                                                                @error('ubah_jumlah')
+                                                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-sm-6 flex-column  text-center mt-4">
+                                                                <label for="supir" class="form-label">Supir</label>
+                                                                <input type="checkbox" id="supir" name="ubah_supir" value="1" class="" @checked(old('supir', $datapeminjam->supir))>
+                                                                @error('ubah_supir')
+                                                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-car-on me-1 car-icon"></i>Ganti</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
                                         @empty
                                         <h2>Data Kosong</h2>
                                         @endforelse
@@ -155,108 +256,6 @@
                                 </table>
                             </div>
                             {!! $data_peminjaman->links() !!}
-                        </div>
-                    </div>
-                    {{-- Modal- popup form --}}
-                    <div class="modal fade" id="formPengajuan" tabindex="-1" aria-labelledby="formPengajuanLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content container-fluid p-0">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="formPengajuanLabel">Formulir Pengajuan Peminjaman</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="" method="POST" class="form-card px-4 pt-4 ">
-                                    @csrf
-                                    <div class="row justify-content-between text-left mb-2">
-                                        <div class="col-sm-6 flex-column d-flex">
-                                            <label for="tanggal_awal" class="form-label">Tanggal Awal<span class="text-danger">*</span></label>
-                                            <input type="date" id="tanggal_awal" name="tanggal_awal" min="{{ date("Y-m-d") }}" class="form-control ">
-                                            @error('tanggal_awal')
-                                            <div class="text-danger"><small>{{ $message }}</small></div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-sm-6 flex-column d-flex">
-                                            <label for="tanggal_akhir" class="form-label">Tanggal Akhir<span class="text-danger">*</span></label>
-                                            <input type="date" id="tanggal_akhir" name="tanggal_akhir" min="{{ date("Y-m-d") }}" class="form-control ">
-                                            @error('tanggal_akhir')
-                                            <div class="text-danger"><small>{{ $message }}</small></div>
-                                            @enderror
-                                        </div> 
-                                    </div>
-                                    <div class="row justify-content-between text-left mb-2">
-                                        <div class="col-sm-6 flex-column d-flex ">
-                                            <label for="jumlah" class="form-label">Jumlah Kendaraan<span class="text-danger">*</span></label>
-                                            <input type="number" id="jumlah" name="jumlah" min="1" max="{{ $jumlah_kendaraan }}" class="form-control " placeholder="masukkan angka" >
-                                            @error('jumlah')
-                                            <div class="text-danger"><small>{{ $message }}</small></div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-sm-6 flex-column  text-center mt-4">
-                                            <label for="supir" class="form-label">Supir</label>
-                                            <input type="checkbox" id="supir" name="supir" value="1" class="">
-                                            @error('supir')
-                                            <div class="text-danger"><small>{{ $message }}</small></div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-car-on me-1 car-icon"></i>Ajukan</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    {{-- Modal Edit Form --}}
-                    <div class="modal fade" id="formEditPengajuan" tabindex="-1" aria-labelledby="formEditPengajuanLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content container-fluid p-0">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="formEditPengajuanLabel">Formulir Pengajuan Peminjaman</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="" method="POST" class="form-card px-4 pt-4 ">
-                                    @csrf
-                                    <div class="row justify-content-between text-left mb-2">
-                                        <div class="col-sm-6 flex-column d-flex">
-                                            <label for="tanggal_awal" class="form-label">Tanggal Awal<span class="text-danger">*</span></label>
-                                            <input type="date" id="tanggal_awal" name="tanggal_awal" min="{{ date("Y-m-d") }}" class="form-control ">
-                                            @error('tanggal_awal')
-                                                <div class="text-danger"><small>{{ $message }}</small></div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-sm-6 flex-column d-flex">
-                                            <label for="tanggal_akhir" class="form-label">Tanggal Akhir<span class="text-danger">*</span></label>
-                                            <input type="date" id="tanggal_akhir" name="tanggal_akhir" min="{{ date("Y-m-d") }}" class="form-control ">
-                                            @error('tanggal_akhir')
-                                                <div class="text-danger"><small>{{ $message }}</small></div>
-                                            @enderror
-                                        </div> 
-                                    </div>
-                                    <div class="row justify-content-between text-left mb-2">
-                                        <div class="col-sm-6 flex-column d-flex ">
-                                            <label for="jumlah" class="form-label">Jumlah Kendaraan<span class="text-danger">*</span></label>
-                                            <input type="number" id="jumlah" name="jumlah" min="1" max="{{ $jumlah_kendaraan }}" class="form-control " placeholder="masukkan angka" >
-                                            @error('jumlah')
-                                                <div class="text-danger"><small>{{ $message }}</small></div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-sm-6 flex-column  text-center mt-4">
-                                            <label for="supir" class="form-label">Supir</label>
-                                            <input type="checkbox" id="supir" name="supir" value="1" class="">
-                                            @error('supir')
-                                                <div class="text-danger"><small>{{ $message }}</small></div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-car-on me-1 car-icon"></i>Ganti</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                         </div>
                     </div>
                     {{-- Toast --}}
