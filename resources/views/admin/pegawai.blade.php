@@ -110,7 +110,22 @@
                                                 <td>{{ $pegawai->nip }}</td>
                                                 <td>{{ $pegawai->nama }}</td>
                                                 <td>{{ $pegawai->kelompok }}</td>
-                                                <td>{{ $pegawai->status }}</td>
+                                                @if ($pegawai->status == 'aktif')
+                                                    <td class="position-relative">
+                                                        <i class="fa-solid fa-user-check fa-lg text-success tooltip-icon"></i>
+                                                        <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Aktif</span>
+                                                    </td>
+                                                @elseif ($pegawai->status == 'pensiun')
+                                                    <td class="position-relative">
+                                                        <i class="fa-solid fa-user-clock fa-lg text-secondary tooltip-icon"></i>
+                                                        <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Pensiun</span>
+                                                    </td>
+                                                @else
+                                                    <td class="position-relative">
+                                                        <i class="fa-solid fa-user-xmark fa-lg text-danger tooltip-icon"></i>
+                                                        <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Berhenti</span>
+                                                    </td>
+                                                @endif
                                                 <td><a href="/ubahpegawai/{{ $pegawai->id }}" class="btn btn-success">Edit</a></td>
                                                 <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Hapus{{ $pegawai->id }}">Hapus</button></td>
                                             </tr>

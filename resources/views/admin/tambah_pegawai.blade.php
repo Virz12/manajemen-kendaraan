@@ -90,31 +90,31 @@
                                     <label for="nip" class="form-label w-100 text-start">NIP<span class="text-danger">*</span></label>
                                     <input type="number" value="{{ @old('nip') }}" name="nip" class="form-control" id="nip" min="1">
                                     @error('nip')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="nama" class="form-label w-100 text-start">Nama<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ @old('nama') }}" name="nama" class="form-control" id="nama" autocomplete="off">
                                     @error('nama')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="username" class="form-label w-100 text-start">Nama Pengguna<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ @old('username') }}" name="username" class="form-control" id="username" autocomplete="off">
                                     @error('username')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="password" class="form-label w-100 text-start">Sandi<span class="text-danger">*</span></label>
                                     <input type="password" name="password" class="form-control" id="password">
                                     @error('password')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="Role" class="form-label w-100 text-start">Kelompok<span class="text-danger">*</span></label>
                                     <select id="Role" name="kelompok" class="form-select">
                                         <option value="pegawai" selected>Pegawai</option>
@@ -123,14 +123,25 @@
                                         <option value="kendaraan" >Kendaraan</option>
                                     </select>
                                     @error('kelompok')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label for="Status" class="form-label w-100 text-start">Status<span class="text-danger">*</span></label>
+                                    <select id="Status" name="status" class="form-select">
+                                        <option value="aktif" selected>Aktif</option>
+                                        <option value="pensiun" >Pensiun</option>
+                                        <option value="berhenti" >Berhenti</option>
+                                    </select>
+                                    @error('status')
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4">
                                     <label for="Profile" class="form-label w-100 text-start">Foto Profil</label>
                                     <input class="form-control" type="file" name="foto_profil" id="Profile">
                                     @error('foto_profil')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-12 w-100 text-start">

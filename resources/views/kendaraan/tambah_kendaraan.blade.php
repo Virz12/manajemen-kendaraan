@@ -85,31 +85,31 @@
                                     <label for="jenis_kendaraan" class="form-label w-100 text-start">Jenis Kendaraan<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ @old('jenis_kendaraan') }}" name="jenis_kendaraan" class="form-control" id="jenis_kendaraan" min="1" autocomplete="off">
                                     @error('jenis_kendaraan')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="tahun" class="form-label w-100 text-start">Tahun Kendaraan<span class="text-danger">*</span></label>
                                     <input type="number" value="{{ @old('tahun') }}" name="tahun" class="form-control" id="tahun">
                                     @error('tahun')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="nopol" class="form-label w-100 text-start">No Polisi</label>
                                     <input type="text" value="{{ @old('nopol') }}" name="nopol" class="form-control" id="nopol" autocomplete="off">
                                     @error('nopol')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="warna" class="form-label w-100 text-start">Warna Kendaraan<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ @old('warna') }}" name="warna" class="form-control" id="warna" autocomplete="off">
                                     @error('warna')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="kondisi" class="form-label w-100 text-start">Kondisi Kendaraan<span class="text-danger">*</span></label>
                                     <select id="kondisi" name="kondisi" class="form-select">
                                         <option value="baik" default selected>Baik</option>
@@ -117,17 +117,24 @@
                                         <option value="perbaikan">Perbaikan</option>
                                     </select>
                                     @error('kondisi')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="status" class="form-label w-100 text-start">Status Kendaraan<span class="text-danger">*</span></label>
                                     <select id="status" name="status" class="form-select">
                                         <option value="tersedia" default selected>Tersedia</option>
                                         <option value="digunakan">Digunakan</option>
                                     </select>
                                     @error('status')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Kendaraan" class="form-label w-100 text-start">Foto Kendaraan<span class="text-danger">*</span></label>
+                                    <input class="form-control" type="file" name="foto_kendaraan" id="Kendaraan">
+                                    @error('foto_kendaraan')
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-12 w-100 text-start">

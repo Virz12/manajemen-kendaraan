@@ -108,16 +108,31 @@
                                             <td>{{ $kendaraan->nopol }}</td>
                                             <td>{{ $kendaraan->warna }}</td>
                                             @if ($kendaraan->kondisi == 'baik')
-                                                <td><i class="fa-solid fa-check fa-lg text-success"></i></td>
+                                                <td class="position-relative">
+                                                    <i class="fa-solid fa-check fa-lg text-success tooltip-icon"></i>
+                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Baik</span>
+                                                </td>
                                             @elseif ($kendaraan->kondisi == 'rusak')
-                                                <td><i class="fa-solid fa-xmark fa-lg text-danger"></i></td>
+                                                <td class="position-relative">
+                                                    <i class="fa-solid fa-xmark fa-lg text-danger tooltip-icon"></i>
+                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Rusak</span>
+                                                </td>
                                             @else
-                                                <td><i class="fa-solid fa-triangle-exclamation fa-lg text-warning"></i></td>
+                                                <td class="position-relative">
+                                                    <i class="fa-solid fa-triangle-exclamation fa-lg text-warning tooltip-icon"></i>
+                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Perbaikan</span>
+                                                </td>
                                             @endif
                                             @if ($kendaraan->status == 'tersedia')
-                                                <td><i class="fa-solid fa-car fa-lg text-success"></i></td>
+                                                <td class="position-relative">
+                                                    <i class="fa-solid fa-car fa-lg text-success tooltip-icon"></i>
+                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Tersedia</span>
+                                                </td>
                                             @else
-                                                <td><i class="fa-solid fa-car-on fa-lg text-secondary"></i></td>
+                                                <td class="position-relative">
+                                                    <i class="fa-solid fa-car-on fa-lg text-secondary tooltip-icon"></i>
+                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Digunakan</span>
+                                                </td>
                                             @endif
                                             <td>
                                                 <img class="me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $kendaraan->id }}" style="width: 120px;">

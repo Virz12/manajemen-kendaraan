@@ -26,7 +26,7 @@
                                 </span>
                             </i>
                         </div>
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-end p-2">
                             @forelse(Auth::user()->notification->slice(0, 3) as $notification)
                                 <li class="dropdown-item">
                                     <h6 class="fw-normal mb-0">{{ $notification->notification }}</h6>

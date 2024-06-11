@@ -31,10 +31,16 @@
                         <div class="form-floating mb-4" >
                             <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border-2 border-warning" placeholder="" autocomplete="off" >
                             <label class="form-label" for="username">Nama Pengguna</label>
+                            @error('username')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
                         </div>
                         <div class="form-floating mb-4">
                             <input type="password" name="password" value="{{ @old('password') }}" id="floatingInput" class="form-control form-control-lg border-2 border-warning" placeholder="" autocomplete="off" >
                             <label class="form-label " for="floatingInput">Sandi</label>
+                            @error('password')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
                         </div>
                         <div class="pt-1 mb-5">
                             <button class="button shadow-sm btn w-100 fw-semibold" style="" type="submit">Masuk</button>
@@ -45,16 +51,14 @@
         </div>
         {{-- Alert --}}
         @if($errors->any())
-        <div class="position-fixed bottom-0 end-0 p-3">
-            @foreach ($errors->all() as $item)
+            <div class="position-fixed bottom-0 end-0 p-3">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                    {{ $item }}
+                    Username atau Password tidak cocok!
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            @endforeach
-        </div>
-    @endif
+            </div>
+        @endif
     </div>
     <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
 </body>
