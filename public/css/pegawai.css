@@ -52,6 +52,11 @@ body {
     box-shadow: 0 0 0 .2rem var(--primary);
 }
 
+.btn:disabled {
+    background-color: var(--primary);
+    border-color: var(--primary-hover);
+}
+
 /* pagination custom */
 .pagination {
     margin-top: 20px;
@@ -124,9 +129,11 @@ a.page-link {
     .h-80vh {
         height: 50vh;
     }
+
     .h-90vh {
         height: 60vh;
     }
+
     .w-70 {
         width: 50%;
     }
