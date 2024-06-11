@@ -91,8 +91,12 @@
                     <div class="col-md-4 ">
                         <div class="card ">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">NIP : {{ $peminjaman->nip_peminjam }}</li>
-                                <li class="list-group-item">{{ $peminjaman->tanggal_awal }} <br> {{ $peminjaman->tanggal_akhir }}</li>
+                                <li class="list-group-item">Peminjam : <br>
+                                    {{ $peminjaman->pegawai->nama }} (NIP:{{ $peminjaman->nip_peminjam }})
+                                </li>
+                                <li class="list-group-item">Periode Peminjaman : <br>
+                                    {{ $peminjaman->tanggal_awal }} - {{ $peminjaman->tanggal_akhir }}
+                                </li>
                                 <li class="list-group-item">Kendaraan : <br>
                                     @foreach($peminjaman->detail_peminjaman as $detailpeminjaman)
                                         @foreach($detailpeminjaman->kendaraan as $kendaraan)
@@ -100,15 +104,15 @@
                                         @endforeach                                    
                                     @endforeach
                                 </li>
-                                <li class="list-group-item">Nama Supir : <br>
+                                <li class="list-group-item">Supir : <br>
                                     @foreach($peminjaman->detail_peminjaman as $detailpeminjaman)
                                         @foreach($detailpeminjaman->supir as $supir)
-                                            {{ $supir->nama }} - {{ $supir->id }}<br>
+                                            {{ $supir->nama }} (NIP:{{ $supir->nip }})<br>
                                         @endforeach                                    
                                     @endforeach
                                 </li>
-                                <li class="list-group-item ">Memverifikasi : <br>
-                                    {{ $peminjaman->detail_peminjaman->first()->tim_kendaraan->nama }}
+                                <li class="list-group-item ">Diverifikasi oleh : <br>
+                                    {{ $peminjaman->detail_peminjaman->first()->tim_kendaraan->nama }} (NIP:{{ $peminjaman->detail_peminjaman->first()->tim_kendaraan->nip }})
                                 </li>
                                 <li class="list-group-item fw-bold">Status : {{ $peminjaman->status }}</li>
                             </ul>
