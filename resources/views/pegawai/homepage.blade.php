@@ -34,7 +34,8 @@
                                 </li>
                                 <hr class="dropdown-divider">
                             @empty
-                                Tidak ada notifikasi terbaru!
+                                <h6 class="fw-normal mb-0">Tidak ada notifikasi terbaru!</h6>
+                                <hr class="dropdown-divider">
                             @endforelse
                         </ul>
                     </div>
