@@ -97,7 +97,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-12">
-                                    <label for="nopol" class="form-label w-100 text-start">No Polisi</label>
+                                    <label for="nopol" class="form-label w-100 text-start">No Polisi<span class="text-danger">*</span></label>
                                     <input type="text" value="{{ $datakendaraan->nopol }}" name="nopol" class="form-control" id="nopol" autocomplete="off">
                                     @error('nopol')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>

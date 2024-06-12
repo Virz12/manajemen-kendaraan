@@ -99,13 +99,12 @@ class PeminjamanController extends Controller
         $messages = [
             'nopol.required' => 'Data kendaraan belum terisi.',
             'nopol.size' => 'Jumlah kendaraan tidak sesuai permintaan',
-            'id_supir.required_if' => 'Data supir belum terisi.',
             'id_supir.size' => 'Jumlah supir tidak sesuai',
         ];
 
         $request->validate([
             'nopol' => "required|size:$peminjaman->jumlah",
-            'id_supir' => "required_if:$peminjaman->supir,true|size:$peminjaman->jumlah",
+            'id_supir' => "nullable|size:$peminjaman->jumlah",
         ], $messages);
 
         $kendaraan = $request->input('nopol');
