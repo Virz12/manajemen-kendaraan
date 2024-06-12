@@ -100,8 +100,8 @@
                                             <th scope="col">Nomor Polisi</th>
                                             <th scope="col">Warna Kendaraan</th>
                                             <th scope="col">Kondisi</th>
-                                            <th scope="col">Gambar</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Gambar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -140,14 +140,14 @@
                                                 </td>
                                             @endif
                                             <td>
-                                                <img class="me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $kendaraan->id }}" style="width: 120px;">
+                                                <img class="me-lg-2" src="{{ asset($kendaraan->foto_kendaraan) }}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $kendaraan->id }}" style="width: 120px;">
                                             </td>
                                         </tr>
                                         {{-- Lightbox Modal --}}
                                         <div class="modal fade" id="lightbox{{ $kendaraan->id }}">
                                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                                 <div class="modal-content">
-                                                    <img src="{{ asset(Auth::user()->foto_profil) }}" alt="Foto Kendaraan">
+                                                    <img src="{{ asset($kendaraan->foto_kendaraan) }}" alt="Foto Kendaraan">
                                                 </div>
                                             </div>
                                         </div>

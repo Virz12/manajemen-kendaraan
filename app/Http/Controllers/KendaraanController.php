@@ -7,6 +7,7 @@ use App\Models\peminjaman;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
 
 class KendaraanController extends Controller
@@ -202,9 +203,10 @@ class KendaraanController extends Controller
         $kendaraan = kendaraan::findOrFail($id);
 
         if ($request->hasFile('foto_kendaraan')) {
-
-            unlink($kendaraan->foto_kendaraan);
-
+            if (File::exists($kendaraan->foto_kendaraan))
+            {
+                File::delete($kendaraan->foto_kendaraan);
+            }            
             $newImage = $request->file('foto_kendaraan');
             $imageName = time().'.'.$newImage->extension();
             $newImage->move(public_path('images'), $imageName);
