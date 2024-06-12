@@ -126,7 +126,12 @@
                                                         <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Berhenti</span>
                                                     </td>
                                                 @endif
-                                                <td><a href="/ubahpegawai/{{ $pegawai->id }}" class="btn btn-success">Edit</a></td>
+                                                <td>
+                                                    <form action="/ubahpegawai/{{ $pegawai->id }}">
+                                                        @csrf
+                                                        <button class="btn btn-success" type="submit">Ubah</button>
+                                                    </form>
+                                                </td>
                                                 <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Hapus{{ $pegawai->id }}">Hapus</button></td>
                                             </tr>
                                             {{-- Confirmation Modal --}}

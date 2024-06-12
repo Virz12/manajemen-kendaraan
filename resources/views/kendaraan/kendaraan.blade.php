@@ -97,7 +97,7 @@
                                         <th scope="col">Warna Kendaraan</th>
                                         <th scope="col">Kondisi Kendaraan</th>
                                         <th scope="col">Status Kendaraan</th>
-                                        <th scope="col">Gambar</th>
+                                        <th scope="col">Foto Kendaraan</th>
                                         <th scope="col" colspan="2">Aksi</th>
                                     </tr>
                                     @forelse($datakendaraan as $kendaraan)
@@ -135,7 +135,7 @@
                                                 </td>
                                             @endif
                                             <td>
-                                                <img class="me-lg-2" src="{{ asset(Auth::user()->foto_profil) }}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $kendaraan->id }}" style="width: 120px;">
+                                                <img class="me-lg-2" src="{{ asset($kendaraan->foto_kendaraan) }}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $kendaraan->id }}" style="width: 120px;">
                                             </td>
                                             <td>
                                                 <form action="/ubahkendaraan/{{ $kendaraan->id }}">
@@ -172,7 +172,7 @@
                                             <div class="modal fade" id="lightbox{{ $kendaraan->id }}">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
-                                                        <img src="{{ asset(Auth::user()->foto_profil) }}" alt="Foto Kendaraan">
+                                                        <img src="{{ asset($kendaraan->foto_kendaraan) }}" alt="Foto Kendaraan">
                                                     </div>
                                                 </div>
                                             </div>

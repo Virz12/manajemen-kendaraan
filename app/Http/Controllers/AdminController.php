@@ -170,23 +170,25 @@ class AdminController extends Controller
             'nip' => 'required|numeric|digits_between:1,20|unique:pegawai,nip',
             'nama' => 'required|max:50|regex:/^[\pL\s]+$/u',
             'foto_profil' => 'nullable|image|max:2048',
+            'status' => 'required|in:aktif,pensiun,berhenti',
             'kelompok' => 'required|in:pegawai,kendaraan,admin,supir',
             'username' => 'required|max:15|alpha_dash:ascii|lowercase|unique:pegawai,username',
             'password' => 'required|max:15|alpha_num:ascii',
         ],$messages);
  
         $data = [
-            'nip' => $request->nip,
-            'nama' => $request->nama,
-            'kelompok' => $request->kelompok,
-            'username' => $request->username,
-            'password' => bcrypt($request->password),
+            'nip' => $request->input('nip'),
+            'nama' => $request->input('nama'),
+            'status' => $request->input('status'),
+            'kelompok' => $request->input('kelompok'),
+            'username' => $request->input('username'),
+            'password' => bcrypt($request->input('password')),
         ];
 
         if($pegawai = pegawai::create($data)) {
             if($request->hasFile('foto_profil')) {
                 $image = $request->file('foto_profil');
-                $imageName = $request->nama.'.'.$image->extension();
+                $imageName = time().'.'.$image->extension();
                 $image->move(public_path('images'), $imageName);
                 $imagePath = 'images/' . $imageName;
 
@@ -226,17 +228,19 @@ class AdminController extends Controller
             'nip' => 'required|numeric|digits_between:1,20|',Rule::unique('pegawai','nip')->ignore($request->input('nip')),
             'nama' => 'required|max:50|regex:/^[\pL\s]+$/u',
             'foto_profil' => 'nullable|image|max:2048',
+            'status' => 'required|in:aktif,pensiun,berhenti',
             'kelompok' => 'required|in:pegawai,kendaraan,admin,supir',
             'username' => 'required|max:15|alpha_dash:ascii|lowercase|',Rule::unique('pegawai','username')->ignore($request->input('username')),
             'password' => 'required|max:15|alpha_num:ascii',
         ],$messages);
 
         $data = [
-            'nip' => $request->nip,
-            'nama' => $request->nama,
-            'kelompok' => $request->kelompok,
-            'username' => $request->username,
-            'password' => bcrypt($request->password),
+            'nip' => $request->input('nip'),
+            'nama' => $request->input('nama'),
+            'status' => $request->input('status'),
+            'kelompok' => $request->input('kelompok'),
+            'username' => $request->input('username'),
+            'password' => bcrypt($request->input('password')),
         ];
 
         $pegawai = pegawai::findOrFail($id);
@@ -247,7 +251,7 @@ class AdminController extends Controller
             }
 
             $newImage = $request->file('foto_profil');
-            $imageName = $request->nama.'.'.$newImage->extension();
+            $imageName = time().'.'.$newImage->extension();
             $newImage->move(public_path('images'), $imageName);
 
             $pegawai->foto_profil = 'images/' . $imageName;

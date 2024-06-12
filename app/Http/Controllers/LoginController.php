@@ -28,8 +28,8 @@ class LoginController extends Controller
         ],$messages);
 
         $inputeddata = [
-            'username' => $request->username,
-            'password' => $request->password,
+            'username' => $request->input('username'),
+            'password' => $request->input('password'),
         ];
 
         if(Auth::attempt($inputeddata)) {

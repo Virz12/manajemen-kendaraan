@@ -97,16 +97,25 @@ class PeminjamanController extends Controller
         $peminjaman = peminjaman::findOrFail($id);
 
         $messages = [
-            'nopol.required' => 'Data kendaraan belum terisi.',
+            'nopol.required' => 'Data kendaraan belum terisi',
             'nopol.size' => 'Jumlah kendaraan tidak sesuai permintaan',
             'id_supir.size' => 'Jumlah supir tidak sesuai',
+            'id_supir.required' => 'Data supir belum terisi',
         ];
 
-        $request->validate([
-            'nopol' => "required|size:$peminjaman->jumlah",
-            'id_supir' => "nullable|size:$peminjaman->jumlah",
-        ], $messages);
-
+        if($peminjaman->supir == 1)
+        {
+            $request->validate([
+                'nopol' => "required|size:$peminjaman->jumlah",
+                'id_supir' => "required|size:$peminjaman->jumlah",
+            ], $messages);
+        }else{
+            $request->validate([
+                'nopol' => "required|size:$peminjaman->jumlah",
+                'id_supir' => "nullable|size:$peminjaman->jumlah",
+            ], $messages);    
+        }
+        
         $kendaraan = $request->input('nopol');
         $supir = $request->input('id_supir');
         $count = count($kendaraan);
