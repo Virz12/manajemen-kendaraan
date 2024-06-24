@@ -54,7 +54,7 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-1 rounded-0 rounded-bottom m-0">
-                            <a href="/logout" class="dropdown-item">Log Out</a>
+                            <a href="/logout" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                 <div class="container-fluid p-0 mb-4 mt-4 ">
                     <div class="shadow-lg bg-light text-center rounded p-4 w-70  m-auto h-70vh ">
                         <div class="d-md-flex align-items-center justify-content-between mb-4">
-                            <h6 class="fs-3 mb-0">Peminjaman Terbaru</h6>
+                            <h6 class="fs-3 mb-0"><i class="fa-solid fa-circle-up"></i> Peminjaman Terbaru</h6>
                             <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#formPengajuan"><i class="fa-solid fa-car me-1 car-icon" style="color: #000000;"></i>Ajukan Peminjaman</button>
                         </div>
                         {{-- Modal Pengajuan Peminjaman --}}
@@ -161,7 +161,7 @@
                     <div class="container-fluid pt-4 px-4 h-90vh">
                         <div class="shadow-lg bg-light text-center rounded p-4 ">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="fs-4 mb-0">Peminjaman</h6>
+                                <h6 class="fs-4 mb-0"><i class="fa-solid fa-clock-rotate-left"></i> Peminjaman</h6>
                             </div>
                             <div class="table-responsive">
                                 <table class="table-hover table">

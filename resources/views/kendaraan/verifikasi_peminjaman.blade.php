@@ -65,7 +65,7 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-1 rounded-0 rounded-bottom m-0">
-                            <a href="/logout" class="dropdown-item">Log Out</a>
+                            <a href="/logout" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
                         </div>
                     </div>
                 </div>

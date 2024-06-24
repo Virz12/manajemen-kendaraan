@@ -30,14 +30,14 @@
                             <i class="fa-solid fa-arrow-right-long icon pt-xl-2 pt-md-2" style="font-size: 35px"></i>
                         <div class="form-floating mb-4" >
                             <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border-2 border-warning" placeholder="" autocomplete="off" >
-                            <label class="form-label" for="username">Nama Pengguna</label>
+                            <label class="form-label" for="username"><i class="fa-solid fa-user"></i> Nama Pengguna</label>
                             @error('username')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
                         <div class="form-floating mb-4">
                             <input type="password" name="password" value="{{ @old('password') }}" id="floatingInput" class="form-control form-control-lg border-2 border-warning" placeholder="" autocomplete="off" >
-                            <label class="form-label " for="floatingInput">Sandi</label>
+                            <label class="form-label " for="floatingInput"><i class="fa-solid fa-key"></i> Sandi</label>
                             @error('password')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
