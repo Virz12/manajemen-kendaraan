@@ -41,7 +41,11 @@ class LoginController extends Controller
                 return redirect('/dashboard_kendaraan');
             }
         }else {
-            return redirect('/login')->withErrors(['username' => 'Nama Pengguna dan Sandi Tidak Sesuai'])->withInput();
+            return redirect('/login')
+            ->withErrors([
+                'username' => 'Nama Pengguna atau Sandi Tidak Sesuai',
+                'password' => 'Nama Pengguna atau Sandi Tidak Sesuai'
+            ])->withInput();
         }
     }
 

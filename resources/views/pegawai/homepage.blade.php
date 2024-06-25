@@ -81,14 +81,14 @@
                                         <div class="row justify-content-between text-left mb-2">
                                             <div class="col-sm-6 flex-column d-flex">
                                                 <label for="tanggal_awal" class="form-label">Tanggal Awal<span class="text-danger">*</span></label>
-                                                <input type="date" id="tanggal_awal" name="pengajuan_tanggal_awal" min="{{ date("Y-m-d") }}" class="form-control ">
+                                                <input type="date" id="tanggal_awal" name="pengajuan_tanggal_awal" min="{{ date("Y-m-d") }}" class="form-control @error('pengajuan_tanggal_awal') is-invalid @enderror">
                                                 @error('pengajuan_tanggal_awal')
                                                 <div class="text-danger"><small>{{ $message }}</small></div>
                                                 @enderror
                                             </div>
                                             <div class="col-sm-6 flex-column d-flex">
                                                 <label for="tanggal_akhir" class="form-label">Tanggal Akhir<span class="text-danger">*</span></label>
-                                                <input type="date" id="tanggal_akhir" name="pengajuan_tanggal_akhir" min="{{ date("Y-m-d") }}" class="form-control ">
+                                                <input type="date" id="tanggal_akhir" name="pengajuan_tanggal_akhir" min="{{ date("Y-m-d") }}" class="form-control @error('pengajuan_tanggal_akhir') is-invalid @enderror">
                                                 @error('pengajuan_tanggal_akhir')
                                                 <div class="text-danger"><small>{{ $message }}</small></div>
                                                 @enderror
@@ -97,14 +97,14 @@
                                         <div class="row justify-content-between text-left mb-2">
                                             <div class="col-sm-6 flex-column d-flex ">
                                                 <label for="jumlah" class="form-label">Jumlah Kendaraan<span class="text-danger">*</span></label>
-                                                <input type="number" id="jumlah" name="pengajuan_jumlah" min="1" max="{{ $jumlah_kendaraan }}" class="form-control " placeholder="masukkan angka" >
+                                                <input type="number" id="jumlah" name="pengajuan_jumlah" min="1" max="{{ $jumlah_kendaraan }}" class="form-control @error('pengajuan_jumlah') is-invalid @enderror" placeholder="masukkan angka" >
                                                 @error('pengajuan_jumlah')
                                                 <div class="text-danger"><small>{{ $message }}</small></div>
                                                 @enderror
                                             </div>
                                             <div class="col-sm-6 flex-column  text-center mt-4">
                                                 <label for="supir" class="form-label">Supir</label>
-                                                <input type="checkbox" id="supir" name="pengajuan_supir" value="1" class="">
+                                                <input type="checkbox" id="supir" name="pengajuan_supir" value="1" class="@error('supir) is-invalid @enderror">
                                                 @error('pengajuan_supir')
                                                 <div class="text-danger"><small>{{ $message }}</small></div>
                                                 @enderror

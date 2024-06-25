@@ -89,35 +89,35 @@
                                 @method('PUT')
                                 <div class="col-md-6">
                                     <label for="nip" class="form-label w-100 text-start">NIP<span class="text-danger">*</span></label>
-                                    <input type="number" value="{{ $datapegawai->nip }}" name="nip" class="form-control" id="nip" min="1">
+                                    <input type="number" value="{{ $datapegawai->nip }}" name="nip" class="form-control @error('nip') is-invalid @enderror" id="nip" min="1">
                                     @error('nip')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="nama" class="form-label w-100 text-start">Nama<span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ $datapegawai->nama }}" name="nama" class="form-control" id="nama" autocomplete="off">
+                                    <input type="text" value="{{ $datapegawai->nama }}" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" autocomplete="off">
                                     @error('nama')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="username" class="form-label w-100 text-start">Nama Pengguna<span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ $datapegawai->username }}" name="username" class="form-control" id="username" autocomplete="off">
+                                    <input type="text" value="{{ $datapegawai->username }}" name="username" class="form-control @error('username') is-invalid @enderror" id="username" autocomplete="off">
                                     @error('username')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="password" class="form-label w-100 text-start">Sandi<span class="text-danger">*</span></label>
-                                    <input type="password" name="password" class="form-control" id="password">
+                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password">
                                     @error('password')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-4">
                                     <label for="Role" class="form-label w-100 text-start">Kelompok<span class="text-danger">*</span></label>
-                                    <select id="Role" name="kelompok" class="form-select">
+                                    <select id="Role" name="kelompok" class="form-select @error('kelompok') is-invalid @enderror">
                                         <option value="{{ $datapegawai->kelompok }}" selected hidden>{{ $datapegawai->kelompok }}</option>
                                         <option value="pegawai" >Pegawai</option>
                                         <option value="admin" >Admin</option>
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="Status" class="form-label w-100 text-start">Status<span class="text-danger">*</span></label>
-                                    <select id="Status" name="status" class="form-select">
+                                    <select id="Status" name="status" class="form-select @error('status') is-invalid @enderror">
                                         <option value="{{ $datapegawai->status }}" selected hidden>{{ $datapegawai->status }}</option>
                                         <option value="aktif" >Aktif</option>
                                         <option value="pensiun" >Pensiun</option>
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="Profile" class="form-label w-100 text-start">Foto Profil</label>
-                                    <input class="form-control" type="file" name="foto_profil" id="Profile">
+                                    <input class="form-control @error('foto_profil') is-invalid @enderror" type="file" name="foto_profil" id="Profile">
                                     @error('foto_profil')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
