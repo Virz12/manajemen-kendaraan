@@ -78,113 +78,89 @@
             </nav>
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4">
+                <div class="row g-2 pb-2">
+                    <div class="col-md-3">
+                        <a href="/tambah_kendaraan" class="btn btn-primary rounded">Tambah Kendaraan <i class="fa-solid fa-car me-1 car-icon"></i></a>
+                    </div>
+                </div>
                 <div class="row g-4">
-                    <div class="col-12">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between text-start mb-4">
-                                <h6 class="mb-0">Data Kendaraan</h6>
-                                <a href="/tambah_kendaraan" class="text-decoration-none"><button class="btn btn-primary ms-4" ><i class="fa-solid fa-car me-1 car-icon" style="color: #000000;"></i>Tambah Kendaraan</button></a>
+                    @forelse($datakendaraan as $kendaraan)
+                    <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2">
+                        <div class="card">
+                            <div class="ratio ratio-16x9">
+                                <img src="{{ asset($kendaraan->foto_kendaraan) }}" class="card-img-top" alt="Foto Kendaraaan">
                             </div>
-                            
-                            <div class="table-responsive">
-                                {{-- Table --}}
-                                <table class="table-hover align-middle table">
-                                    <tr class="align-middle">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Jenis Kendaraan</th>
-                                        <th scope="col">Tahun</th>
-                                        <th scope="col">Nopol</th>
-                                        <th scope="col">Warna</th>
-                                        <th scope="col">Kondisi</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Foto</th>
-                                        <th scope="col" colspan="2">Opsi</th>
-                                    </tr>
-                                    @forelse($datakendaraan as $kendaraan)
-                                        <tr class="align-middle">
-                                            <th>{{($datakendaraan->currentPage()-1) * $datakendaraan->perPage() + $loop->iteration}}</th>
-                                            <td>{{ $kendaraan->jenis_kendaraan }}</td>
-                                            <td>{{ $kendaraan->tahun }}</td>
-                                            <td>{{ $kendaraan->nopol }}</td>
-                                            <td>{{ $kendaraan->warna }}</td>
-                                            @if ($kendaraan->kondisi == 'baik')
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-check fa-lg text-success tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Baik</span>
-                                                </td>
-                                            @elseif ($kendaraan->kondisi == 'rusak')
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-xmark fa-lg text-danger tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Rusak</span>
-                                                </td>
-                                            @else
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-triangle-exclamation fa-lg text-warning tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Perbaikan</span>
-                                                </td>
-                                            @endif
-                                            @if ($kendaraan->status == 'tersedia')
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-car fa-lg text-success tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Tersedia</span>
-                                                </td>
-                                            @else
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-car-on fa-lg text-secondary tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Digunakan</span>
-                                                </td>
-                                            @endif
-                                            <td>
-                                                <img class="me-lg-2" src="{{ asset($kendaraan->foto_kendaraan) }}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $kendaraan->id }}" style="width: 120px;">
-                                            </td>
-                                            <td>
-                                                <form action="/ubahkendaraan/{{ $kendaraan->id }}">
-                                                    @csrf
-                                                    <button class="btn btn-success" type="submit">Ubah</button>
-                                                </form>
-                                            </td>
-                                            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Hapus{{ $kendaraan->id }}">Hapus</button></td>
-                                            </tr>
-                                            {{-- Confirmation Modal --}}
-                                            <div class="modal fade" id="Hapus{{ $kendaraan->id }}" tabindex="-1" aria-labelledby="HapusLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="HapusLabel">Hapus Data</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Apakah anda yakin ingin menghapus data ini?<br>
-                                                            <b>{{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}</b>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <form action="/hapuskendaraan/{{ $kendaraan->id }}">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger">Hapus</button>
-                                                            </form>
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {{-- Lightbox Modal --}}
-                                            <div class="modal fade" id="lightbox{{ $kendaraan->id }}">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <img src="{{ asset($kendaraan->foto_kendaraan) }}" alt="Foto Kendaraan">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </tr>
-                                    @empty
-                                        <h2 class="text-center py-5">Data Kosong</h2>
-                                    @endforelse
-                                </table>
-                            </div>
-                            {!! $datakendaraan->links() !!}
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item">Jenis Kendaraan : <br>
+                                    {{ $kendaraan->jenis_kendaraan }}
+                                </li>
+                                <li class="list-group-item">Tahun Kendaraan : <br>
+                                    {{ $kendaraan->tahun }}
+                                </li>
+                                <li class="list-group-item">Nomor Polisi : <br>
+                                    {{ $kendaraan->nopol }}
+                                </li>
+                                <li class="list-group-item">Warna Kendaraan : <br>
+                                    {{ $kendaraan->warna }}
+                                </li>
+                                <li class="list-group-item position-relative"> Kondisi : 
+                                @if ($kendaraan->kondisi == 'baik')
+                                    <i class="fa-solid fa-check fa-lg text-success tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Baik</span>
+                                @elseif ($kendaraan->kondisi == 'rusak')
+                                    <i class="fa-solid fa-xmark fa-lg text-danger tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Rusak</span>
+                                @else
+                                    <i class="fa-solid fa-triangle-exclamation fa-lg text-warning tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Perbaikan</span>
+                                </li>
+                                @endif
+                                <li class="list-group-item position-relative"> Status : 
+                                @if ($kendaraan->status == 'tersedia')
+                                    <i class="fa-solid fa-car fa-lg text-success tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Tersedia</span>
+                                @else
+                                    <i class="fa-solid fa-car-on fa-lg text-secondary tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Digunakan</span>
+                                @endif
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <form action="/ubahkendaraan/{{ $kendaraan->id }}" class="w-50">
+                                        @csrf
+                                        <button class="btn btn-success w-100" type="submit">Ubah</button>
+                                    </form>
+                                    <button type="button" class="btn btn-danger ms-4 w-50" data-bs-toggle="modal" data-bs-target="#Hapus{{ $kendaraan->id }}">Hapus</button>
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                    {{-- Confirmation Modal --}}
+                    <div class="modal fade" id="Hapus{{ $kendaraan->id }}" tabindex="-1" aria-labelledby="HapusLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="HapusLabel">Hapus Data</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah anda yakin ingin menghapus data ini?<br>
+                                    <b>{{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}</b>
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="/hapuskendaraan/{{ $kendaraan->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                        <h2 class="text-center py-5">Data Kosong</h2>
+                    @endforelse
+                    {!! $datakendaraan->links() !!}
                 </div>
             </div>
         </main>

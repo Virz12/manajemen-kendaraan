@@ -28,7 +28,7 @@
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end p-2">
                             @forelse(Auth::user()->notification->slice(0, 3) as $notification)
-                                <li class="dropdown-item">
+                                <li class="dropdown-item" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $loop->iteration }}">
                                     <h6 class="fw-normal mb-0">{{ $notification->notification }}</h6>
                                     <small>{{ $notification->created_at }}</small>
                                 </li>
@@ -179,7 +179,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($data_peminjaman as $datapeminjam)
-                                        <tr class="align-middle">
+                                        <tr class="align-middle {{ $datapeminjam->status == 'selesai' ? 'table-secondary' : ''}}">
                                             <td>{{($data_peminjaman->currentPage()-1) * $data_peminjaman->perPage() + $loop->iteration}}</td>
                                             <td>{{$datapeminjam->nip_peminjam}}</td>
                                             <td>{{$datapeminjam->tanggal_awal}}</td>
@@ -259,6 +259,48 @@
                             {!! $data_peminjaman->links() !!}
                         </div>
                     </div>
+
+                    {{-- Notification Modal --}}
+                    @foreach($data_peminjaman->slice(0, 3) as $datapeminjam)
+                        <div class="modal fade" id="lightbox{{ $loop->iteration }}">
+                            <div class="modal-dialog modal-dialog-centered modal-sm">
+                                <div class="modal-content">
+                                    <div class="card text-center">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item ">NIP : {{$datapeminjam->nip_peminjam}}</li>
+                                            <li class="list-group-item "> {{$datapeminjam->tanggal_awal}} <br>  {{$datapeminjam->tanggal_akhir}}</li>
+                                            <li class="list-group-item ">Supir : 
+                                            @if ($datapeminjam->supir == null)
+                                                -
+                                            @else
+                                                {{ $datapeminjam->supir }}
+                                            @endif</li>
+                                            <li class="list-group-item ">Kendaraan :  <br>
+                                                @if ($datapeminjam->status == 'pengajuan')
+                                                    -
+                                                @elseif ($datapeminjam->status == 'diterima')
+                                                    @foreach($datapeminjam->detail_peminjaman as $detailpeminjaman)
+                                                        @foreach($detailpeminjaman->kendaraan as $kendaraan)
+                                                            {{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}<br>
+                                                        @endforeach                                    
+                                                    @endforeach
+                                                @elseif ($datapeminjam->status == 'selesai')
+                                                    @foreach($datapeminjam->detail_peminjaman as $detailpeminjaman)
+                                                        @foreach($detailpeminjaman->kendaraan as $kendaraan)
+                                                            {{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}<br>
+                                                        @endforeach                                    
+                                                    @endforeach
+                                                @endif
+                                            </li>
+                                            <li class="list-group-item ">Jumlah Kendaraan : {{$datapeminjam->jumlah}}</li>
+                                            <li class="list-group-item fw-bold">Status : {{$datapeminjam->status}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
                     {{-- Toast --}}
                     @if (session()->has('notification'))
                         <div class="position-fixed bottom-0 end-0 p-3 z-3">

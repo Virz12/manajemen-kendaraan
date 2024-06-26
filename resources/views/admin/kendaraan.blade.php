@@ -84,82 +84,53 @@
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-12">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="text-start mb-4">
-                                <h6 class="mb-0">Data Kendaraan</h6>
+                    @forelse($datakendaraan as $kendaraan)
+                    <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2">
+                        <div class="card">
+                            <div class="ratio ratio-16x9">
+                                <img src="{{ asset($kendaraan->foto_kendaraan) }}" class="card-img-top" alt="Foto Kendaraaan">
                             </div>
-                            <div class="table-responsive">
-                                {{-- Table --}}
-                                <table class="table-hover table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Jenis Kendaraan</th>
-                                            <th scope="col">Tahun Kendaraan</th>
-                                            <th scope="col">Nomor Polisi</th>
-                                            <th scope="col">Warna Kendaraan</th>
-                                            <th scope="col">Kondisi</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Gambar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($datakendaraan as $kendaraan)
-                                        <tr class="align-middle">
-                                            <th>{{($datakendaraan->currentPage()-1) * $datakendaraan->perPage() + $loop->iteration}}</th>
-                                            <td>{{ $kendaraan->jenis_kendaraan }}</td>
-                                            <td>{{ $kendaraan->tahun }}</td>
-                                            <td>{{ $kendaraan->nopol }}</td>
-                                            <td>{{ $kendaraan->warna }}</td>
-                                            @if ($kendaraan->kondisi == 'baik')
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-check fa-lg text-success tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Baik</span>
-                                                </td>
-                                            @elseif ($kendaraan->kondisi == 'rusak')
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-xmark fa-lg text-danger tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Rusak</span>
-                                                </td>
-                                            @else
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-triangle-exclamation fa-lg text-warning tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Perbaikan</span>
-                                                </td>
-                                            @endif
-                                            @if ($kendaraan->status == 'tersedia')
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-car fa-lg text-success tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Tersedia</span>
-                                                </td>
-                                            @else
-                                                <td class="position-relative">
-                                                    <i class="fa-solid fa-car-on fa-lg text-secondary tooltip-icon"></i>
-                                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Digunakan</span>
-                                                </td>
-                                            @endif
-                                            <td>
-                                                <img class="me-lg-2" src="{{ asset($kendaraan->foto_kendaraan) }}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $kendaraan->id }}" style="width: 120px;">
-                                            </td>
-                                        </tr>
-                                        {{-- Lightbox Modal --}}
-                                        <div class="modal fade" id="lightbox{{ $kendaraan->id }}">
-                                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                                <div class="modal-content">
-                                                    <img src="{{ asset($kendaraan->foto_kendaraan) }}" alt="Foto Kendaraan">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @empty
-                                            <h2 class="text-center py-5">Data Kosong</h2>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                            {!! $datakendaraan->links() !!}
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item">Jenis Kendaraan : <br>
+                                    {{ $kendaraan->jenis_kendaraan }}
+                                </li>
+                                <li class="list-group-item">Tahun Kendaraan : <br>
+                                    {{ $kendaraan->tahun }}
+                                </li>
+                                <li class="list-group-item">Nomor Polisi : <br>
+                                    {{ $kendaraan->nopol }}
+                                </li>
+                                <li class="list-group-item">Warna Kendaraan : <br>
+                                    {{ $kendaraan->warna }}
+                                </li>
+                                <li class="list-group-item position-relative"> Kondisi : 
+                                @if ($kendaraan->kondisi == 'baik')
+                                    <i class="fa-solid fa-check fa-lg text-success tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Baik</span>
+                                @elseif ($kendaraan->kondisi == 'rusak')
+                                    <i class="fa-solid fa-xmark fa-lg text-danger tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Rusak</span>
+                                @else
+                                    <i class="fa-solid fa-triangle-exclamation fa-lg text-warning tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Perbaikan</span>
+                                </li>
+                                @endif
+                                <li class="list-group-item position-relative"> Status : 
+                                @if ($kendaraan->status == 'tersedia')
+                                    <i class="fa-solid fa-car fa-lg text-success tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Tersedia</span>
+                                @else
+                                    <i class="fa-solid fa-car-on fa-lg text-secondary tooltip-icon"></i>
+                                    <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Digunakan</span>
+                                @endif
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                    @empty
+                        <h2 class="text-center py-5">Data Kosong</h2>
+                    @endforelse
+                    {!! $datakendaraan->links() !!}
                 </div>
             </div>
         </main>

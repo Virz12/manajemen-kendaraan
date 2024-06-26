@@ -85,7 +85,7 @@
             <div class="container-fluid pt-4 px-4 pb-4">
                 <div class="row g-2 pb-2">
                     <div class="col-md-3">
-                        <a href="/arsip" class="btn btn-primary rounded">Arsip <i class="fa-solid fa-box-archive"></i></a>
+                        <a href="/arsip" class="btn btn-primary rounded">Arsip <i class="fa-solid fa-box-archive me-1"></i></a>
                     </div>
                 </div>
                 <div class="row g-4 text-center">
