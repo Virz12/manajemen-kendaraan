@@ -92,13 +92,13 @@
                                     <tr class="align-middle">
                                         <th scope="col">#</th>
                                         <th scope="col">Jenis Kendaraan</th>
-                                        <th scope="col">Tahun Kendaraan</th>
-                                        <th scope="col">Nomor Polisi</th>
-                                        <th scope="col">Warna Kendaraan</th>
-                                        <th scope="col">Kondisi Kendaraan</th>
-                                        <th scope="col">Status Kendaraan</th>
-                                        <th scope="col">Foto Kendaraan</th>
-                                        <th scope="col" colspan="2">Aksi</th>
+                                        <th scope="col">Tahun</th>
+                                        <th scope="col">Nopol</th>
+                                        <th scope="col">Warna</th>
+                                        <th scope="col">Kondisi</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Foto</th>
+                                        <th scope="col" colspan="2">Opsi</th>
                                     </tr>
                                     @forelse($datakendaraan as $kendaraan)
                                         <tr class="align-middle">

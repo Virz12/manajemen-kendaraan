@@ -8,13 +8,8 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         $data_pegawai = [
             [
                 'id' => '1',
@@ -86,6 +81,7 @@ class DatabaseSeeder extends Seeder
         $data_kendaraan = [
             [
                 'jenis_kendaraan' => 'Toyota Avanza',
+                'id_supir' => '1',
                 'tahun' => '2014',
                 'nopol' => 'DK1234RFS',
                 'warna' => 'Hitam',
@@ -93,6 +89,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Toyota Ventuner',
+                'id_supir' => '2',
                 'tahun' => '2020',
                 'nopol' => 'KT1234RFS',
                 'warna' => 'Putih',
@@ -100,6 +97,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Toyota Rush',
+                'id_supir' => '3',
                 'tahun' => '2018',
                 'nopol' => 'AA1234RFS',
                 'warna' => 'SIlver',
@@ -107,6 +105,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Toyota Veloz',
+                'id_supir' => '4',
                 'tahun' => '2000',
                 'nopol' => 'Z1234RFS',
                 'warna' => 'Biru',
@@ -114,6 +113,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Toyota Kijang',
+                'id_supir' => '5',
                 'tahun' => '2000',
                 'nopol' => 'F1234RFS',
                 'warna' => 'Hitam',
@@ -121,6 +121,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Ford Ranger',
+                'id_supir' => '6',
                 'tahun' => '2010',
                 'nopol' => 'A1234RFS',
                 'warna' => 'Abu',
@@ -128,6 +129,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Nissan GTR',
+                'id_supir' => '7',
                 'tahun' => '2017',
                 'nopol' => 'AB1234RFS',
                 'warna' => 'Kuning',
@@ -135,6 +137,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Suzuki Carry Futura',
+                'id_supir' => '8',
                 'tahun' => '2019',
                 'nopol' => 'DK1234ACR',
                 'warna' => 'Putih',
@@ -142,6 +145,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'MercedezBenz Arocs 2842',
+                'id_supir' => '9',
                 'tahun' => '2018',
                 'nopol' => 'KT1234AFR',
                 'warna' => 'Putih',
@@ -149,6 +153,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Volvo FH16 750',
+                'id_supir' => '10',
                 'tahun' => '2022',
                 'nopol' => 'BK2542SXE',
                 'warna' => 'Biru',
@@ -156,6 +161,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Mitshubishi Canter',
+                'id_supir' => '11',
                 'tahun' => '2017',
                 'nopol' => 'B2542SXE',
                 'warna' => 'Kuning',
@@ -163,6 +169,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Hino Dutro',
+                'id_supir' => '12',
                 'tahun' => '2016',
                 'nopol' => 'E2542BGZ',
                 'warna' => 'Hijau',
@@ -170,6 +177,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Isuzu ELF NMR81',
+                'id_supir' => '13',
                 'tahun' => '2019',
                 'nopol' => 'A2542SXE',
                 'warna' => 'Putih',
@@ -177,6 +185,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Toyota Dyna',
+                'id_supir' => '14',
                 'tahun' => '1997',
                 'nopol' => 'A2725SL',
                 'warna' => 'Hijau',
@@ -184,6 +193,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'tersedia'
             ],[
                 'jenis_kendaraan' => 'Mitshubishi Xpander',
+                'id_supir' => '15',
                 'tahun' => '2022',
                 'nopol' => 'B1234ZXE',
                 'warna' => 'Hitam',

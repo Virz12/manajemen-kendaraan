@@ -13,6 +13,7 @@ class kendaraan extends Model
     protected $fillable = [
         'id',
         'jenis_kendaraan',
+        'id_supir',
         'tahun',
         'nopol',
         'warna',
@@ -25,5 +26,10 @@ class kendaraan extends Model
     public function detail_peminjaman(): BelongsTo
     {
         return $this->belongsTo(detail_peminjaman::class, 'nopol', 'nopol');
+    }
+
+    public function supir(): BelongsTo
+    {
+        return $this->belongsTo(pegawai::class, 'id_supir', 'id');
     }
 }

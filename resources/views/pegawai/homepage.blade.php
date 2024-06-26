@@ -102,9 +102,9 @@
                                                 <div class="text-danger"><small>{{ $message }}</small></div>
                                                 @enderror
                                             </div>
-                                            <div class="col-sm-6 flex-column  text-center mt-4">
+                                            <div class="col-sm-6 flex-column d-flex ">
                                                 <label for="supir" class="form-label">Supir</label>
-                                                <input type="checkbox" id="supir" name="pengajuan_supir" value="1" class="@error('supir) is-invalid @enderror">
+                                                <input type="number" id="supir" name="pengajuan_supir" min="1" max="" class="form-control @error('pengajuan_supir') is-invalid @enderror" placeholder="masukkan angka" >
                                                 @error('pengajuan_supir')
                                                 <div class="text-danger"><small>{{ $message }}</small></div>
                                                 @enderror
@@ -125,10 +125,10 @@
                                         <li class="list-group-item ">NIP : {{$datapbaru->nip_peminjam}}</li>
                                         <li class="list-group-item "> {{$datapbaru->tanggal_awal}} <br>  {{$datapbaru->tanggal_akhir}}</li>
                                         <li class="list-group-item ">Supir : 
-                                        @if ($datapbaru->supir == true)
-                                            <i class="fa-regular fa-square-check text-success" ></i>
-                                        @else
+                                        @if ($datapbaru->supir == null)
                                             -
+                                        @else
+                                            {{ $datapbaru->supir }}
                                         @endif</li>
                                         <li class="list-group-item ">Kendaraan :  <br>
                                             @if ($datapbaru->status == 'pengajuan')
@@ -186,10 +186,10 @@
                                             <td>{{$datapeminjam->tanggal_akhir}}</td>
                                             <td>{{$datapeminjam->jumlah}}</td>
                                             <td>
-                                                @if ($datapeminjam->supir == true)
-                                                    <i class="fa-regular fa-square-check text-success" ></i>
-                                                @else
+                                                @if ($datapeminjam->supir == null)
                                                     -
+                                                @else
+                                                    {{ $datapeminjam->supir }}
                                                 @endif
                                             </td>
                                             <td>{{$datapeminjam->status}}</td>
@@ -234,9 +234,9 @@
                                                                     <div class="text-danger"><small>{{ $message }}</small></div>
                                                                 @enderror
                                                             </div>
-                                                            <div class="col-sm-6 flex-column  text-center mt-4">
+                                                            <div class="col-sm-6 flex-column d-flex">
                                                                 <label for="supir" class="form-label">Supir</label>
-                                                                <input type="checkbox" id="supir" name="ubah_supir" value="1" class="" @checked(old('supir', $datapeminjam->supir))>
+                                                                <input type="number" id="supir" name="ubah_supir" value="{{ $datapeminjam->supir }}" min="1" max="" class="form-control @error('ubah_supir') is-invalid @enderror" placeholder="masukkan angka" >
                                                                 @error('ubah_supir')
                                                                     <div class="text-danger"><small>{{ $message }}</small></div>
                                                                 @enderror

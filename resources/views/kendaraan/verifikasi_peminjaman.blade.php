@@ -80,31 +80,31 @@
                                 <a href="/data_peminjaman" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                             </div>
                             <div class="text-start mb-4">
-                                <h6 class="mb-0">Data Peminjam</h6>
+                                <h6 class="mb-0">Data Peminjaman</h6>
                             </div>
                             <div class="table-responsive">
                                 {{-- Table --}}
                                 <table class="table-hover align-middle table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">NIP Peminjam</th>
+                                            <th scope="col">Peminjam</th>
                                             <th scope="col">Jumlah Kendaraan</th>
                                             <th scope="col">Tanggal Awal</th>
                                             <th scope="col">Tanggal Akhir</th>
-                                            <th scope="col">Supir</th>
+                                            <th scope="col">Jumlah Supir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="align-middle">
-                                            <td>{{ $datapeminjam->nip_peminjam }}</td>
+                                            <td>{{ $datapeminjam->pegawai->nama }} - (NIP:{{ $datapeminjam->nip_peminjam }})</td>
                                             <td>{{ $datapeminjam->jumlah }}</td>
                                             <td>{{ $datapeminjam->tanggal_awal }}</td>
                                             <td>{{ $datapeminjam->tanggal_akhir }}</td>
                                             <td>
-                                                @if ($datapeminjam->supir == true)
-                                                    <i class="fa-regular fa-square-check text-success" ></i>
-                                                @else
+                                                @if ($datapeminjam->supir == null)
                                                     -
+                                                @else
+                                                    {{ $datapeminjam->supir }}
                                                 @endif
                                             </td>
                                         </tr>
@@ -124,25 +124,35 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
+                                            <th scope="col">Foto</th>
                                             <th scope="col">Jenis Kendaraan</th>
-                                            <th scope="col">Tahun Kendaraan</th>
-                                            <th scope="col">Nomor Polisi</th>
-                                            <th scope="col">Warna Kendaraan</th>
-                                            <th scope="col">Kondisi Kendaraan</th>
-                                            <th scope="col">Status Kendaraan</th>
+                                            <th scope="col">Supir</th>
+                                            <th scope="col">Nopol</th>
+                                            <th scope="col">Warna</th>
+                                            <th scope="col">Menggunakan Supir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse($datakendaraan as $kendaraan)
                                         <tr class="align-middle">
                                             <td><input type="checkbox" class="nopol" id="nopol" name="nopol[]" value="{{ $kendaraan->nopol }}"></td>
+                                            <td>
+                                                <img class="me-lg-2" src="{{ asset($kendaraan->foto_kendaraan) }}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $kendaraan->id }}" style="width: 120px;">
+                                            </td>
                                             <td>{{ $kendaraan->jenis_kendaraan }}</td>
-                                            <td>{{ $kendaraan->tahun }}</td>
+                                            <td>Bang Supir</td>
                                             <td>{{ $kendaraan->nopol }}</td>
                                             <td>{{ $kendaraan->warna }}</td>
-                                            <td>{{ $kendaraan->kondisi }}</td>
-                                            <td>{{ $kendaraan->status }}</td>
+                                            <td><input type="checkbox" id="supir" name="supir" value="1" @checked(true)></td>
                                         </tr>
+                                        {{-- Lightbox Modal --}}
+                                        <div class="modal fade" id="lightbox{{ $kendaraan->id }}">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <img src="{{ asset($kendaraan->foto_kendaraan) }}" alt="Foto Kendaraan">
+                                                </div>
+                                            </div>
+                                        </div>
                                         @empty
                                             <h2 class="mb-5">Data Kosong</h2>
                                         @endforelse
@@ -154,47 +164,6 @@
                             </div>
                         </div>
                     </div>
-                    @if ($datapeminjam->supir == true)
-                        <div class="col-md-12">
-                            <div class="bg-light text-center rounded p-4">
-                                <div class="text-start mb-4">
-                                    <h6 class="mb-0">Daftar Supir</h6>
-                                </div>
-                                <div class="table-responsive">
-                                    {{-- Table --}}
-                                    <table class="table-hover align-middle table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">NIP</th>
-                                                <th scope="col">Nama</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Kelompok</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse($datasupir as $supir)
-                                            <tr class="align-middle">
-                                                <td><input type="checkbox" id="id_supir" name="id_supir[]" value="{{ $supir->id }}"></td>
-                                                <td>{{ $supir->nip }}</td>
-                                                <td>{{ $supir->nama }}</td>
-                                                <td>{{ $supir->status }}</td>
-                                                <td>{{ $supir->kelompok }}</td>
-                                            </tr>
-                                            @empty
-                                                <h2 class="mb-5">Data Kosong</h2>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                    @error('id_supir')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    @else
-
-                    @endif
                     <div class="col-md-12 w-100 text-start mb-3">
                         <button type="submit" class="btn btn-primary">Verifikasi</button>
                     </div>
@@ -212,12 +181,10 @@
             @endif
         </main>
     </div>
-
     {{-- Javascript --}}
     <script src="{{ asset('js/dashboard.js') }}"></script>
 
     {{-- ICON --}}
     <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
-
 </body>
 </html>
