@@ -29,14 +29,14 @@
                             <h3 class="fw-semibold fs-1 pb-2 text-black " style="width:150px ">Masuk</h3>
                             <i class="fa-solid fa-arrow-right-long icon pt-xl-2 pt-md-2" style="font-size: 35px"></i>
                         <div class="form-floating mb-4" >
-                            <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border-2 border-warning @error('username') is-invalid @enderror" placeholder="" autocomplete="off" >
+                            <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border-2 @error('username') is-invalid @enderror" placeholder="" autocomplete="off" >
                             <label class="form-label" for="username"><i class="fa-solid fa-user"></i> Nama Pengguna</label>
                             @error('username')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" name="password" value="{{ @old('password') }}" id="password" class="form-control form-control-lg border-2 border-warning @error('password') is-invalid @enderror" placeholder="" autocomplete="off" >
+                            <input type="password" name="password" value="{{ @old('password') }}" id="password" class="form-control form-control-lg border-2 @error('password') is-invalid @enderror" placeholder="" autocomplete="off" >
                             <label class="form-label " for="password"><i class="fa-solid fa-key"></i> Sandi</label>
                             @error('password')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
@@ -49,16 +49,6 @@
                 </div>
             </div>
         </div>
-        {{-- Alert --}}
-        @if($errors->any())
-            <div class="position-fixed bottom-0 end-0 p-3">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                    Username atau Password tidak cocok!
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
     </div>
     <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
 </body>

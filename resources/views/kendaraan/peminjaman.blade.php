@@ -140,16 +140,6 @@
                 </div>
                 {!! $datapeminjaman->links() !!}
             </div>
-            {{-- Toast --}}
-            @if (session()->has('notification'))
-            <div class="position-fixed bottom-0 end-0 p-3 z-3">
-                <div class="alert alert-success" role="alert">
-                    <i class="fa-solid fa-check me-2"></i>
-                    {{ session('notification') }}
-                    <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-            @endif
         </main>
     </div>
 

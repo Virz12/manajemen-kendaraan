@@ -166,16 +166,6 @@
                     </div>
                 </div>
             </div>
-            {{-- Alert --}}
-            @if($errors->any())
-                <div class="position-fixed bottom-0 end-0 p-3">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                        Proses edit tidak berhasil!
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            @endif
         </main>
     </div>
 
