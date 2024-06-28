@@ -110,6 +110,31 @@
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
+                                <div class="col-12">
+                                    <label for="Kendaraan" class="form-label w-100 text-start">Foto Kendaraan<span class="text-danger">*</span></label>
+                                    <input class="form-control @error('foto_kendaraan') is-invalid @enderror" type="file" name="foto_kendaraan" id="Kendaraan">
+                                    @error('foto_kendaraan')
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="id_supir" class="form-label w-100 text-start">Supir<span class="text-danger">*</span></label>
+                                    <select id="id_supir" name="id_supir" class="form-select @error('id_supir') is-invalid @enderror">
+                                        @forelse($data_supir as $supir)
+                                            @if($datakendaraan->supir == null)
+
+                                            @else
+                                                <option value="{{ $datakendaraan->supir->id }}" selected hidden>{{ $datakendaraan->supir->nama }} - (NIP:{{ $datakendaraan->supir->nip }})</option>
+                                            @endif
+                                            <option value="{{ $supir->id }}">{{ $supir->nama }} - (NIP:{{ $supir->nip }})</option>
+                                        @empty
+                                            <a>Data Supir Kosong!</a>
+                                        @endforelse       
+                                    </select>
+                                    @error('id_supir')
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
+                                    @enderror
+                                </div>
                                 <div class="col-md-4">
                                     <label for="kondisi" class="form-label w-100 text-start">Kondisi Kendaraan<span class="text-danger">*</span></label>
                                     <select id="kondisi" name="kondisi" class="form-select @error('kondisi') is-invalid @enderror">
@@ -130,13 +155,6 @@
                                         <option value="digunakan">Digunakan</option>
                                     </select>
                                     @error('status')
-                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="Kendaraan" class="form-label w-100 text-start">Foto Kendaraan<span class="text-danger">*</span></label>
-                                    <input class="form-control @error('foto_kendaraan') is-invalid @enderror" type="file" name="foto_kendaraan" id="Kendaraan">
-                                    @error('foto_kendaraan')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>

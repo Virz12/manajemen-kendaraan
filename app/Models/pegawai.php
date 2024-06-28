@@ -59,8 +59,8 @@ class pegawai extends Authenticatable
         return $this->hasMany(notification::class, 'id_pegawai', 'id');
     }
 
-    public function kendaraan(): HasOne
+    public function kendaraan(): BelongsTo
     {
-        return $this->hasOne(kendaraan::class, 'id_supir', 'id');
+        return $this->belongsTo(kendaraan::class, 'id', 'id_supir');
     }
 }

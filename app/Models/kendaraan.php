@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class kendaraan extends Model
 {
@@ -28,8 +29,8 @@ class kendaraan extends Model
         return $this->belongsTo(detail_peminjaman::class, 'nopol', 'nopol');
     }
 
-    public function supir(): BelongsTo
+    public function supir(): HasOne
     {
-        return $this->belongsTo(pegawai::class, 'id_supir', 'id');
+        return $this->hasOne(pegawai::class, 'id', 'id_supir');
     }
 }

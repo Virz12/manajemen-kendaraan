@@ -94,6 +94,13 @@
                                 <li class="list-group-item">Jenis Kendaraan : <br>
                                     {{ $kendaraan->jenis_kendaraan }}
                                 </li>
+                                <li class="list-group-item">Supir : <br>
+                                    @if($kendaraan->supir == null)
+                                    
+                                    @else
+                                        {{ $kendaraan->supir->nama }}
+                                    @endif
+                                </li>
                                 <li class="list-group-item">Tahun Kendaraan : <br>
                                     {{ $kendaraan->tahun }}
                                 </li>

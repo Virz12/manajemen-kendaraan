@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\kendaraan;
+use App\Models\pegawai;
 use App\Models\peminjaman;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -118,7 +119,10 @@ class KendaraanController extends Controller
 
     function createkendaraan()
     {
-        return view('kendaraan.tambah_kendaraan');
+        $data_supir = pegawai::where('kelompok','supir')->get();
+
+        return view('kendaraan.tambah_kendaraan')
+            ->with('data_supir',$data_supir);
     }
 
     function storekendaraan(Request $request)
@@ -131,9 +135,11 @@ class KendaraanController extends Controller
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'unique' => ':attribute sudah digunakan',
             'image' => 'File harus berupa gambar',
+            'foto_kendaraan.max' => 'Ukuran file maksimal 2MB',
+            'id_supir.required' => 'Supir belum terisi',
+            'id_supir.unique' => 'Supir sudah digunakan',
             'jenis_kendaraan.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
             'warna.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'foto_kendaraan.max' => 'Ukuran file maksimal 2MB',
         ];
 
         $request->validate([
@@ -141,9 +147,10 @@ class KendaraanController extends Controller
             'tahun' => 'required|numeric|digits:4',
             'nopol' => 'required|alpha_num|unique:kendaraan,nopol',
             'warna' => 'required|max:15|regex:/^[\pL\s]+$/u',
+            'foto_kendaraan' => 'required|image|max:2048',
+            'id_supir' => 'required|unique:kendaraan,id_supir',
             'kondisi' => 'required|in:baik,rusak,perbaikan',
             'status' => 'required|in:tersedia,digunakan',
-            'foto_kendaraan' => 'required|image|max:2048',
         ],$messages);
 
         $image = $request->file('foto_kendaraan');
@@ -156,9 +163,10 @@ class KendaraanController extends Controller
             'tahun' => $request->input('tahun'),
             'nopol' => $request->input('nopol'),
             'warna' => $request->input('warna'),
+            'foto_kendaraan' => $imagePath,
+            'id_supir' => $request->input('id_supir'),
             'kondisi' => $request->input('kondisi'),
             'status' => $request->input('status'),
-            'foto_kendaraan' => $imagePath,
         ];
 
         kendaraan::create($data);
@@ -170,9 +178,11 @@ class KendaraanController extends Controller
     function editkendaraan(string $id)
     {
         $datakendaraan = kendaraan::findOrFail($id);
+        $data_supir = pegawai::where('kelompok','supir')->get();
 
         return view('kendaraan.ubah_kendaraan')
-                ->with('datakendaraan',$datakendaraan);
+                ->with('datakendaraan',$datakendaraan)
+                ->with('data_supir',$data_supir);
     }
 
     function updatekendaraan(Request $request, $id)
@@ -185,9 +195,11 @@ class KendaraanController extends Controller
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'unique' => ':attribute sudah digunakan',
             'image' => 'File harus berupa gambar',
+            'foto_kendaraan.max' => 'Ukuran file maksimal 2MB',
+            'id_supir.required' => 'Supir belum terisi',
+            'id_supir.unique' => 'Supir sudah digunakan',
             'jenis_kendaraan.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
             'warna.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'foto_kendaraan.max' => 'Ukuran file maksimal 2MB',
         ];
 
         $request->validate([
@@ -195,9 +207,10 @@ class KendaraanController extends Controller
             'tahun' => 'required|numeric|digits:4',
             'nopol' => 'required|alpha_num|',Rule::unique('kendaraan','nopol')->ignore($request->input('nopol')),
             'warna' => 'required|max:15|regex:/^[\pL\s]+$/u',
+            'foto_kendaraan' => 'image|max:2048',
+            'id_supir' => 'required',Rule::unique('kendaraan','id_supir')->ignore($request->input('id_supir')),
             'kondisi' => 'required|in:baik,rusak,perbaikan',
             'status' => 'required|in:tersedia,digunakan',
-            'foto_kendaraan' => 'image|max:2048',
         ],$messages);
 
         $kendaraan = kendaraan::findOrFail($id);
