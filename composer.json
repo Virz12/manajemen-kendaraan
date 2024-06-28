@@ -8,7 +8,9 @@
         "php": "^8.2",
         "icehouse-ventures/laravel-chartjs": "^1.0",
         "laravel/framework": "^11.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "php-flasher/flasher-laravel": "^2.0",
+        "php-flasher/flasher-noty-laravel": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
