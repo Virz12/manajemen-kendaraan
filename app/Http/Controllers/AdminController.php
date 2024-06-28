@@ -166,6 +166,12 @@ class AdminController extends Controller
             'password.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Data gagal ditambah.');
+
         $request->validate([
             'nip' => 'required|numeric|digits_between:1,20|unique:pegawai,nip',
             'nama' => 'required|max:50|regex:/^[\pL\s]+$/u',
@@ -196,8 +202,13 @@ class AdminController extends Controller
             }
         }
 
-        return redirect('/pegawai')
-                ->with('notification', 'Data Berhasil Ditambah.');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Data berhasil ditambah.');
+
+        return redirect('/pegawai');
     }
 
     function editpegawai(string $id)
@@ -223,6 +234,12 @@ class AdminController extends Controller
             'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'password.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
         ];
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Data gagal diubah.');
 
         $request->validate([
             'nip' => 'required|numeric|digits_between:1,20|',Rule::unique('pegawai','nip')->ignore($request->input('nip')),
@@ -259,9 +276,14 @@ class AdminController extends Controller
 
         pegawai::where('id', $id)->update($data);
         $pegawai->save();
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Data berhasil diubah.');
         
-        return redirect('/pegawai')
-                ->with('notification', 'Data Berhasil Diubah.');
+        return redirect('/pegawai');
     }
 
     function deletepegawai(pegawai $pegawai)
@@ -272,7 +294,12 @@ class AdminController extends Controller
             File::delete(public_path($pegawai->foto_profil));
         }
 
-        return redirect('/pegawai')
-                ->with('notification', 'Data Berhasil Dihapus.');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Data berhasil dihapus.');
+
+        return redirect('/pegawai');
     }
 }

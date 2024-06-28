@@ -27,6 +27,12 @@ class PeminjamanController extends Controller
             'pengajuan_tanggal_akhir.after_or_equal' => 'Tanggal tidak valid',            
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Pengajuan gagal.');
+
         $request->validate([
             'pengajuan_jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
             'pengajuan_tanggal_awal' => 'required|date|after_or_equal:today',
@@ -44,8 +50,13 @@ class PeminjamanController extends Controller
 
         peminjaman::create($data);
 
-        return redirect('/homepage_pegawai')
-                ->with('notification', 'Pengajuan Berhasil');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Pengajuan berhasil.');
+
+        return redirect('/homepage_pegawai');
     }
 
     function editpeminjaman(Request $request, string $id)
@@ -61,6 +72,12 @@ class PeminjamanController extends Controller
             'ubah_tanggal_awal.after_or_equal' => 'Tanggal tidak valid',
             'ubah_tanggal_akhir.after_or_equal' => 'Tanggal tidak valid',            
         ];
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Peminjaman gagal diubah.');
 
         $request->validate([
             'ubah_jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
@@ -85,8 +102,13 @@ class PeminjamanController extends Controller
             'supir' => $request->input('ubah_supir'),
         ]);
 
-        return redirect('/homepage_pegawai')
-                ->with('notification', 'Peminjaman Berhasil Diubah!');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Peminjaman berhasil diubah.');
+
+        return redirect('/homepage_pegawai');
     }
 
     function pageverifikasipeminjaman(string $id)
@@ -111,6 +133,12 @@ class PeminjamanController extends Controller
         //     'id_supir.size' => 'Jumlah supir tidak sesuai',
         //     'id_supir.required' => 'Data supir belum terisi',
         // ];
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Proses verifikasi gagal.');
 
         $data_kendaraan = $request->input('nopol');
 
@@ -170,9 +198,14 @@ class PeminjamanController extends Controller
         ];
 
         notification::create($notifikasi);
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Proses verifikasi berhasil.');
         
-        return redirect('/data_peminjaman')
-                ->with('notification', 'Berhasil Diverifikasi.');
+        return redirect('/data_peminjaman');
     }
 
     function selesaipeminjaman(string $id)

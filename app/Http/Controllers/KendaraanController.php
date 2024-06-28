@@ -142,6 +142,12 @@ class KendaraanController extends Controller
             'warna.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Data gagal ditambah.');
+
         $request->validate([
             'jenis_kendaraan' => 'required|max:50|regex:/^[a-z\d\-_\s]+$/i',
             'tahun' => 'required|numeric|digits:4',
@@ -171,8 +177,13 @@ class KendaraanController extends Controller
 
         kendaraan::create($data);
 
-        return redirect('/data_kendaraan')
-                ->with('notification', 'Data Berhasil Ditambah.');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Data berhasil ditambah.');
+
+        return redirect('/data_kendaraan');
     }
 
     function editkendaraan(string $id)
@@ -201,6 +212,12 @@ class KendaraanController extends Controller
             'jenis_kendaraan.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
             'warna.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
         ];
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Data gagal diubah.');
 
         $request->validate([
             'jenis_kendaraan' => 'required|max:50|regex:/^[a-z\d\-_\s]+$/i',
@@ -239,15 +256,25 @@ class KendaraanController extends Controller
         kendaraan::where('id', $id)->update($data);
         $kendaraan->save();
 
-        return redirect('/data_kendaraan')
-                ->with('notification', 'Data Berhasil Diubah.');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Data berhasil diubah.');
+
+        return redirect('/data_kendaraan');
     }
 
     function deletekendaraan(kendaraan $kendaraan)
     {
         kendaraan::destroy($kendaraan->id);
 
-        return redirect('/data_kendaraan')
-                ->with('notification', 'Data Berhasil Dihapus.');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Data berhasil dihapus.');
+
+        return redirect('/data_kendaraan');
     }
 }
