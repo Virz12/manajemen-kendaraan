@@ -8,17 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('notification', function (Blueprint $table) {
+        Schema::create('detail_peminjaman', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('id_pegawai')->references('id')->on('pegawai')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('nopol')->references('nopol')->on('kendaraan')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('id_peminjaman')->references('id')->on('peminjaman')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('notification',255);
+            $table->foreignUuid('id_pegawai')->references('id')->on('pegawai')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('id_supir')->references('id')->on('pegawai')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('notification');
+        Schema::dropIfExists('detail_peminjaman');
     }
 };

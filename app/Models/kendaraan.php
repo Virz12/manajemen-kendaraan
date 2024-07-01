@@ -6,10 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class kendaraan extends Model
 {
     use HasFactory;
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
+
+    protected $table = 'kendaraan';
 
     protected $fillable = [
         'id',
@@ -22,7 +29,12 @@ class kendaraan extends Model
         'kondisi',
         'status',
     ];
-    protected $table = 'kendaraan';
+    
+    public static function booted() {
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
+    }
 
     public function detail_peminjaman(): BelongsTo
     {

@@ -9,22 +9,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('peminjaman', function (Blueprint $table) {
-            $table->id();
-            $table->string('nip_peminjam')->references('nip')->on('pegawai');
+            $table->uuid('id')->primary();
+            $table->string('nip_peminjam')->references('nip')->on('pegawai')->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('jumlah');
             $table->date('tanggal_awal');
             $table->date('tanggal_akhir');
-            $table->boolean('supir')->default(false)->nullable();
+            $table->integer('supir');
             $table->enum('status',['pengajuan','diterima','selesai'])->default('pengajuan');
-            $table->timestamps();
-        });
-
-        Schema::create('detail_peminjaman', function (Blueprint $table) {
-            $table->id();
-            $table->string('nopol')->references('nopol')->on('kendaraan');
-            $table->integer('id_peminjaman')->references('id')->on('peminjaman');
-            $table->integer('id_pegawai')->references('id')->on('pegawai');
-            $table->integer('id_supir')->references('id')->on('pegawai')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +23,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('peminjaman');
-        Schema::dropIfExists('detail_peminjaman');
     }
 };
