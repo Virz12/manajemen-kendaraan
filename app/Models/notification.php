@@ -21,6 +21,7 @@ class notification extends Model
     protected $fillable = [
         'id',
         'id_pegawai',
+        'id_peminjaman',
         'notification',
     ];
     

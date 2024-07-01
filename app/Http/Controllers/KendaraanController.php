@@ -187,13 +187,12 @@ class KendaraanController extends Controller
         return redirect('/data_kendaraan');
     }
 
-    function editkendaraan(string $id)
+    function editkendaraan(kendaraan $kendaraan)
     {
-        $datakendaraan = kendaraan::findOrFail($id);
         $data_supir = pegawai::where('kelompok','supir')->get();
 
         return view('kendaraan.ubah_kendaraan')
-                ->with('datakendaraan',$datakendaraan)
+                ->with('datakendaraan',$kendaraan)
                 ->with('data_supir',$data_supir);
     }
 

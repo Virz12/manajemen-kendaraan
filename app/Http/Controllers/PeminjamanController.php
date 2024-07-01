@@ -127,13 +127,6 @@ class PeminjamanController extends Controller
     {
         $peminjaman = peminjaman::findOrFail($id);
 
-        // $messages = [
-        //     'nopol.required' => 'Data kendaraan belum terisi',
-        //     'nopol.size' => 'Jumlah kendaraan tidak sesuai permintaan',
-        //     'id_supir.size' => 'Jumlah supir tidak sesuai',
-        //     'id_supir.required' => 'Data supir belum terisi',
-        // ];
-
         flash()
         ->killer(true)
         ->layout('bottomRight')
@@ -156,31 +149,6 @@ class PeminjamanController extends Controller
             $item->save();
         }
         
-        // $kendaraan = $request->input('nopol');
-        // $supir = $request->input('id_supir');
-        // $count = count($kendaraan);
-
-        // if($supir == null)
-        // {
-        //     foreach($kendaraan as $data)
-        //     {
-        //         $item = new detail_peminjaman();
-        //         $item->nopol = $data;
-        //         $item->id_peminjaman = $id;
-        //         $item->id_pegawai = Auth::id();
-        //         $item->save();
-        //     }
-        // }else {
-        //     for ($i = 0; $i < $count; $i++) {
-        //         $item = new detail_peminjaman();
-        //         $item->nopol = $kendaraan[$i];
-        //         $item->id_supir = $supir[$i];
-        //         $item->id_peminjaman = $id;
-        //         $item->id_pegawai = Auth::id();
-        //         $item->save();
-        //     }
-        // }
-        
         foreach($data_kendaraan as $kendaraan)
         {
             kendaraan::where('nopol',$kendaraan)->update([
@@ -194,6 +162,7 @@ class PeminjamanController extends Controller
 
         $notifikasi = [
             'id_pegawai' => $peminjaman->pegawai->id,
+            'id_peminjaman' => $id,
             'notification' => 'Peminjaman Anda telah diterima!'
         ];
 

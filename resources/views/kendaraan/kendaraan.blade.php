@@ -80,7 +80,7 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-2 pb-2">
                     <div class="col-md-3">
-                        <a href="/tambah_kendaraan" class="btn btn-primary rounded">Tambah Kendaraan <i class="fa-solid fa-car me-1 car-icon"></i></a>
+                        <a href="{{ route('kendaraan.create') }}" class="btn btn-primary rounded">Tambah Kendaraan <i class="fa-solid fa-car me-1 car-icon"></i></a>
                     </div>
                 </div>
                 <div class="row g-4">
@@ -132,7 +132,7 @@
                                 @endif
                                 </li>
                                 <li class="list-group-item d-flex">
-                                    <form action="/ubahkendaraan/{{ $kendaraan->id }}" class="w-50">
+                                    <form action="{{ route('kendaraan.edit', ['kendaraan' => $kendaraan]) }}" class="w-50">
                                         @csrf
                                         <button class="btn btn-success w-100" type="submit">Ubah</button>
                                     </form>
@@ -154,7 +154,7 @@
                                     <b>{{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}</b>
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="/hapuskendaraan/{{ $kendaraan->id }}">
+                                    <form action="{{ route('kendaraan.delete', ['kendaraan' => $kendaraan]) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Hapus</button>
@@ -172,6 +172,16 @@
             </div>
         </main>
     </div>
+    {{-- Toast --}}
+    @if (session()->has('notification'))
+        <div class="position-fixed bottom-0 end-0 p-3 z-3">
+            <div class="alert alert-success" role="alert">
+                <i class="fa-solid fa-check me-2"></i>
+                {{ session('notification') }}
+                <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
 
     {{-- Javascript --}}
     <script src="{{ asset('js/dashboard.js') }}"></script>

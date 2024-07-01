@@ -300,6 +300,27 @@
                             </div>
                         </div>
                     @endforeach
+
+                    {{-- Toast --}}
+                    @if (session()->has('notification'))
+                        <div class="position-fixed bottom-0 end-0 p-3 z-3">
+                            <div class="alert alert-success" role="alert">
+                                <i class="fa-solid fa-check me-2"></i>
+                                {{ session('notification') }}
+                                <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    @endif
+                    {{-- Alert --}}
+                    @if($errors->any())
+                        <div class="position-fixed bottom-0 end-0 p-3">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                                Proses pengajuan tidak berhasil!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    @endif
             </main>
         </div>
         <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
