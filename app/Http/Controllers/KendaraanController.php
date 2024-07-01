@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class KendaraanController extends Controller
@@ -196,7 +197,7 @@ class KendaraanController extends Controller
                 ->with('data_supir',$data_supir);
     }
 
-    function updatekendaraan(Request $request, $id)
+    function updatekendaraan(Request $request, kendaraan $kendaraan)
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
@@ -219,18 +220,16 @@ class KendaraanController extends Controller
         ->timeout(3000)
         ->error('Data gagal diubah.');
 
-        $request->validate([
+        Validator::make($request->all(), [
             'jenis_kendaraan' => 'required|max:50|regex:/^[a-z\d\-_\s]+$/i',
             'tahun' => 'required|numeric|digits:4',
-            'nopol' => 'required|alpha_num|',Rule::unique('kendaraan','nopol')->ignore($request->input('nopol')),
+            'nopol' => ['required', 'alpha_num', Rule::unique('kendaraan','nopol')->ignore($kendaraan->id),],
             'warna' => 'required|max:15|regex:/^[\pL\s]+$/u',
             'foto_kendaraan' => 'image|max:2048',
-            'id_supir' => 'required',Rule::unique('kendaraan','id_supir')->ignore($request->input('id_supir')),
+            'id_supir' => ['required', Rule::unique('kendaraan','id_supir')->ignore($kendaraan->id),],
             'kondisi' => 'required|in:baik,rusak,perbaikan',
             'status' => 'required|in:tersedia,digunakan',
-        ],$messages);
-
-        $kendaraan = kendaraan::findOrFail($id);
+        ],$messages)->validate();
 
         if ($request->hasFile('foto_kendaraan')) {
             if (File::exists($kendaraan->foto_kendaraan))
@@ -240,8 +239,11 @@ class KendaraanController extends Controller
             $newImage = $request->file('foto_kendaraan');
             $imageName = time().'.'.$newImage->extension();
             $newImage->move(public_path('images'), $imageName);
+            $imagePath = 'images/' . $imageName;
 
-            $kendaraan->foto_kendaraan = 'images/' . $imageName;
+            $kendaraan->update([
+                'foto_kendaraan' => $imagePath
+            ]);
         }
 
         $data = [
@@ -249,12 +251,12 @@ class KendaraanController extends Controller
             'tahun' => $request->input('tahun'),
             'nopol' => $request->input('nopol'),
             'warna' => $request->input('warna'),
+            'id_supir' => $request->input('id_supir'),
             'kondisi' => $request->input('kondisi'),
             'status' => $request->input('status'),
         ];
 
-        kendaraan::where('id', $id)->update($data);
-        $kendaraan->save();
+        $kendaraan->update($data);
 
         flash()
         ->killer(true)

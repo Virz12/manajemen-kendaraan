@@ -79,7 +79,7 @@
                                 <a href="/data_kendaraan" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                             </div>
                             {{-- Form --}}
-                            <form action="" method="POST" enctype="multipart/form-data" class="row g-3">
+                            <form action="{{ route('kendaraan.update', ['kendaraan' => $datakendaraan]) }}" method="POST" enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('PUT')
                                 <div class="col-md-6">

@@ -7,10 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class detail_peminjaman extends Model
 {
     use HasFactory;
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
+
+    protected $table = 'detail_peminjaman';
 
     protected $fillable = [
         'id',
@@ -19,7 +26,12 @@ class detail_peminjaman extends Model
         'id_pegawai',
         'id_supir'
     ];
-    protected $table = 'detail_peminjaman';
+
+    public static function booted() {
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
+    }    
 
     public function peminjaman(): BelongsTo
     {

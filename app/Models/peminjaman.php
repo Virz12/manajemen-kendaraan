@@ -6,11 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Str;
 
 class peminjaman extends Model
 {
     use HasFactory;
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
+
+    protected $table = 'peminjaman';
 
     protected $fillable = [
         'id',
@@ -21,7 +27,12 @@ class peminjaman extends Model
         'supir',
         'status'
     ];
-    protected $table = 'peminjaman';
+    
+    public static function booted() {
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
+    }
 
     public function pegawai(): BelongsTo
     {
@@ -31,5 +42,10 @@ class peminjaman extends Model
     public function detail_peminjaman(): HasMany
     {
         return $this->hasMany(detail_peminjaman::class, 'id_peminjaman', 'id');
+    }
+
+    public function notification(): BelongsTo
+    {
+        return $this->belongsTo(notification::class, 'id', 'id_peminjaman');
     }
 }
