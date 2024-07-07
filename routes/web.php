@@ -58,9 +58,9 @@ Route::middleware(['preventBackHistory','auth','userAccess:kendaraan'])->group(f
     Route::get('/ubahkendaraan/{kendaraan}', [KendaraanController::class, 'editkendaraan'])->name('kendaraan.edit');
     Route::put('/ubahkendaraan/{kendaraan}', [KendaraanController::class, 'updatekendaraan'])->name('kendaraan.update');
     Route::get('/hapuskendaraan/{kendaraan}', [KendaraanController::class, 'deletekendaraan'])->name('kendaraan.delete');
-    Route::get('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'pageverifikasipeminjaman'])->name('peminjaman.verify');
+    Route::get('/verifikasi_peminjaman/{peminjaman}', [PeminjamanController::class, 'pageverifikasipeminjaman'])->name('peminjaman.verifikasi');
     Route::post('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'verifikasipeminjaman'])->name('peminjaman.update');
-    Route::get('/selesai_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'selesaipeminjaman']);
+    Route::get('/selesai_peminjaman/{peminjaman}', [PeminjamanController::class, 'selesaipeminjaman'])->name('peminjaman.selesai');
     Route::get('/data_kendaraan', [KendaraanController::class, 'kendaraan']);
     Route::get('/data_peminjaman', [KendaraanController::class, 'peminjaman']);
     Route::get('/data_arsip', [KendaraanController::class, 'arsip']);

@@ -177,9 +177,9 @@ class PeminjamanController extends Controller
         return redirect('/data_peminjaman');
     }
 
-    function selesaipeminjaman(string $id)
+    function selesaipeminjaman(peminjaman $peminjaman)
     {
-        $detail_peminjaman = detail_peminjaman::where('id_peminjaman',$id)->get();
+        $detail_peminjaman = detail_peminjaman::where('id_peminjaman',$peminjaman->id)->get();
 
         foreach($detail_peminjaman as $detailpeminjaman)
         {
@@ -193,9 +193,11 @@ class PeminjamanController extends Controller
             ]);
         }
 
-        peminjaman::where('id',$id)->update([
+        $peminjaman->update([
             'status' => 'selesai',
         ]);
+
+        notification::where('id_peminjaman',$peminjaman->id)->delete();
 
         return redirect('/data_peminjaman');
     }
