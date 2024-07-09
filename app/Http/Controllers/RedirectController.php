@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\detail_peminjaman;
 use App\Models\kendaraan;
+use App\Models\notification;
 use App\Models\pegawai;
 use App\Models\peminjaman;
 use Carbon\Carbon;
@@ -100,11 +101,13 @@ class RedirectController extends Controller
                                         
         $data_terbaru = peminjaman::where('nip_peminjam',Auth::user()->nip)->orderBy('created_at','DESC')->paginate(1);
         $jumlah_kendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->count();
+        $data_notification = notification::all();
         
         return view('pegawai.homepage')
                 ->with('data_peminjaman',$data_peminjaman)
                 ->with('data_terbaru',$data_terbaru)
-                ->with('jumlah_kendaraan',$jumlah_kendaraan);
+                ->with('jumlah_kendaraan',$jumlah_kendaraan)
+                ->with('data_notification',$data_notification);
     }
 
     function kendaraan(Request $request)

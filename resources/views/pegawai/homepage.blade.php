@@ -20,17 +20,20 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="dropdown me-3">
                         <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-bell fa-xl">
-                                <span class="position-absolute top-0 start-60 translate-middle p-2 bg-danger border border-light rounded-circle">
-                                <span class="visually-hidden">New alerts</span>
-                                </span>
-                            </i>
+                            @if($data_notification->contains('id_pegawai',Auth::id()))
+                                <i class="fa-solid fa-bell fa-xl">
+                                    <span class="position-absolute top-0 start-60 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
+                                    <span class="visually-hidden">New alerts</span>
+                                </i>
+                            @else
+                                <i class="fa-solid fa-bell fa-xl"></i>
+                            @endif
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end p-2">
                             @forelse(Auth::user()->notification->slice(0, 3) as $notification)
                                 <li class="dropdown-item" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $notification->id }}">
                                     <h6 class="fw-normal mb-0">{{ $notification->notification }}</h6>
-                                    <small>{{ \Carbon\Carbon::parse($notification->created_at)->format('d F Y h:i') }}</small>
+                                    <small>{{ $notification->created_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('Y-m-d H:i') }}</small>
                                 </li>
                                 <hr class="dropdown-divider">
                             @empty
@@ -178,7 +181,7 @@
                                     </thead>
                                     <tbody>
                                     @forelse ($data_peminjaman as $datapeminjam)
-                                        <tr class="align-middle {{ $datapeminjam->status == 'selesai' ? 'table-secondary' : ''}}">
+                                        <tr class="align-middle {{ $datapeminjam->status == 'selesai' ? 'table-secondary' : ''}}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $datapeminjam->id }}">
                                             <td>{{($data_peminjaman->currentPage()-1) * $data_peminjaman->perPage() + $loop->iteration}}</td>
                                             <td>{{$datapeminjam->nip_peminjam}}</td>
                                             <td>{{$datapeminjam->tanggal_awal}}</td>
@@ -247,6 +250,45 @@
                                                     </form>
                                                 </div>
                                             </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="lightbox{{ $datapeminjam->id }}">
+                                            <div class="modal-dialog modal-dialog-centered modal-sm">
+                                                <div class="modal-content">
+                                                    <div class="card text-center">
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item ">NIP : {{ $datapeminjam->nip_peminjam }}</li>
+                                                            <li class="list-group-item "> {{ $datapeminjam->tanggal_awal }} <br>  {{ $datapeminjam->tanggal_akhir }}</li>
+                                                            <li class="list-group-item ">Supir : 
+                                                                @if($datapeminjam->supir == null)
+                                                                    -
+                                                                @else
+                                                                    {{ $datapeminjam->supir }}
+                                                                @endif
+                                                            </li>
+                                                            <li class="list-group-item ">Kendaraan :  <br>
+                                                                @if($datapeminjam->status == 'pengajuan')
+                                                                    -
+                                                                @elseif($datapeminjam->status == 'diterima')
+                                                                    @foreach($datapeminjam->detail_peminjaman as $detailpeminjaman)
+                                                                        @foreach($detailpeminjaman->kendaraan as $kendaraan)
+                                                                            {{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}<br>
+                                                                        @endforeach                                    
+                                                                    @endforeach
+                                                                @elseif($datapeminjam->status == 'selesai')
+                                                                    @foreach($datapeminjam->detail_peminjaman as $detailpeminjaman)
+                                                                        @foreach($detailpeminjaman->kendaraan as $kendaraan)
+                                                                            {{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}<br>
+                                                                        @endforeach                                    
+                                                                    @endforeach
+                                                                @endif
+                                                            </li>
+                                                            <li class="list-group-item ">Jumlah Kendaraan : {{ $datapeminjam->jumlah }}</li>
+                                                            <li class="list-group-item fw-bold">Status : {{ $datapeminjam->status }}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     @empty

@@ -103,24 +103,24 @@
                                 <li class="list-group-item">Warna Kendaraan : <br>
                                     {{ $kendaraan->warna }}
                                 </li>
-                                <li class="list-group-item position-relative"> Kondisi : 
+                                <li class="list-group-item position-relative"> Kondisi : <br>
                                 @if ($kendaraan->kondisi == 'baik')
-                                    <i class="fa-solid fa-check fa-lg text-success tooltip-icon"></i>
+                                    <span>Baik</span> <i class="fa-solid fa-check fa-lg text-success tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Baik</span>
                                 @elseif ($kendaraan->kondisi == 'rusak')
-                                    <i class="fa-solid fa-xmark fa-lg text-danger tooltip-icon"></i>
+                                    <span>Rusak</span> <i class="fa-solid fa-xmark fa-lg text-danger tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Rusak</span>
                                 @else
-                                    <i class="fa-solid fa-triangle-exclamation fa-lg text-warning tooltip-icon"></i>
+                                    <span>Perbaikan</span> <i class="fa-solid fa-triangle-exclamation fa-lg text-warning tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Perbaikan</span>
                                 </li>
                                 @endif
-                                <li class="list-group-item position-relative"> Status : 
+                                <li class="list-group-item position-relative"> Status : <br>
                                 @if ($kendaraan->status == 'tersedia')
-                                    <i class="fa-solid fa-car fa-lg text-success tooltip-icon"></i>
+                                    <span>Tersedia</span> <i class="fa-solid fa-car fa-lg text-success tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Tersedia</span>
                                 @else
-                                    <i class="fa-solid fa-car-on fa-lg text-secondary tooltip-icon"></i>
+                                    <span>Digunakan</span> <i class="fa-solid fa-car-on fa-lg text-secondary tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Digunakan</span>
                                 @endif
                                 </li>

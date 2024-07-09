@@ -139,8 +139,8 @@ class PeminjamanController extends Controller
         {
             $item = new detail_peminjaman();
             $item->nopol = $kendaraan;
-            if ($request->input('supir') === 1) {
-                $item->id_supir = $kendaraan->supir->id;
+            if ($request->has('supir')) {
+                $item->id_supir = kendaraan::where('nopol',$kendaraan)->first()->supir->id;
             }else{
                 $item->id_supir = $peminjaman->pegawai->id;
             }
@@ -148,7 +148,7 @@ class PeminjamanController extends Controller
             $item->id_pegawai = Auth::id();
             $item->save();
         }
-        
+
         foreach($data_kendaraan as $kendaraan)
         {
             kendaraan::where('nopol',$kendaraan)->update([
