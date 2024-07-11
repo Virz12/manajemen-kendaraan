@@ -59,7 +59,7 @@ Route::middleware(['preventBackHistory','auth','userAccess:kendaraan'])->group(f
     Route::put('/ubahkendaraan/{kendaraan}', [KendaraanController::class, 'updatekendaraan'])->name('kendaraan.update');
     Route::get('/hapuskendaraan/{kendaraan}', [KendaraanController::class, 'deletekendaraan'])->name('kendaraan.delete');
     Route::get('/verifikasi_peminjaman/{peminjaman}', [PeminjamanController::class, 'pageverifikasipeminjaman'])->name('peminjaman.verifikasi');
-    Route::post('/verifikasi_peminjaman/{peminjaman:id}', [PeminjamanController::class, 'verifikasipeminjaman'])->name('peminjaman.update');
+    Route::post('/verifikasi_peminjaman/{peminjaman}', [PeminjamanController::class, 'verifikasipeminjaman'])->name('peminjaman.update');
     Route::get('/selesai_peminjaman/{peminjaman}', [PeminjamanController::class, 'selesaipeminjaman'])->name('peminjaman.selesai');
     Route::get('/data_kendaraan', [KendaraanController::class, 'kendaraan']);
     Route::get('/data_peminjaman', [KendaraanController::class, 'peminjaman']);
