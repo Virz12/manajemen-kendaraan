@@ -129,7 +129,6 @@
                                 </li>
                                 <li class="list-group-item d-flex">
                                     <form action="{{ route('kendaraan.data.kendaraan.edit', ['kendaraan' => $kendaraan]) }}" class="w-50">
-                                        @csrf
                                         <button class="btn btn-success w-100" type="submit">Ubah</button>
                                     </form>
                                     <button type="button" class="btn btn-danger ms-4 w-50" data-bs-toggle="modal" data-bs-target="#Hapus{{ $kendaraan->id }}">Hapus</button>

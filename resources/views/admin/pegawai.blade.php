@@ -128,7 +128,6 @@
                                                 @endif
                                                 <td>
                                                     <form action="{{ route('admin.data.pegawai.edit', ['pegawai' => $pegawai]) }}">
-                                                        @csrf
                                                         <button class="btn btn-success" type="submit">Ubah</button>
                                                     </form>
                                                 </td>
