@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Tambah Data Pegawai | Peminjaman Kendaraan</title>
+    <title>{{ config('app.name') }} | Admin | Tambah Data Pegawai</title>
 </head>
 <body>  
     <div class="container-fluid p-0">
@@ -26,17 +26,17 @@
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/pegawai" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
+                    <a href="{{ route('admin.data.pegawai') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-users fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Pegawai
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('admin.data.kendaraan') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-car fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('admin.data.peminjaman') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Peminjaman
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -70,7 +70,7 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-1 rounded-0 rounded-bottom m-0"> 
-                            <a href="/logout" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -81,42 +81,42 @@
                     <div class="col-12">
                         <div class="bg-light text-center rounded p-4">
                             <div class="text-start mb-4">
-                                <a href="/pegawai" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
+                                <a href="{{ route('admin.data.pegawai') }}" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                             </div>
                             {{-- Form --}}
-                            <form action="" method="POST" enctype="multipart/form-data" class="row g-3">
+                            <form action="{{ route('admin.data.pegawai.store') }}" method="POST" enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 <div class="col-md-6">
                                     <label for="nip" class="form-label w-100 text-start">NIP<span class="text-danger">*</span></label>
-                                    <input type="number" value="{{ @old('nip') }}" name="nip" class="form-control @error('nip') is-invalid @enderror" id="nip" min="1">
+                                    <input type="number" value="{{ @old('nip') }}" name="nip" class="form-control @error('nip') is-invalid @enderror" id="nip" min="1" @required(true)>
                                     @error('nip')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="nama" class="form-label w-100 text-start">Nama<span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ @old('nama') }}" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" autocomplete="off">
+                                    <input type="text" value="{{ @old('nama') }}" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" autocomplete="off" @required(true)>
                                     @error('nama')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="username" class="form-label w-100 text-start">Nama Pengguna<span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ @old('username') }}" name="username" class="form-control @error('username') is-invalid @enderror"  id="username" autocomplete="off">
+                                    <input type="text" value="{{ @old('username') }}" name="username" class="form-control @error('username') is-invalid @enderror"  id="username" autocomplete="off" @required(true)>
                                     @error('username')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="password" class="form-label w-100 text-start">Sandi<span class="text-danger">*</span></label>
-                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"  id="password">
+                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"  id="password" @required(true)>
                                     @error('password')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-4">
                                     <label for="Role" class="form-label w-100 text-start">Kelompok<span class="text-danger">*</span></label>
-                                    <select id="Role" name="kelompok" class="form-select">
+                                    <select id="Role" name="kelompok" class="form-select" @required(true)>
                                         <option value="pegawai" selected>Pegawai</option>
                                         <option value="admin" >Admin</option>
                                         <option value="supir" >Supir</option>
@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="Status" class="form-label w-100 text-start">Status<span class="text-danger">*</span></label>
-                                    <select id="Status" name="status" class="form-select @error('status') is-invalid @enderror">
+                                    <select id="Status" name="status" class="form-select @error('status') is-invalid @enderror" @required(true)>
                                         <option value="aktif" selected>Aktif</option>
                                         <option value="pensiun" >Pensiun</option>
                                         <option value="berhenti" >Berhenti</option>

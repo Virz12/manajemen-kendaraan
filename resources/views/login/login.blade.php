@@ -10,7 +10,7 @@
     {{-- Css --}}
     <link rel="stylesheet" href="{{asset('css/login.css')}}" >
     
-    <title>Halaman Login</title>
+    <title>{{ config('app.name') }} | Login</title>
 </head>
 <body>
     <div class="container-fluid ">
@@ -29,14 +29,14 @@
                             <h3 class="fw-semibold fs-1 pb-2 text-black " style="width:150px ">Masuk</h3>
                             <i class="fa-solid fa-arrow-right-long icon pt-xl-2 pt-md-2" style="font-size: 35px"></i>
                         <div class="form-floating mb-4" >
-                            <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border-2 border-warning @error('username') is-invalid @enderror" placeholder="" autocomplete="off" >
+                            <input type="text" name="username" value="{{ @old('username') }}" id="username" class="form-control form-control-lg border-2 border-warning @error('username') is-invalid @enderror" placeholder="" autocomplete="off" @required(true)>
                             <label class="form-label" for="username"><i class="fa-solid fa-user"></i> Nama Pengguna</label>
                             @error('username')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" name="password" value="{{ @old('password') }}" id="password" class="form-control form-control-lg border-2 border-warning @error('password') is-invalid @enderror" placeholder="" autocomplete="off" >
+                            <input type="password" name="password" value="{{ @old('password') }}" id="password" class="form-control form-control-lg border-2 border-warning @error('password') is-invalid @enderror" placeholder="" autocomplete="off" @required(true)>
                             <label class="form-label " for="password"><i class="fa-solid fa-key"></i> Sandi</label>
                             @error('password')
                                 <div class="text-danger"><small>{{ $message }}</small></div>

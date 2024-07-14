@@ -21,10 +21,10 @@ class PeminjamanController extends Controller
             'required' => 'Kolom :attribute belum terisi.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'date' => 'Kolom :attribute harus berupa tanggal',
-            'pengajuan_jumlah.min' => 'Jumlah kendaraan tidak dapat nol',
-            'pengajuan_jumlah.max' => "Jumlah kendaraan maksimal adalah $jumlah_kendaraan",
-            'pengajuan_tanggal_awal.after_or_equal' => 'Tanggal tidak valid',
-            'pengajuan_tanggal_akhir.after_or_equal' => 'Tanggal tidak valid',            
+            'jumlah.min' => 'Jumlah kendaraan tidak dapat nol',
+            'jumlah.max' => "Jumlah kendaraan maksimal adalah $jumlah_kendaraan",
+            'tanggal_awal.after_or_equal' => 'Tanggal tidak valid',
+            'tanggal_akhir.after_or_equal' => 'Tanggal tidak valid',            
         ];
 
         flash()
@@ -33,19 +33,19 @@ class PeminjamanController extends Controller
         ->timeout(3000)
         ->error('Pengajuan gagal.');
 
-        $request->validate([
-            'pengajuan_jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
-            'pengajuan_tanggal_awal' => 'required|date|after_or_equal:today',
-            'pengajuan_tanggal_akhir' => "required|date|after_or_equal:$request->pengajuan_tanggal_awal",
-            'pengajuan_supir' => 'nullable',
-        ],$messages);
+        Validator::make($request->all(), [
+            'jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
+            'tanggal_awal' => 'required|date|after_or_equal:today',
+            'tanggal_akhir' => 'required|date|after_or_equal:tanggal_awal',
+            'supir' => 'nullable|numeric',
+        ],$messages)->validateWithBag('pengajuan');
 
         $data = [
             'nip_peminjam' => Auth::user()->nip,
-            'jumlah' => $request->input('pengajuan_jumlah'),
-            'tanggal_awal' => $request->input('pengajuan_tanggal_awal'),
-            'tanggal_akhir' => $request->input('pengajuan_tanggal_akhir'),
-            'supir' => $request->input('pengajuan_supir'),
+            'jumlah' => $request->input('jumlah'),
+            'tanggal_awal' => $request->input('tanggal_awal'),
+            'tanggal_akhir' => $request->input('tanggal_akhir'),
+            'supir' => $request->input('supir'),
         ];
 
         peminjaman::create($data);
@@ -56,10 +56,10 @@ class PeminjamanController extends Controller
         ->timeout(3000)
         ->success('Pengajuan berhasil.');
 
-        return redirect('/homepage_pegawai');
+        return redirect(route('pegawai.homepage'));
     }
 
-    function editpeminjaman(Request $request, string $id)
+    function editpeminjaman(peminjaman $peminjaman, Request $request)
     {
         $jumlah_kendaraan = kendaraan::where('status','tersedia')->where('kondisi','baik')->count();
 
@@ -67,10 +67,10 @@ class PeminjamanController extends Controller
             'required' => 'Kolom :attribute belum terisi.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'date' => 'Kolom :attribute harus berupa tanggal',
-            'ubah_jumlah.min' => 'Jumlah kendaraan tidak dapat nol',
-            'ubah_jumlah.max' => "Jumlah kendaraan maksimal adalah $jumlah_kendaraan",
-            'ubah_tanggal_awal.after_or_equal' => 'Tanggal tidak valid',
-            'ubah_tanggal_akhir.after_or_equal' => 'Tanggal tidak valid',            
+            'jumlah.min' => 'Jumlah kendaraan tidak dapat nol',
+            'jumlah.max' => "Jumlah kendaraan maksimal adalah $jumlah_kendaraan",
+            'tanggal_awal.after_or_equal' => 'Tanggal tidak valid',
+            'tanggal_akhir.after_or_equal' => 'Tanggal tidak valid',
         ];
 
         flash()
@@ -79,27 +79,18 @@ class PeminjamanController extends Controller
         ->timeout(3000)
         ->error('Peminjaman gagal diubah.');
 
-        $request->validate([
-            'ubah_jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
-            'ubah_tanggal_awal' => 'required|date|after_or_equal:today',
-            'ubah_tanggal_akhir' => "required|date|after_or_equal:$request->ubah_tanggal_awal",
-            'ubah_supir' => 'nullable',
-        ],$messages);
+        Validator::make($request->all(), [
+            'jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
+            'tanggal_awal' => 'required|date|after_or_equal:today',
+            'tanggal_akhir' => 'required|date|after_or_equal:tanggal_awal',
+            'supir' => 'nullable|numeric',
+        ],$messages)->validateWithBag($peminjaman->id);
 
-        // $validator = Validator::make($request->all(), [
-        //     'ubah_jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
-        //     'ubah_tanggal_awal' => 'required|date|after_or_equal:today',
-        //     'ubah_tanggal_akhir' => "required|date|after_or_equal:$request->ubah_tanggal_awal",
-        //     'ubah_supir' => 'nullable',
-        // ],$messages)->validateWithBag($id);
- 
-        // return redirect('/homepage_pegawai')->withErrors($validator, $id);
-
-        peminjaman::where('id',$id)->update([
-            'jumlah' => $request->input('ubah_jumlah'),
-            'tanggal_awal' => $request->input('ubah_tanggal_awal'),
-            'tanggal_akhir' => $request->input('ubah_tanggal_akhir'),
-            'supir' => $request->input('ubah_supir'),
+        $peminjaman->update([
+            'jumlah' => $request->input('jumlah'),
+            'tanggal_awal' => $request->input('tanggal_awal'),
+            'tanggal_akhir' => $request->input('tanggal_akhir'),
+            'supir' => $request->input('supir'),
         ]);
 
         flash()
@@ -108,7 +99,7 @@ class PeminjamanController extends Controller
         ->timeout(3000)
         ->success('Peminjaman berhasil diubah.');
 
-        return redirect('/homepage_pegawai');
+        return redirect(route('pegawai.homepage'));
     }
 
     function pageverifikasipeminjaman(peminjaman $peminjaman)
@@ -129,8 +120,6 @@ class PeminjamanController extends Controller
         ->layout('bottomRight')
         ->timeout(3000)
         ->error('Proses verifikasi gagal.');
-
-       
 
         foreach($request->input('kendaraan') as $data)
         {
@@ -169,7 +158,7 @@ class PeminjamanController extends Controller
         ->timeout(3000)
         ->success('Proses verifikasi berhasil.');
         
-        return redirect('/data_peminjaman');
+        return redirect(route('kendaraan.data.peminjaman'));
     }
 
     function selesaipeminjaman(peminjaman $peminjaman)
@@ -194,6 +183,6 @@ class PeminjamanController extends Controller
 
         notification::where('id_peminjaman',$peminjaman->id)->delete();
 
-        return redirect('/data_peminjaman');
+        return redirect(route('kendaraan.data.peminjaman'));
     }
 }

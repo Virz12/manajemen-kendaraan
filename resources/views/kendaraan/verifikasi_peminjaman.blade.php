@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Verifikasi Peminjaman | Peminjaman Kendaraan</title>
+    <title>{{ config('app.name') }} | Kendaraaan | Verifikasi Data Peminjaman</title>
 </head>
 <body>
     <div class="container-fluid p-0">
@@ -21,17 +21,17 @@
                     <img src="{{ asset('img/logo.png') }}" class="img-fluid px-3 mb-4 rounded-circle" alt="Logo">
                 </div>
                 <div class="navbar-nav w-100 gap-2 fw-medium mt-7 mt-lg-0">
-                    <a href="/dashboard_admin" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('kendaraan.dashboard') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/data_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('kendaraan.data.kendaraan') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-car fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/data_peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
+                    <a href="{{ route('kendaraan.data.peminjaman') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Peminjaman
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -65,19 +65,19 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-1 rounded-0 rounded-bottom m-0">
-                            <a href="/logout" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
             {{-- Card Table --}}
             <div class="container-fluid pt-4 px-4">
-                <form class="row g-4" action="" method="POST">
+                <form class="row g-4" action="{{ route('kendaraan.data.peminjaman.update', ['peminjaman' => $peminjaman]) }}" method="POST">
                 @csrf
                     <div class="col-md-12">
                         <div class="bg-light text-center rounded p-4">
                             <div class="text-start mb-4">
-                                <a href="/data_peminjaman" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
+                                <a href="{{ route('kendaraan.data.peminjaman') }}" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                             </div>
                             <div class="text-start mb-4">
                                 <h6 class="mb-0">Data Peminjaman</h6>

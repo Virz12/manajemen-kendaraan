@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Data Kendaraan | Peminjaman Kendaraan</title>
+    <title>{{ config('app.name') }} | Admin | Data Kendaraaan</title>
 </head>
 <body>  
     <div class="container-fluid p-0">
@@ -21,25 +21,25 @@
                     <img src="{{ asset('img/logo.png') }}" class="img-fluid px-3 mb-4 rounded-circle" alt="Logo">
                 </div>
                 <div class="navbar-nav w-100 gap-2 fw-medium mt-7 mt-lg-0">
-                    <form class="d-flex d-md-none ms-3 mb-3" action="" method="GET"> {{-- Form Sidebar --}}
-                        <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Search">
+                    <form class="d-flex d-md-none ms-3 mb-3" action="{{ route('admin.data.kendaraan') }}" method="GET"> {{-- Form Sidebar --}}
+                        <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari..">
                     </form>
-                    <a href="/dashboard_admin" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/pegawai" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('admin.data.pegawai') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-users fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Pegawai
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
+                    <a href="{{ route('admin.data.kendaraan') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-car fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('admin.data.peminjaman') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Peminjaman
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -57,8 +57,8 @@
                 <a href="" class="sidebar-toggler flex-shrink-0 text-decoration-none text-black">
                     <i class="fa-solid fa-bars-staggered"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4" action="" method="GET"> {{-- Form Navbar --}}
-                    <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Search">
+                <form class="d-none d-md-flex ms-4" action="{{ route('admin.data.kendaraan') }}" method="GET"> {{-- Form Navbar --}}
+                    <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari..">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -76,7 +76,7 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-1 rounded-0 rounded-bottom m-0">
-                            <a href="/logout" class="dropdown-item">Log Out</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -93,6 +93,9 @@
                             <ul class="list-group list-group-flush text-center">
                                 <li class="list-group-item">Jenis Kendaraan : <br>
                                     {{ $kendaraan->jenis_kendaraan }}
+                                </li>
+                                <li class="list-group-item">Supir : <br>
+                                    {{ $kendaraan->supir->nama }}
                                 </li>
                                 <li class="list-group-item">Tahun Kendaraan : <br>
                                     {{ $kendaraan->tahun }}

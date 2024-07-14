@@ -7,7 +7,6 @@ use App\Models\pegawai;
 use App\Models\peminjaman;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -19,10 +18,8 @@ class KendaraanController extends Controller
         $datakendaraan = kendaraan::orderBy('updated_at','DESC')->orderBy('tahun', 'DESC')->paginate(6);
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $datakendaraan = DB::table('kendaraan')
-                ->orderBy('updated_at', 'DESC')
-                ->orderBy('tahun', 'DESC')
-                ->whereAny([
+            $datakendaraan = 
+            kendaraan::whereAny([
                     'jenis_kendaraan',
                     'tahun',
                     'nopol',
@@ -30,6 +27,11 @@ class KendaraanController extends Controller
                     'kondisi',
                     'status',
                 ], 'LIKE', "%$keyword%")
+                ->orWhereHas('supir', function (Builder $query) use ($keyword) {
+                    $query->where('nama', 'like', "%$keyword%");
+                })
+                ->orderBy('updated_at', 'DESC')
+                ->orderBy('tahun', 'DESC')
                 ->paginate(6);
         }
 
@@ -51,22 +53,22 @@ class KendaraanController extends Controller
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
-                ], 'like', "%$keyword%")
+                ], 'like', "$keyword%")
                 ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
                     $query->whereNot('status', '=', 'selesai')
                         ->whereAny([
                             'nopol',
                             'id_pegawai',
                             'id_supir',
-                        ], 'like', "%$keyword%")
+                        ], 'like', "$keyword%")
                         ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
-                            $query->where('jenis_kendaraan', 'like', "%$keyword%");
+                            $query->where('jenis_kendaraan', 'like', "$keyword%");
                         })
                         ->orWhereHas('supir', function (Builder $query) use ($keyword) {
-                            $query->where('nama', 'like', "%$keyword%");
+                            $query->where('nama', 'like', "$keyword%");
                         })
                         ->orWhereHas('tim_kendaraan', function (Builder $query) use ($keyword) {
-                            $query->where('nama', 'like', "%$keyword%");
+                            $query->where('nama', 'like', "$keyword%");
                         });
                 })
                 ->orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
@@ -91,22 +93,22 @@ class KendaraanController extends Controller
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
-                ], 'like', "%$keyword%")
+                ], 'like', "$keyword%")
                 ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
                     $query->where('status','selesai')
                         ->whereAny([
                             'nopol',
                             'id_pegawai',
                             'id_supir',
-                        ], 'like', "%$keyword%")
+                        ], 'like', "$keyword%")
                         ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
-                            $query->where('jenis_kendaraan', 'like', "%$keyword%");
+                            $query->where('jenis_kendaraan', 'like', "$keyword%");
                         })
                         ->orWhereHas('supir', function (Builder $query) use ($keyword) {
-                            $query->where('nama', 'like', "%$keyword%");
+                            $query->where('nama', 'like', "$keyword%");
                         })
                         ->orWhereHas('tim_kendaraan', function (Builder $query) use ($keyword) {
-                            $query->where('nama', 'like', "%$keyword%");
+                            $query->where('nama', 'like', "$keyword%");
                         });
                 })
                 ->orderBy('created_at', 'desc')
@@ -184,7 +186,7 @@ class KendaraanController extends Controller
         ->timeout(3000)
         ->success('Data berhasil ditambah.');
 
-        return redirect('/data_kendaraan');
+        return redirect(route('kendaraan.data.kendaraan'));
     }
 
     function editkendaraan(kendaraan $kendaraan)
@@ -263,7 +265,7 @@ class KendaraanController extends Controller
         ->timeout(3000)
         ->success('Data berhasil diubah.');
 
-        return redirect('/data_kendaraan');
+        return redirect(route('kendaraan.data.kendaraan'));
     }
 
     function deletekendaraan(kendaraan $kendaraan)
@@ -276,6 +278,6 @@ class KendaraanController extends Controller
         ->timeout(3000)
         ->success('Data berhasil dihapus.');
 
-        return redirect('/data_kendaraan');
+        return redirect(route('kendaraan.data.kendaraan'));
     }
 }

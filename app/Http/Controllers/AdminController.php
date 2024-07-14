@@ -20,21 +20,21 @@ class AdminController extends Controller
         $datapegawai = pegawai::orderBy('updated_at','DESC')->orderBy('id', 'DESC')->paginate(6);
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $datapegawai = DB::table('pegawai')
+            $datapegawai = 
+            pegawai::whereAny([
+                'nip',
+                'nama',
+                'kelompok',
+                'status',
+            ], 'LIKE', "%$keyword%")
                 ->orderBy('updated_at', 'DESC')
                 ->orderBy('id', 'DESC')
-                ->whereAny([
-                    'nip',
-                    'nama',
-                    'kelompok',
-                    'status',
-                ], 'LIKE', "%$keyword%")
                 ->paginate(6);
         }
         
         return view('admin.pegawai')
-                ->with('datapegawai',$datapegawai)
-                ->with('keyword',$keyword);
+            ->with('datapegawai',$datapegawai)
+            ->with('keyword',$keyword);
     }
 
     function kendaraan(Request $request)
@@ -42,30 +42,33 @@ class AdminController extends Controller
         $datakendaraan = kendaraan::orderBy('updated_at','DESC')->orderBy('tahun', 'DESC')->paginate(6);
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $datakendaraan = DB::table('kendaraan')
+            $datakendaraan = 
+            kendaraan::whereAny([
+                'jenis_kendaraan',
+                'tahun',
+                'nopol',
+                'warna',
+                'kondisi',
+                'status',
+            ], 'LIKE', "%$keyword%")
+            ->orWhereHas('supir', function (Builder $query) use ($keyword) {
+                $query->where('nama', 'like', "%$keyword%");
+            })
                 ->orderBy('updated_at', 'DESC')
                 ->orderBy('tahun', 'DESC')
-                ->whereAny([
-                    'jenis_kendaraan',
-                    'tahun',
-                    'nopol',
-                    'warna',
-                    'kondisi',
-                    'status',
-                ], 'LIKE', "%$keyword%")
                 ->paginate(6);
         }
 
         return view('admin.kendaraan')
-                ->with('datakendaraan',$datakendaraan)
-                ->with('keyword',$keyword);
+            ->with('datakendaraan',$datakendaraan)
+            ->with('keyword',$keyword);
     }
 
     function peminjaman(Request $request)
     {
         $datapeminjaman = peminjaman::orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
-                                        ->orderBy('updated_at','DESC')
-                                        ->whereNot('status', '=', 'selesai')->paginate(6);
+            ->orderBy('updated_at','DESC')
+            ->whereNot('status', '=', 'selesai')->paginate(6);
         $datadetail_peminjaman = detail_peminjaman::all();
         $keyword = $request->input('keyword');
         if ($keyword) {
@@ -75,22 +78,22 @@ class AdminController extends Controller
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
-                ], 'like', "%$keyword%")
+                ], 'like', "$keyword%")
                 ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
                     $query->whereNot('status', '=', 'selesai')
                         ->whereAny([
                             'nopol',
                             'id_pegawai',
                             'id_supir',
-                        ], 'like', "%$keyword%")
+                        ], 'like', "$keyword%")
                         ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
-                            $query->where('jenis_kendaraan', 'like', "%$keyword%");
+                            $query->where('jenis_kendaraan', 'like', "$keyword%");
                         })
                         ->orWhereHas('supir', function (Builder $query) use ($keyword) {
-                            $query->where('nama', 'like', "%$keyword%");
+                            $query->where('nama', 'like', "$keyword%");
                         })
                         ->orWhereHas('tim_kendaraan', function (Builder $query) use ($keyword) {
-                            $query->where('nama', 'like', "%$keyword%");
+                            $query->where('nama', 'like', "$keyword%");
                         });
                 })
                 ->orderByRaw("FIELD(status, 'pengajuan', 'diterima')")
@@ -99,9 +102,9 @@ class AdminController extends Controller
         }
 
         return view('admin.peminjaman')
-                ->with('datapeminjaman',$datapeminjaman)
-                ->with('datadetail_peminjaman',$datadetail_peminjaman)
-                ->with('keyword',$keyword);
+            ->with('datapeminjaman',$datapeminjaman)
+            ->with('datadetail_peminjaman',$datadetail_peminjaman)
+            ->with('keyword',$keyword);
     }
 
     function arsip(Request $request)
@@ -117,22 +120,22 @@ class AdminController extends Controller
                     'tanggal_awal',
                     'tanggal_akhir',
                     'status',
-                ], 'like', "%$keyword%")
+                ], 'like', "$keyword%")
                 ->orWhereHas('detail_peminjaman', function (Builder $query) use ($keyword) {
                     $query->where('status','selesai')
                         ->whereAny([
                             'nopol',
                             'id_pegawai',
                             'id_supir',
-                        ], 'like', "%$keyword%")
+                        ], 'like', "$keyword%")
                         ->orWhereHas('kendaraan', function (Builder $query) use ($keyword) {
-                            $query->where('jenis_kendaraan', 'like', "%$keyword%");
+                            $query->where('jenis_kendaraan', 'like', "$keyword%");
                         })
                         ->orWhereHas('supir', function (Builder $query) use ($keyword) {
-                            $query->where('nama', 'like', "%$keyword%");
+                            $query->where('nama', 'like', "$keyword%");
                         })
                         ->orWhereHas('tim_kendaraan', function (Builder $query) use ($keyword) {
-                            $query->where('nama', 'like', "%$keyword%");
+                            $query->where('nama', 'like', "$keyword%");
                         });
                 })
                 ->orderBy('created_at', 'desc')
@@ -140,9 +143,9 @@ class AdminController extends Controller
         }
 
         return view('admin.arsip')
-                ->with('datapeminjaman',$datapeminjaman)
-                ->with('datadetail_peminjaman',$datadetail_peminjaman)
-                ->with('keyword',$keyword);
+            ->with('datapeminjaman',$datapeminjaman)
+            ->with('datadetail_peminjaman',$datadetail_peminjaman)
+            ->with('keyword',$keyword);
     }
     
     function createpegawai()
@@ -209,21 +212,17 @@ class AdminController extends Controller
         ->timeout(3000)
         ->success('Data berhasil ditambah.');
 
-        return redirect('/pegawai');
+        return redirect(route('admin.data.pegawai'));
     }
 
-    function editpegawai(string $id)
+    function editpegawai(pegawai $pegawai)
     {
-        $datapegawai = pegawai::findorFail($id);
-
         return view('admin.ubah_pegawai')
-            ->with('datapegawai',$datapegawai);
+            ->with('pegawai',$pegawai);
     }
 
-    function updatepegawai(Request $request, $id)
+    function updatepegawai(Request $request, pegawai $pegawai)
     {
-        $pegawai = pegawai::findOrFail($id);
-
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
             'digits_between' => 'Kolom :attribute maksimal berisi angka 20 digit.',
@@ -277,7 +276,7 @@ class AdminController extends Controller
             $pegawai->foto_profil = 'images/' . $imageName;
         }
 
-        pegawai::where('id', $id)->update($data);
+        $pegawai->update($data);
         $pegawai->save();
 
         flash()
@@ -286,7 +285,7 @@ class AdminController extends Controller
         ->timeout(3000)
         ->success('Data berhasil diubah.');
         
-        return redirect('/pegawai');
+        return redirect(route('admin.data.pegawai'));
     }
 
     function deletepegawai(pegawai $pegawai)
@@ -303,6 +302,6 @@ class AdminController extends Controller
         ->timeout(3000)
         ->success('Data berhasil dihapus.');
 
-        return redirect('/pegawai');
+        return redirect(route('admin.data.pegawai'));
     }
 }

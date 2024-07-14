@@ -34,24 +34,24 @@ class LoginController extends Controller
 
         if(Auth::attempt($inputeddata)) {
             if (Auth::user()->kelompok == 'admin') {
-                return redirect('/dashboard_admin');
+                return redirect(route('admin.dashboard'));
             }elseif (Auth::user()->kelompok == 'pegawai') {
-                return redirect('/homepage_pegawai');
+                return redirect(route('pegawai.homepage'));
             }elseif (Auth::user()->kelompok == 'kendaraan') {
-                return redirect('/dashboard_kendaraan');
+                return redirect(route('kendaraan.dashboard'));
             }
         }else {
-            return redirect('/login')
-            ->withErrors([
-                'username' => 'Nama Pengguna atau Sandi Tidak Sesuai',
-                'password' => 'Nama Pengguna atau Sandi Tidak Sesuai'
-            ])->withInput();
+            return redirect(route('login'))
+                ->withErrors([
+                    'username' => 'Nama Pengguna atau Sandi Tidak Sesuai',
+                    'password' => 'Nama Pengguna atau Sandi Tidak Sesuai'
+                ])->withInput();
         }
     }
 
     function logout()
     {
         Auth::logout();
-        return redirect('/login');
+        return redirect(route('login'));
     }
 }

@@ -10,7 +10,7 @@
 
         {{-- Manual CSS --}}
         <link rel="stylesheet" href="{{ asset('css/pegawai.css') }}">
-        <title>Homepage</title>
+        <title>{{ config('app.name') }} | Pegawai | Homepage</title>
     </head>
     <body>
         <div class="container-fluid p-0">
@@ -56,7 +56,7 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-1 rounded-0 rounded-bottom m-0">
-                            <a href="/logout" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -78,37 +78,37 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" method="POST" class="form-card px-4 pt-4">
+                                    <form action="{{ route('pegawai.peminjaman.store') }}" method="POST" class="form-card px-4 pt-4">
                                         @csrf
                                         <div class="row justify-content-between text-left mb-2">
                                             <div class="col-sm-6 flex-column d-flex">
                                                 <label for="tanggal_awal" class="form-label">Tanggal Awal<span class="text-danger">*</span></label>
-                                                <input type="date" id="tanggal_awal" name="pengajuan_tanggal_awal" min="{{ date("Y-m-d") }}" class="form-control @error('pengajuan_tanggal_awal') is-invalid @enderror">
-                                                @error('pengajuan_tanggal_awal')
-                                                <div class="text-danger"><small>{{ $message }}</small></div>
+                                                <input type="date" id="tanggal_awal" name="tanggal_awal" @if($errors->hasBag('pengajuan')) value="{{ old('tanggal_awal') }}" @endif min="{{ date("Y-m-d") }}" class="form-control @error('tanggal_awal', 'pengajuan') is-invalid @enderror" @required(true)>
+                                                @error('tanggal_awal', 'pengajuan')
+                                                    <div class="text-danger"><small>{{ $errors->pengajuan->first('tanggal_awal') }}</small></div>
                                                 @enderror
                                             </div>
                                             <div class="col-sm-6 flex-column d-flex">
                                                 <label for="tanggal_akhir" class="form-label">Tanggal Akhir<span class="text-danger">*</span></label>
-                                                <input type="date" id="tanggal_akhir" name="pengajuan_tanggal_akhir" min="{{ date("Y-m-d") }}" class="form-control @error('pengajuan_tanggal_akhir') is-invalid @enderror">
-                                                @error('pengajuan_tanggal_akhir')
-                                                <div class="text-danger"><small>{{ $message }}</small></div>
+                                                <input type="date" id="tanggal_akhir" name="tanggal_akhir" @if($errors->hasBag('pengajuan')) value="{{ old('tanggal_akhir') }}" @endif min="{{ date("Y-m-d") }}" class="form-control @error('tanggal_akhir', 'pengajuan') is-invalid @enderror" @required(true)>
+                                                @error('tanggal_akhir', 'pengajuan')
+                                                    <div class="text-danger"><small>{{ $errors->pengajuan->first('tanggal_akhir') }}</small></div>
                                                 @enderror
                                             </div> 
                                         </div>
                                         <div class="row justify-content-between text-left mb-2">
                                             <div class="col-sm-6 flex-column d-flex ">
                                                 <label for="jumlah" class="form-label">Jumlah Kendaraan<span class="text-danger">*</span></label>
-                                                <input type="number" id="jumlah" name="pengajuan_jumlah" min="1" max="{{ $jumlah_kendaraan }}" class="form-control @error('pengajuan_jumlah') is-invalid @enderror" placeholder="masukkan angka" >
-                                                @error('pengajuan_jumlah')
-                                                <div class="text-danger"><small>{{ $message }}</small></div>
+                                                <input type="number" id="jumlah" name="jumlah" @if($errors->hasBag('pengajuan')) value="{{ old('jumlah') }}" @endif min="1" max="{{ $jumlah_kendaraan }}" class="form-control @error('jumlah', 'pengajuan') is-invalid @enderror" placeholder="masukkan angka" @required(true)>
+                                                @error('jumlah', 'pengajuan')
+                                                    <div class="text-danger"><small>{{ $errors->pengajuan->first('jumlah') }}</small></div>
                                                 @enderror
                                             </div>
                                             <div class="col-sm-6 flex-column d-flex ">
                                                 <label for="supir" class="form-label">Supir</label>
-                                                <input type="number" id="supir" name="pengajuan_supir" min="1" max="" class="form-control @error('pengajuan_supir') is-invalid @enderror" placeholder="masukkan angka" >
-                                                @error('pengajuan_supir')
-                                                <div class="text-danger"><small>{{ $message }}</small></div>
+                                                <input type="number" id="supir" name="supir" @if($errors->hasBag('pengajuan')) value="{{ old('supir') }}" @endif min="1" max="" class="form-control @error('supir', 'pengajuan') is-invalid @enderror" placeholder="masukkan angka" >
+                                                @error('supir', 'pengajuan')
+                                                    <div class="text-danger"><small>{{ $errors->pengajuan->first('supir') }}</small></div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -124,9 +124,8 @@
                             <div class="col-sm-4 m-auto">
                                 <div class="card">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item ">NIP : {{$datapbaru->nip_peminjam}}</li>
-                                        <li class="list-group-item "> {{$datapbaru->tanggal_awal}} <br>  {{$datapbaru->tanggal_akhir}}</li>
-                                        <li class="list-group-item ">Supir : 
+                                        <li class="list-group-item ">Tanggal Awal : {{$datapbaru->tanggal_awal}} <br>Tanggal Akhir :  {{$datapbaru->tanggal_akhir}}</li>
+                                        <li class="list-group-item ">Jumlah Supir : 
                                         @if ($datapbaru->supir == null)
                                             -
                                         @else
@@ -159,22 +158,22 @@
                         @endforelse
                     </div>
                 </div>
+                
                     {{-- Table --}}
                     <div class="container-fluid pt-4 px-4 h-90vh">
                         <div class="shadow-lg bg-light text-center rounded p-4 ">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="fs-4 mb-0"><i class="fa-solid fa-clock-rotate-left"></i> Peminjaman</h6>
+                                <h6 class="fs-4 mb-0"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Peminjaman</h6>
                             </div>
                             <div class="table-responsive">
                                 <table class="table-hover table">
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">NIP Peminjam</th>
                                             <th scope="col">Tanggal Awal</th>
                                             <th scope="col">Tanggal Akhir</th>
                                             <th scope="col">Jumlah Kendaraan</th>
-                                            <th scope="col">Supir</th>
+                                            <th scope="col">Jumlah Supir</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
@@ -183,7 +182,6 @@
                                     @forelse ($data_peminjaman as $datapeminjam)
                                         <tr class="align-middle {{ $datapeminjam->status == 'selesai' ? 'table-secondary' : ''}}" data-bs-toggle="modal" role="button" data-bs-target="#lightbox{{ $datapeminjam->id }}">
                                             <td>{{($data_peminjaman->currentPage()-1) * $data_peminjaman->perPage() + $loop->iteration}}</td>
-                                            <td>{{$datapeminjam->nip_peminjam}}</td>
                                             <td>{{$datapeminjam->tanggal_awal}}</td>
                                             <td>{{$datapeminjam->tanggal_akhir}}</td>
                                             <td>{{$datapeminjam->jumlah}}</td>
@@ -201,6 +199,7 @@
                                                 <td><button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#formEditPengajuan{{ $datapeminjam->id }}" disabled>Edit</button></td>
                                             @endif
                                         </tr>
+
                                         {{-- Modal Ubah Peminjaman --}}
                                         <div class="modal fade" id="formEditPengajuan{{ $datapeminjam->id }}" tabindex="-1" aria-labelledby="formEditPengajuanLabel" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -210,37 +209,37 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="/edit_peminjaman/{{ $datapeminjam->id }}" method="POST" class="form-card px-4 pt-4 ">
+                                                    <form action="{{ route('pegawai.peminjaman.edit', ['peminjaman' => $datapeminjam]) }}" method="POST" class="form-card px-4 pt-4 ">
                                                         @csrf
                                                         <div class="row justify-content-between text-left mb-2">
                                                             <div class="col-sm-6 flex-column d-flex">
                                                                 <label for="tanggal_awal" class="form-label">Tanggal Awal<span class="text-danger">*</span></label>
-                                                                <input type="date" id="tanggal_awal" name="ubah_tanggal_awal" value="{{ $datapeminjam->tanggal_awal }}" min="{{ date("Y-m-d") }}" class="form-control ">
-                                                                @error('ubah_tanggal_awal')
-                                                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                                                <input type="date" id="tanggal_awal" name="tanggal_awal" @if($errors->hasBag($datapeminjam->id)) value="{{ old('tanggal_awal') }}" @else value="{{ $datapeminjam->tanggal_awal }}" @endif min="{{ date("Y-m-d") }}" class="form-control @error('tanggal_awal', $datapeminjam->id) is-invalid @enderror" @required(true)>
+                                                                @error('tanggal_awal', $datapeminjam->id)
+                                                                    <div class="text-danger"><small>{{ $errors->{$datapeminjam->id}->first('tanggal_awal') }}</small></div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-sm-6 flex-column d-flex">
                                                                 <label for="tanggal_akhir" class="form-label">Tanggal Akhir<span class="text-danger">*</span></label>
-                                                                <input type="date" id="tanggal_akhir" name="ubah_tanggal_akhir" value="{{ $datapeminjam->tanggal_akhir }}" min="{{ date("Y-m-d") }}" class="form-control ">
-                                                                @error('ubah_tanggal_akhir')
-                                                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                                                <input type="date" id="tanggal_akhir" name="tanggal_akhir" @if($errors->hasBag($datapeminjam->id)) value="{{ old('tanggal_akhir') }}" @else value="{{ $datapeminjam->tanggal_akhir }}" @endif min="{{ date("Y-m-d") }}" class="form-control @error('tanggal_akhir', $datapeminjam->id) is-invalid @enderror" @required(true)>
+                                                                @error('tanggal_akhir', $datapeminjam->id)
+                                                                    <div class="text-danger"><small>{{ $errors->{$datapeminjam->id}->first('tanggal_akhir') }}</small></div>
                                                                 @enderror
                                                             </div> 
                                                         </div>
                                                         <div class="row justify-content-between text-left mb-2">
                                                             <div class="col-sm-6 flex-column d-flex ">
                                                                 <label for="jumlah" class="form-label">Jumlah Kendaraan<span class="text-danger">*</span></label>
-                                                                <input type="number" id="jumlah" name="ubah_jumlah" value="{{ $datapeminjam->jumlah }}" min="1" max="{{ $jumlah_kendaraan }}" class="form-control " placeholder="masukkan angka" >
-                                                                @error('ubah_jumlah')
-                                                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                                                <input type="number" id="jumlah" name="jumlah" @if($errors->hasBag($datapeminjam->id)) value="{{ old('jumlah') }}" @else value="{{ $datapeminjam->jumlah }}" @endif min="1" max="{{ $jumlah_kendaraan }}" class="form-control @error('jumlah', $datapeminjam->id) is-invalid @enderror" placeholder="masukkan angka" @required(true)>
+                                                                @error('jumlah', $datapeminjam->id)
+                                                                    <div class="text-danger"><small>{{ $errors->{$datapeminjam->id}->first('jumlah') }}</small></div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-sm-6 flex-column d-flex">
                                                                 <label for="supir" class="form-label">Supir</label>
-                                                                <input type="number" id="supir" name="ubah_supir" value="{{ $datapeminjam->supir }}" min="1" max="" class="form-control @error('ubah_supir') is-invalid @enderror" placeholder="masukkan angka" >
-                                                                @error('ubah_supir')
-                                                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                                                <input type="number" id="supir" name="supir" @if($errors->hasBag($datapeminjam->id)) value="{{ old('supir') }}" @else value="{{ $datapeminjam->supir }}" @endif min="1" class="form-control @error('supir', $datapeminjam->id) is-invalid @enderror" placeholder="masukkan angka" >
+                                                                @error('supir', $datapeminjam->id)
+                                                                    <div class="text-danger"><small>{{ $errors->{$datapeminjam->id}->first('supir') }}</small></div>
                                                                 @enderror
                                                             </div>
                                                         </div>
@@ -253,14 +252,14 @@
                                             </div>
                                         </div>
 
+                                        {{-- Modal Detail Riwayat Peminjaman --}}
                                         <div class="modal fade" id="lightbox{{ $datapeminjam->id }}">
                                             <div class="modal-dialog modal-dialog-centered modal-sm">
                                                 <div class="modal-content">
                                                     <div class="card text-center">
                                                         <ul class="list-group list-group-flush">
-                                                            <li class="list-group-item ">NIP : {{ $datapeminjam->nip_peminjam }}</li>
-                                                            <li class="list-group-item "> {{ $datapeminjam->tanggal_awal }} <br>  {{ $datapeminjam->tanggal_akhir }}</li>
-                                                            <li class="list-group-item ">Supir : 
+                                                            <li class="list-group-item ">Tanggal Awal : {{ $datapeminjam->tanggal_awal }} <br>Tanggal Akhir : {{ $datapeminjam->tanggal_akhir }}</li>
+                                                            <li class="list-group-item ">Jumlah Supir : 
                                                                 @if($datapeminjam->supir == null)
                                                                     -
                                                                 @else
@@ -300,6 +299,7 @@
                             {!! $data_peminjaman->links() !!}
                         </div>
                     </div>
+
                     {{-- Notification Modal --}}
                     @foreach(Auth::user()->notification->slice(0, 3) as $notification)
                         <div class="modal fade" id="lightbox{{ $notification->id }}">
@@ -307,9 +307,8 @@
                                 <div class="modal-content">
                                     <div class="card text-center">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item ">NIP : {{ $notification->peminjaman->nip_peminjam }}</li>
-                                            <li class="list-group-item "> {{ $notification->peminjaman->tanggal_awal }} <br>  {{ $notification->peminjaman->tanggal_akhir }}</li>
-                                            <li class="list-group-item ">Supir : 
+                                            <li class="list-group-item ">Tanggal Awal : {{ $notification->peminjaman->tanggal_awal }} <br>Tanggal Akhir :  {{ $notification->peminjaman->tanggal_akhir }}</li>
+                                            <li class="list-group-item ">Jumlah Supir : 
                                                 @if($notification->peminjaman->supir == null)
                                                     -
                                                 @else
@@ -341,6 +340,7 @@
                             </div>
                         </div>
                     @endforeach
+
                     {{-- Toast --}}
                     @if(session()->has('notification'))
                         <div class="position-fixed bottom-0 end-0 p-3 z-3">
@@ -348,16 +348,6 @@
                                 <i class="fa-solid fa-check me-2"></i>
                                 {{ session('notification') }}
                                 <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        </div>
-                    @endif
-                    {{-- Alert --}}
-                    @if($errors->any())
-                        <div class="position-fixed bottom-0 end-0 p-3">
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                                Proses pengajuan tidak berhasil!
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>
                     @endif

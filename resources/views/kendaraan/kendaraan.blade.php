@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Data Kendaraan | Peminjaman Kendaraan</title>
+    <title>{{ config('app.name') }} | Kendaraaan | Data | Kendaraan</title>
 </head>
 <body>  
     <div class="container-fluid p-0">
@@ -21,20 +21,20 @@
                     <img src="{{ asset('img/logo.png') }}" class="img-fluid px-3 mb-4 rounded-circle" alt="Logo">
                 </div>
                 <div class="navbar-nav w-100 gap-2 fw-medium mt-7 mt-lg-0">
-                    <form class="d-flex d-md-none ms-3 mb-3" action="" method="GET"> {{-- Form Sidebar --}}
-                        <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Search">
+                    <form class="d-flex d-md-none ms-3 mb-3" action="{{ route('kendaraan.data.kendaraan') }}" method="GET"> {{-- Form Sidebar --}}
+                        <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari..">
                     </form>
-                    <a href="/dashboard_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('kendaraan.dashboard') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/data_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
+                    <a href="{{ route('kendaraan.data.kendaraan') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-car fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/data_peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('kendaraan.data.peminjaman') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Peminjaman
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -52,8 +52,8 @@
                 <a href="" class="sidebar-toggler flex-shrink-0 text-decoration-none text-black">
                     <i class="fa-solid fa-bars-staggered"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4" action="" method="GET"> {{-- Form Navbar --}}
-                    <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Search">
+                <form class="d-none d-md-flex ms-4" action="{{ route('kendaraan.data.kendaraan') }}" method="GET"> {{-- Form Navbar --}}
+                    <input class="form-control border-0" type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari..">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -71,7 +71,7 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-1 rounded-0 rounded-bottom m-0">
-                            <a href="/logout" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-2 pb-2">
                     <div class="col-md-3">
-                        <a href="{{ route('kendaraan.create') }}" class="btn btn-primary rounded">Tambah Kendaraan <i class="fa-solid fa-car me-1 car-icon"></i></a>
+                        <a href="{{ route('kendaraan.data.kendaraan.create') }}" class="btn btn-primary rounded">Tambah Kendaraan <i class="fa-solid fa-car me-1 car-icon"></i></a>
                     </div>
                 </div>
                 <div class="row g-4">
@@ -95,11 +95,7 @@
                                     {{ $kendaraan->jenis_kendaraan }}
                                 </li>
                                 <li class="list-group-item">Supir : <br>
-                                    @if($kendaraan->supir == null)
-                                    
-                                    @else
-                                        {{ $kendaraan->supir->nama }}
-                                    @endif
+                                    {{ $kendaraan->supir->nama }}
                                 </li>
                                 <li class="list-group-item">Tahun Kendaraan : <br>
                                     {{ $kendaraan->tahun }}
@@ -132,7 +128,7 @@
                                 @endif
                                 </li>
                                 <li class="list-group-item d-flex">
-                                    <form action="{{ route('kendaraan.edit', ['kendaraan' => $kendaraan]) }}" class="w-50">
+                                    <form action="{{ route('kendaraan.data.kendaraan.edit', ['kendaraan' => $kendaraan]) }}" class="w-50">
                                         @csrf
                                         <button class="btn btn-success w-100" type="submit">Ubah</button>
                                     </form>
@@ -154,7 +150,7 @@
                                     <b>{{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}</b>
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="{{ route('kendaraan.delete', ['kendaraan' => $kendaraan]) }}">
+                                    <form action="{{ route('kendaraan.data.kendaraan.delete', ['kendaraan' => $kendaraan]) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Hapus</button>

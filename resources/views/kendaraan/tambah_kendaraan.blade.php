@@ -10,7 +10,7 @@
 
     {{-- Manual CSS --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <title>Tambah Data Kendaraan | Peminjaman Kendaraan</title>
+    <title>{{ config('app.name') }} | Kendaraaan | Tambah Data Kendaraaan</title>
 </head>
 <body>
     <div class="container-fluid p-0">
@@ -21,17 +21,17 @@
                     <img src="{{ asset('img/logo.png') }}" class="img-fluid px-3 mb-4 rounded-circle" alt="Logo">
                 </div>
                 <div class="navbar-nav w-100 gap-2 fw-medium mt-7 mt-lg-0">
-                    <a href="/dashboard_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('kendaraan.dashboard') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-chart-line fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Dashboard
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/data_kendaraan" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
+                    <a href="{{ route('kendaraan.data.kendaraan') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center active">
                         <i class="fa-solid fa-car fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Kendaraan
                         <i class="fa-solid fa-caret-right ms-2"></i>
                     </a>
-                    <a href="/data_peminjaman" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
+                    <a href="{{ route('kendaraan.data.peminjaman') }}" class="nav-item side-item nav-link ps-4 py-3 d-flex align-items-center">
                         <i class="fa-solid fa-car-tunnel fa-xl me-2 text-primary w-15 d-inline-flex justify-content-center"></i>
                         Peminjaman
                         <i class="fa-solid fa-caret-right ms-2"></i>
@@ -65,7 +65,7 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-1 rounded-0 rounded-bottom m-0">
-                            <a href="/logout" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -76,49 +76,49 @@
                     <div class="col-12">
                         <div class="bg-light text-center rounded p-4">
                             <div class="text-start mb-4">
-                                <a href="/data_kendaraan" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
+                                <a href="{{ route('kendaraan.data.kendaraan') }}" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                             </div>
                             {{-- Form --}}
-                            <form action="" method="POST" enctype="multipart/form-data" class="row g-3">
+                            <form action="{{ route('kendaraan.data.kendaraan.store') }}" method="POST" enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 <div class="col-md-6">
                                     <label for="jenis_kendaraan" class="form-label w-100 text-start">Jenis Kendaraan<span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ @old('jenis_kendaraan') }}" name="jenis_kendaraan" class="form-control @error('jenis_kendaraan') is-invalid @enderror" id="jenis_kendaraan" min="1" autocomplete="off">
+                                    <input type="text" value="{{ @old('jenis_kendaraan') }}" name="jenis_kendaraan" class="form-control @error('jenis_kendaraan') is-invalid @enderror" id="jenis_kendaraan" min="1" autocomplete="off" @required(true)>
                                     @error('jenis_kendaraan')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="tahun" class="form-label w-100 text-start">Tahun Kendaraan<span class="text-danger">*</span></label>
-                                    <input type="number" value="{{ @old('tahun') }}" name="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahun">
+                                    <input type="number" value="{{ @old('tahun') }}" name="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahun" @required(true)>
                                     @error('tahun')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="nopol" class="form-label w-100 text-start">No Polisi<span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ @old('nopol') }}" name="nopol" class="form-control @error('nopol') is-invalid @enderror" id="nopol" autocomplete="off">
+                                    <input type="text" value="{{ @old('nopol') }}" name="nopol" class="form-control @error('nopol') is-invalid @enderror" id="nopol" autocomplete="off" @required(true)>
                                     @error('nopol')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="warna" class="form-label w-100 text-start">Warna Kendaraan<span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ @old('warna') }}" name="warna" class="form-control @error('warna') is-invalid @enderror" id="warna" autocomplete="off">
+                                    <input type="text" value="{{ @old('warna') }}" name="warna" class="form-control @error('warna') is-invalid @enderror" id="warna" autocomplete="off" @required(true)>
                                     @error('warna')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="Kendaraan" class="form-label w-100 text-start">Foto Kendaraan<span class="text-danger">*</span></label>
-                                    <input class="form-control @error('foto_kendaraan') is-invalid @enderror" type="file" name="foto_kendaraan" id="Kendaraan">
+                                    <input class="form-control @error('foto_kendaraan') is-invalid @enderror" type="file" name="foto_kendaraan" id="Kendaraan" @required(true)>
                                     @error('foto_kendaraan')
                                         <div class="text-danger text-start"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                                 <div class="col-md-4">
                                     <label for="id_supir" class="form-label w-100 text-start">Supir<span class="text-danger">*</span></label>
-                                    <select id="id_supir" name="id_supir" class="form-select @error('id_supir') is-invalid @enderror">
+                                    <select id="id_supir" name="id_supir" class="form-select @error('id_supir') is-invalid @enderror" @required(true)>
                                         @forelse($data_supir as $supir)
                                             <option value="{{ $supir->id }}">{{ $supir->nama }} - (NIP:{{ $supir->nip }})</option>
                                         @empty
@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="kondisi" class="form-label w-100 text-start">Kondisi Kendaraan<span class="text-danger">*</span></label>
-                                    <select id="kondisi" name="kondisi" class="form-select @error('kondisi') is-invalid @enderror">
+                                    <select id="kondisi" name="kondisi" class="form-select @error('kondisi') is-invalid @enderror" @required(true)>
                                         <option value="baik" default selected>Baik</option>
                                         <option value="rusak">Rusak</option>
                                         <option value="perbaikan">Perbaikan</option>
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="status" class="form-label w-100 text-start">Status Kendaraan<span class="text-danger">*</span></label>
-                                    <select id="status" name="status" class="form-select @error('status') is-invalid @enderror">
+                                    <select id="status" name="status" class="form-select @error('status') is-invalid @enderror" @required(true)>
                                         <option value="tersedia" default selected>Tersedia</option>
                                         <option value="digunakan">Digunakan</option>
                                     </select>
