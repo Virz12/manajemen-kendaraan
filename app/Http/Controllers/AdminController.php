@@ -175,7 +175,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Data pegawai gagal ditambah.');
+        ->error('<b>Error!</b><br>Data pegawai gagal ditambah.');
 
         $request->validate([
             'nip' => 'required|numeric|digits_between:1,20|unique:pegawai,nip',
@@ -211,7 +211,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data pegawai berhasil ditambah.');
+        ->success('<b>Berhasil!</b><br>Data pegawai sudah ditambah.');
 
         return redirect(route('admin.data.pegawai'));
     }
@@ -245,7 +245,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Data pegawai gagal diperbarui.');
+        ->error('<b>Error!</b><br>Data pegawai gagal diperbarui.');
 
         Validator::make($request->all(), [
             'nip' => ['required', 'numeric', 'digits_between:1,20', Rule::unique('pegawai','nip')->ignore($pegawai->id)],
@@ -285,7 +285,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data pegawai berhasil diperbarui.');
+        ->success('<b>Berhasil!</b><br>Data pegawai sudah diperbarui.');
         
         return redirect(route('admin.data.pegawai'));
     }
@@ -302,7 +302,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data pegawai berhasil dihapus.');
+        ->success('<b>Berhasil!</b><br>Data pegawai sudah dihapus.');
 
         return redirect(route('admin.data.pegawai'));
     }

@@ -149,7 +149,7 @@ class KendaraanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Data kendaraan gagal ditambahkan.');
+        ->error('<b>Error!</b><br>Data kendaraan gagal ditambahkan.');
 
         $request->validate([
             'jenis_kendaraan' => 'required|max:50|regex:/^[a-z\d\-_\s]+$/i',
@@ -184,7 +184,7 @@ class KendaraanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data kendaraan berhasil ditambahkan.');
+        ->success('<b>Berhasil!</b><br>Data kendaraan sudah ditambahkan.');
 
         return redirect(route('kendaraan.data.kendaraan'));
     }
@@ -219,7 +219,7 @@ class KendaraanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Data kendaraan gagal diperbarui.');
+        ->error('<b>Error!</b><br>Data kendaraan gagal diperbarui.');
 
         Validator::make($request->all(), [
             'jenis_kendaraan' => 'required|max:50|regex:/^[a-z\d\-_\s]+$/i',
@@ -263,7 +263,7 @@ class KendaraanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data kendaraan berhasil diperbarui.');
+        ->success('<b>Berhasil!</b><br>Data kendaraan sudah diperbarui.');
 
         return redirect(route('kendaraan.data.kendaraan'));
     }
@@ -276,7 +276,7 @@ class KendaraanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data kendaraan berhasil dihapus.');
+        ->success('<b>Berhasil!</b><br>Data kendaraan sudah dihapus.');
 
         return redirect(route('kendaraan.data.kendaraan'));
     }
