@@ -146,7 +146,7 @@
                                                             <b>{{ $pegawai->nip }} - {{ $pegawai->nama }}</b>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form action="{{ route('admin.data.pegawai.delete', ['pegawai' => $pegawai]) }}">
+                                                            <form action="{{ route('admin.data.pegawai.delete', ['pegawai' => $pegawai]) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="btn btn-danger">Hapus</button>

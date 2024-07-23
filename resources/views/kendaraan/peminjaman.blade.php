@@ -128,7 +128,11 @@
                                         @if ($peminjaman->status == 'pengajuan')
                                             <a href="{{ route('kendaraan.data.peminjaman.verifikasi', ['peminjaman' => $peminjaman]) }}" class="text-decoration-none "><button class="btn btn-secondary m-auto w-100">Verifikasi</button></a>
                                         @elseif ($peminjaman->status == 'diterima')
-                                            <a href="{{ route('kendaraan.data.peminjaman.selesai', ['peminjaman' => $peminjaman]) }}" class="text-decoration-none "><button class="btn btn-success m-auto w-100">Selesai</button></a>
+                                            <form action="{{ route('kendaraan.data.peminjaman.selesai', ['peminjaman' => $peminjaman]) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button class="btn btn-success m-auto w-100">Selesai</button>
+                                            </form>
                                         @endif
                                     </li>
                                 </ul>

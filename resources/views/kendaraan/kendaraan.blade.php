@@ -149,7 +149,7 @@
                                     <b>{{ $kendaraan->jenis_kendaraan }} - {{ $kendaraan->nopol }}</b>
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="{{ route('kendaraan.data.kendaraan.delete', ['kendaraan' => $kendaraan]) }}">
+                                    <form action="{{ route('kendaraan.data.kendaraan.delete', ['kendaraan' => $kendaraan]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Hapus</button>

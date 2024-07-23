@@ -211,6 +211,7 @@
                                                 <div class="modal-body">
                                                     <form action="{{ route('pegawai.peminjaman.edit', ['peminjaman' => $datapeminjam]) }}" method="POST" class="form-card px-4 pt-4 ">
                                                         @csrf
+                                                        @method('PUT')
                                                         <div class="row justify-content-between text-left mb-2">
                                                             <div class="col-sm-6 flex-column d-flex">
                                                                 <label for="tanggal_awal" class="form-label">Tanggal Awal<span class="text-danger">*</span></label>

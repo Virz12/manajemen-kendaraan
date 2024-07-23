@@ -74,6 +74,7 @@
             <div class="container-fluid pt-4 px-4">
                 <form class="row g-4" action="{{ route('kendaraan.data.peminjaman.update', ['peminjaman' => $peminjaman]) }}" method="POST">
                 @csrf
+                @method('PUT')
                     <div class="col-md-12">
                         <div class="bg-light text-center rounded p-4">
                             <div class="text-start mb-4">

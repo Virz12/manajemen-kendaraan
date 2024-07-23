@@ -31,7 +31,7 @@ class PeminjamanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Pengajuan gagal.');
+        ->error('Peminjaman gagal diajukan.');
 
         Validator::make($request->all(), [
             'jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
@@ -54,7 +54,7 @@ class PeminjamanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Pengajuan berhasil.');
+        ->success('Peminjaman berhasil diajukan.');
 
         return redirect(route('pegawai.homepage'));
     }
@@ -77,7 +77,7 @@ class PeminjamanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Peminjaman gagal diubah.');
+        ->error('Data peminjaman gagal diperbarui.');
 
         Validator::make($request->all(), [
             'jumlah' => "required|numeric|min:1|max:$jumlah_kendaraan",
@@ -97,7 +97,7 @@ class PeminjamanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Peminjaman berhasil diubah.');
+        ->success('Data peminjaman berhasil diperbarui.');
 
         return redirect(route('pegawai.homepage'));
     }
@@ -119,7 +119,7 @@ class PeminjamanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Proses verifikasi gagal.');
+        ->error('Data peminjaman gagal diverifikasi.');
 
         foreach($request->input('kendaraan') as $data)
         {
@@ -156,13 +156,19 @@ class PeminjamanController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Proses verifikasi berhasil.');
+        ->success('Data peminjaman berhasil diverifikasi.');
         
         return redirect(route('kendaraan.data.peminjaman'));
     }
 
     function selesaipeminjaman(peminjaman $peminjaman)
     {
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Peminjaman gagal diselesaikan.');
+
         $detail_peminjaman = detail_peminjaman::where('id_peminjaman',$peminjaman->id)->get();
 
         foreach($detail_peminjaman as $detailpeminjaman)
@@ -182,6 +188,12 @@ class PeminjamanController extends Controller
         ]);
 
         notification::where('id_peminjaman',$peminjaman->id)->delete();
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Peminjaman berhasil diselesaikan.');
 
         return redirect(route('kendaraan.data.peminjaman'));
     }

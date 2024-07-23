@@ -8,7 +8,6 @@ use App\Models\pegawai;
 use App\Models\peminjaman;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -166,15 +165,17 @@ class AdminController extends Controller
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'nama.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
             'foto_profil.max' => 'Ukuran file maksimal 2MB.',
-            'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'password.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'username.max' => 'Kolom username maksimal berisi 15 karakter.',
+            'password.min' => 'Kolom password minimal berisi 8 karakter.',
+            'password.max' => 'Kolom password maksimal berisi 50 karakter.',
+            'password.regex' => 'Kolom password minimal berisi salah satu karakter (!@#$%^&*()-=¡£_+`~.,<>/?;:"|[]{})',
         ];
 
         flash()
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Data gagal ditambah.');
+        ->error('Data pegawai gagal ditambah.');
 
         $request->validate([
             'nip' => 'required|numeric|digits_between:1,20|unique:pegawai,nip',
@@ -183,7 +184,7 @@ class AdminController extends Controller
             'status' => 'required|in:aktif,pensiun,berhenti',
             'kelompok' => 'required|in:pegawai,kendaraan,admin,supir',
             'username' => 'required|max:15|alpha_dash:ascii|lowercase|unique:pegawai,username',
-            'password' => 'required|max:15|alpha_num:ascii',
+            'password' => ['required', 'min:8', 'max:50', 'regex:/^.*(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/',],
         ],$messages);
  
         $data = [
@@ -210,7 +211,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data berhasil ditambah.');
+        ->success('Data pegawai berhasil ditambah.');
 
         return redirect(route('admin.data.pegawai'));
     }
@@ -234,16 +235,17 @@ class AdminController extends Controller
             'nip.unique' => 'NIP telah digunakan.',
             'nama.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
             'foto_profil.max' => 'Ukuran file maksimal 2MB.',
-            'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'username.unique' => 'Username telah digunakan.',
-            'password.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'username.max' => 'Kolom username maksimal berisi 15 karakter.',
+            'password.min' => 'Kolom password minimal berisi 8 karakter.',
+            'password.max' => 'Kolom password maksimal berisi 50 karakter.',
+            'password.regex' => 'Kolom password minimal berisi salah satu karakter (!@#$%^&*()-=¡£_+`~.,<>/?;:"|[]{})',
         ];
 
         flash()
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Data gagal diubah.');
+        ->error('Data pegawai gagal diperbarui.');
 
         Validator::make($request->all(), [
             'nip' => ['required', 'numeric', 'digits_between:1,20', Rule::unique('pegawai','nip')->ignore($pegawai->id)],
@@ -252,7 +254,7 @@ class AdminController extends Controller
             'status' => 'required|in:aktif,pensiun,berhenti',
             'kelompok' => 'required|in:pegawai,kendaraan,admin,supir',
             'username' => ['required', 'max:15', 'alpha_dash:ascii', 'lowercase', Rule::unique('pegawai','username')->ignore($pegawai->id)],
-            'password' => 'required|max:15|alpha_num:ascii',
+            'password' => ['required', 'min:8', 'max:50', 'regex:/^.*(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/',],
         ],$messages)->validate();
 
         $data = [
@@ -283,7 +285,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data berhasil diubah.');
+        ->success('Data pegawai berhasil diperbarui.');
         
         return redirect(route('admin.data.pegawai'));
     }
@@ -300,7 +302,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data berhasil dihapus.');
+        ->success('Data pegawai berhasil dihapus.');
 
         return redirect(route('admin.data.pegawai'));
     }
