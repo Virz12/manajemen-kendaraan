@@ -114,7 +114,7 @@
                                 <li class="list-group-item ">Diverifikasi oleh : <br>
                                     {{ $peminjaman->detail_peminjaman->first()->tim_kendaraan->nama }} (NIP:{{ $peminjaman->detail_peminjaman->first()->tim_kendaraan->nip }})
                                 </li>
-                                <li class="list-group-item fw-bold">Status : {{ $peminjaman->status }}</li>
+                                <li class="list-group-item fw-bold">Status : <span class="badge rounded-pill text-bg-success">{{ $peminjaman->status }}</span></li>
                             </ul>
                         </div>
                     </div>

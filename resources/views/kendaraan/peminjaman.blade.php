@@ -123,7 +123,13 @@
                                             {{ $peminjaman->detail_peminjaman->first()->tim_kendaraan->nama }} (NIP:{{ $peminjaman->detail_peminjaman->first()->tim_kendaraan->nip }})
                                         @endif
                                     </li>
-                                    <li class="list-group-item fw-bold">Status : {{ $peminjaman->status }}</li>
+                                    <li class="list-group-item fw-bold">Status : 
+                                        @if ($peminjaman->status == 'pengajuan')
+                                            <span class="badge rounded-pill text-bg-secondary">{{ $peminjaman->status }}</span>
+                                        @elseif ($peminjaman->status == 'diterima')
+                                            <span class="badge rounded-pill text-bg-success">{{ $peminjaman->status }}</span>
+                                        @endif
+                                    </li>
                                     <li class="list-group-item">
                                         @if ($peminjaman->status == 'pengajuan')
                                             <a href="{{ route('kendaraan.data.peminjaman.verifikasi', ['peminjaman' => $peminjaman]) }}" class="text-decoration-none "><button class="btn btn-secondary m-auto w-100">Verifikasi</button></a>

@@ -108,22 +108,22 @@
                                 </li>
                                 <li class="list-group-item position-relative"> Kondisi : <br>
                                 @if ($kendaraan->kondisi == 'baik')
-                                    <span>Baik</span> <i class="fa-solid fa-check fa-lg text-success tooltip-icon"></i>
+                                    <span class="badge rounded-pill text-bg-success">Baik</span> <i class="fa-solid fa-check fa-lg text-success tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Baik</span>
                                 @elseif ($kendaraan->kondisi == 'rusak')
-                                    <span>Rusak</span> <i class="fa-solid fa-xmark fa-lg text-danger tooltip-icon"></i>
+                                    <span class="badge rounded-pill text-bg-danger">Rusak</span> <i class="fa-solid fa-xmark fa-lg text-danger tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Rusak</span>
                                 @else
-                                    <span>Perbaikan</span> <i class="fa-solid fa-triangle-exclamation fa-lg text-warning tooltip-icon"></i>
+                                    <span class="badge rounded-pill text-bg-warning">Perbaikan</span> <i class="fa-solid fa-triangle-exclamation fa-lg text-warning tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Perbaikan</span>
                                 </li>
                                 @endif
                                 <li class="list-group-item position-relative"> Status : <br>
                                 @if ($kendaraan->status == 'tersedia')
-                                    <span>Tersedia</span> <i class="fa-solid fa-car fa-lg text-success tooltip-icon"></i>
+                                    <span class="badge rounded-pill text-bg-success">Tersedia</span> <i class="fa-solid fa-car fa-lg text-success tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Tersedia</span>
                                 @else
-                                    <span>Digunakan</span> <i class="fa-solid fa-car-on fa-lg text-secondary tooltip-icon"></i>
+                                    <span class="badge rounded-pill text-bg-secondary">Digunakan</span> <i class="fa-solid fa-car-on fa-lg text-secondary tooltip-icon"></i>
                                     <span class="tooltip-text invisible bg-black text-white text-center p-1 position-absolute start-50 top-0 translate-middle rounded">Digunakan</span>
                                 @endif
                                 </li>
