@@ -211,7 +211,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('<b>Berhasil!</b><br>Data pegawai sudah ditambah.');
+        ->success('<b>Berhasil!</b><br>Data pegawai gagal ditambah.');
 
         return redirect(route('admin.data.pegawai'));
     }
@@ -285,7 +285,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('<b>Berhasil!</b><br>Data pegawai sudah diperbarui.');
+        ->success('<b>Berhasil!</b><br>Data pegawai berhasil diperbarui.');
         
         return redirect(route('admin.data.pegawai'));
     }
@@ -302,7 +302,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('<b>Berhasil!</b><br>Data pegawai sudah dihapus.');
+        ->success('<b>Berhasil!</b><br>Data pegawai berhasil dihapus.');
 
         return redirect(route('admin.data.pegawai'));
     }

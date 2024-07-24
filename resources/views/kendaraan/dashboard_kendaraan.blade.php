@@ -170,6 +170,7 @@
             </div>
         </main>
     </div>
+
     {{-- Javascript --}}
     <script src="{{ asset('js/dashboard.js') }}"></script>
 

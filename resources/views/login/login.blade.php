@@ -49,16 +49,6 @@
                 </div>
             </div>
         </div>
-        {{-- Alert --}}
-        @if($errors->any())
-            <div class="position-fixed bottom-0 end-0 p-3">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                    Username atau Password tidak cocok!
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
     </div>
     <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
 </body>

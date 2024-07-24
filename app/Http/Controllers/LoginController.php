@@ -34,13 +34,37 @@ class LoginController extends Controller
 
         if(Auth::attempt($inputeddata)) {
             if (Auth::user()->kelompok == 'admin') {
+                flash()
+                ->killer(true)
+                ->layout('bottomRight')
+                ->timeout(3000)
+                ->success('<b>Berhasil!</b><br>Proses login berhasil.');
+
                 return redirect(route('admin.dashboard'));
             }elseif (Auth::user()->kelompok == 'pegawai') {
+                flash()
+                ->killer(true)
+                ->layout('bottomRight')
+                ->timeout(3000)
+                ->success('<b>Berhasil!</b><br>Proses login berhasil.');
+
                 return redirect(route('pegawai.homepage'));
             }elseif (Auth::user()->kelompok == 'kendaraan') {
+                flash()
+                ->killer(true)
+                ->layout('bottomRight')
+                ->timeout(3000)
+                ->success('<b>Berhasil!</b><br>Proses login berhasil.');
+
                 return redirect(route('kendaraan.dashboard'));
             }
         }else {
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->error('<b>Error!</b><br>Proses login gagal.');
+    
             return redirect(route('login'))
                 ->withErrors([
                     'username' => 'Nama Pengguna atau Sandi Tidak Sesuai',

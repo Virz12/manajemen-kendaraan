@@ -95,7 +95,7 @@
                                     {{ $kendaraan->jenis_kendaraan }}
                                 </li>
                                 <li class="list-group-item">Supir : <br>
-                                    {{ $kendaraan->supir->nama }}
+                                    {{ optional($kendaraan->supir)->nama }}
                                 </li>
                                 <li class="list-group-item">Tahun Kendaraan : <br>
                                     {{ $kendaraan->tahun }}
