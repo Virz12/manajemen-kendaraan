@@ -26,10 +26,10 @@ Pegawai
 
 ## Persyaratan Sistem
 
-- [Laravel](https://laravel.com).
-- [Composer](https://getcomposer.org).
-- [NPM](https://nodejs.org/en/download/package-manager).
-- [PHP](https://www.php.net/downloads.php).
+- [Laravel](https://laravel.com)
+- [Composer](https://getcomposer.org)
+- [NPM](https://nodejs.org/en/download/package-manager)
+- [PHP](https://www.php.net/downloads.php)
 
 Generate key aplikasi
 ```bash
